@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <rect width="300" height="300" stroke="red" stroke-width="25" fill="white" />
+  <text x="60" y="190" font-family="Verdana" font-size="200" fill="red">W</text>
+  <text x="70" y="240" font-family="Verdana" font-size="50" fill="black">isconsin</text>
+</svg>
