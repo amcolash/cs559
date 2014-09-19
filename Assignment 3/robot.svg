@@ -1,3 +1,29 @@
-<svg xmlns='http://www.w3.org/2000/svg' height='300px' width='300px'>
-<rect x='100' y='100' width='100' height='100' fill='red'/>
+<!-- Uses some of the sample code for the robot arm, as provided on the course site -->
+<!-- CS559 Assignment 3 Example - robot arm - by Michael Gleicher -->
+<!-- you may use this example as a starting point for your own work, but course policy requires proper attribution -->
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='250px' width='400px' viewBox='-50 -50 100 75'>
+<defs>
+  <rect id='segment' x='0' y='-2' height='4' width='10' stroke='lime' fill='cyan'/>
+  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='#CCC'/>
+  <rect id='endbox' x='-3' y='-3' height='6' width='6' fill='blue' opacity='.5' stroke='blue'/>
+</defs>
+<rect x='-50' y='-50' height='75' width='100' stroke='black' fill='#EEE' />
+<line x1='0' y1='-50' x2='0' y2='25' stroke='#888' stroke-width='.5' />
+<line x1='-50' y1='0' x2='50' y2='0' stroke='#888' stroke-width='.5' />
+<g transform='scale(1,-1)rotate(15)'>
+<use xlink:href='#segment' />
+<use xlink:href='#dot' />
+<g transform='translate(10,0)rotate(60)'>
+<use xlink:href='#segment' />
+<use xlink:href='#dot' />
+<g transform='translate(10,0)rotate(135)'>
+<use xlink:href='#segment' />
+<use xlink:href='#dot' />
+<g transform='translate(10,0)rotate(235)'>
+<use xlink:href='#endbox' />
+<use xlink:href='#dot' />
+</g>
+</g>
+</g>
+</g>
 </svg>
