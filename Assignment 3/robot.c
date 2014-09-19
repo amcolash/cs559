@@ -45,8 +45,7 @@ int main(int argc, char *argv[]) {
   fputs("<!-- you may use this example as a starting point for your own work, but course policy requires proper attribution -->\n", outFile);
   fputs("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='250px' width='400px' viewBox='-50 -50 100 75'>\n", outFile);
   fputs("<defs>\n", outFile);
-  fputs("  <rect id='segment' x='0' y='-2' height='4' width='10' stroke='lime' fill='cyan'/>\n", outFile);
-  fputs("  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='#CCC'/>\n", outFile);
+  fputs("  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='gold'/>\n", outFile);
   fputs("  <rect id='endbox' x='-3' y='-3' height='6' width='6' fill='blue' opacity='.5' stroke='blue'/>\n", outFile);
   fputs("</defs>\n", outFile);
 
@@ -61,24 +60,32 @@ int main(int argc, char *argv[]) {
       sprintf(buffer, "<g transform='scale(1,-1)rotate(%i)'>\n", angle[i]);
       fputs(buffer, outFile);
     } else {
-      sprintf(buffer, "<g transform='translate(10,0)rotate(%i)'>\n", angle[i]);
+      sprintf(buffer, "<g transform='translate(%i,0)rotate(%i)'>\n", length[i-1], angle[i]);
       fputs(buffer, outFile);
     }
 
-    if (i < SECTIONS - 1) {
-      fputs("<use xlink:href='#segment' />\n", outFile);
-    } else {
-      fputs("<use xlink:href='#endbox' />\n", outFile);
-    }
+    sprintf(buffer, "<rect id='segment' x='0' y='-2' height='4' width='%i' stroke='lime' fill='rgb(50,50,90)'/>\n", length[i]);
+    fputs(buffer, outFile);
     fputs("<use xlink:href='#dot' />\n", outFile);
   }
 
-  for (i=0; i < SECTIONS; i++) {
+  printf("length[i-1]: %i, length[i]: %i\n", length[i-1], length[i]);
+
+  sprintf(buffer, "<g transform='translate(%i,0)'>\n", length[SECTIONS-1]);
+  fputs(buffer, outFile);
+  fputs("<use xlink:href='#endbox' />\n", outFile);
+  fputs("<use xlink:href='#dot' />\n", outFile);
+
+  for (i=0; i < SECTIONS + 1; i++) {
     fputs("</g>\n", outFile);
   }
 
   fputs("</svg>", outFile);
 
   exit(0);
+
+}
+
+void rotateAtCenter() {
 
 }
