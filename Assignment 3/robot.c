@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SECTIONS 4
+
 void usage() {
-  fprintf(stderr, "usage: robot <outfile> <angle1> <angle2> <angle3> <angle4>\n");
+  fprintf(stderr, "usage: robot <outfile> <length1> <angle1> <length2> <angle2> <length3> <angle3> <length4> <angle4>\n");
   exit(1);
 }
 
@@ -10,12 +12,13 @@ int main(int argc, char *argv[]) {
 
   /* Declare variables */
   FILE * outFile;
-  int angle[4];
+  int angle[SECTIONS];
+  int length[SECTIONS];
   int i;
   char buffer[1024];
 
   /* Check argument length */
-  if (argc != 6) {
+  if (argc != 10) {
     usage();
   }
 
@@ -27,12 +30,13 @@ int main(int argc, char *argv[]) {
   }
 
   /* Get angles from arguments */
-  for (i = 0; i < 4; i++) {
-    angle[i] = atoi(argv[i+2]);
+  for (i = 0; i < SECTIONS; i++) {
+    angle[i] = atoi(argv[i*2 + 2]);
+    length[i] = atoi(argv[i*2 + 3]);
   }
 
   printf("Angles: %i, %i, %i, %i\n", angle[0], angle[1], angle[2], angle[3]);
-
+  printf("Lengths: %i, %i, %i, %i\n", length[0], length[1], length[2], length[3]);
 
 
   /* Set up definitions */
@@ -52,7 +56,7 @@ int main(int argc, char *argv[]) {
   fputs("<line x1='-50' y1='0' x2='50' y2='0' stroke='#888' stroke-width='.5' />\n", outFile);
 
   /* Actual svg */
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < SECTIONS; i++) {
     if (i == 0) {
       sprintf(buffer, "<g transform='scale(1,-1)rotate(%i)'>\n", angle[i]);
       fputs(buffer, outFile);
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]) {
       fputs(buffer, outFile);
     }
 
-    if (i < 3) {
+    if (i < SECTIONS - 1) {
       fputs("<use xlink:href='#segment' />\n", outFile);
     } else {
       fputs("<use xlink:href='#endbox' />\n", outFile);
@@ -69,41 +73,11 @@ int main(int argc, char *argv[]) {
     fputs("<use xlink:href='#dot' />\n", outFile);
   }
 
-  for (i=0; i < 4; i++) {
+  for (i=0; i < SECTIONS; i++) {
     fputs("</g>\n", outFile);
   }
 
   fputs("</svg>", outFile);
-
-  // fputs("  <g transform='translate(10,0) rotate(-45)'>", outFile);
-  // fputs("    <use xlink:href='#segment' />", outFile);
-  // fputs("    <use xlink:href='#dot' />", outFile);
-  // fputs("    <g transform='translate(10,0) rotate(45)'>", outFile);
-  // fputs("      <use xlink:href='#segment' />", outFile);
-  // fputs("      <use xlink:href='#dot' />", outFile);
-  // fputs("      <g transform='translate(10,0) rotate(90)'>", outFile);
-  // fputs("        <use xlink:href='#segment' />", outFile);
-  // fputs("        <use xlink:href='#dot' />", outFile);
-  // fputs("        <g transform='translate(10,0)'>", outFile);
-  // fputs("          <use xlink:href='#dot' />", outFile);
-  // fputs("          <use xlink:href='#redbox' />", outFile);
-  // fputs("        </g>", outFile);
-  // fputs("      </g>", outFile);
-  // fputs("    </g>", outFile);
-  // fputs("  </g>", outFile);
-  // fputs("</g>", outFile);
-  // fputs("</svg>", outFile);
-
-
-
-  // for (i = 0; i < 4; i++) {
-  //   if (i == 0) {
-  //     printf("Got 0\n");
-  //   } else {
-  //   }
-  //   sprintf(buffer, "<rect x='%i' y='%i' width='' height='%i' fill='rgb(%i, %i, %i)' transform='rotate(%i 150 150)'/>\n", angle[i], angle[i], angle[i], angle[i], angle[i], angle[i]);
-  //   //fputs(buffer, outFile);
-  // }
 
   exit(0);
 
