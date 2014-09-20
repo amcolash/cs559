@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define SECTIONS 4
+#include <math.h>
 
 void usage() {
-  fprintf(stderr, "usage: robot <outfile> <length1> <angle1> <length2> <angle2> <length3> <angle3> <length4> <angle4>\n");
+  fprintf(stderr, "usage: robot <outfile> <angle1> <length1> <angle2> <length2> ...\n");
   exit(1);
 }
 
@@ -12,15 +11,20 @@ int main(int argc, char *argv[]) {
 
   /* Declare variables */
   FILE * outFile;
-  int angle[SECTIONS];
-  int length[SECTIONS];
   int i;
+  int SECTIONS;
   char buffer[1024];
 
   /* Check argument length */
-  if (argc != 10) {
+  if (argc % 2 != 0) {
     usage();
   }
+
+  SECTIONS = (argc - 2) / 2;
+  double angle[SECTIONS];
+  double length[SECTIONS];
+  double x[SECTIONS];
+  double y[SECTIONS];
 
   /* Open output file */
   outFile = fopen(argv[1], "w");
@@ -33,10 +37,18 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < SECTIONS; i++) {
     angle[i] = atoi(argv[i*2 + 2]);
     length[i] = atoi(argv[i*2 + 3]);
+
+    if (i == 0) {
+      x[i] = (length[i] * cos(angle[i])) - (length[i] * sin(angle[i]));
+      y[i] = (length[i] * sin(angle[i])) + (length[i] * cos(angle[i]));
+    } else {
+      x[i] = x[i-1] + (length[i] * cos(angle[i])) - (length[i] * sin(angle[i]));
+      y[i] = y[i-1] + (length[i] * sin(angle[i])) + (length[i] * cos(angle[i]));
+    }
+
+    printf("Angle[%i]: %f, Length[%i]: %f, Coords[i]: (%f, %f)\n", i, angle[i], i, length[i], x[i], y[i]);
   }
 
-  printf("Angles: %i, %i, %i, %i\n", angle[0], angle[1], angle[2], angle[3]);
-  printf("Lengths: %i, %i, %i, %i\n", length[0], length[1], length[2], length[3]);
 
 
   /* Set up definitions */
@@ -45,8 +57,8 @@ int main(int argc, char *argv[]) {
   fputs("<!-- you may use this example as a starting point for your own work, but course policy requires proper attribution -->\n", outFile);
   fputs("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='250px' width='400px' viewBox='-50 -50 100 75'>\n", outFile);
   fputs("<defs>\n", outFile);
-  fputs("  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='gold'/>\n", outFile);
-  fputs("  <rect id='endbox' x='-3' y='-3' height='6' width='6' fill='blue' opacity='.5' stroke='blue'/>\n", outFile);
+  fputs("  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='rgb(255,98,0)'/>\n", outFile);
+  fputs("  <rect id='endbox' x='-3' y='-3' height='6' width='6' fill='blue' opacity='.5' stroke='rgb(70,111,213)'/>\n", outFile);
   fputs("</defs>\n", outFile);
 
   /* Set up grid */
@@ -57,21 +69,19 @@ int main(int argc, char *argv[]) {
   /* Actual svg */
   for (i = 0; i < SECTIONS; i++) {
     if (i == 0) {
-      sprintf(buffer, "<g transform='scale(1,-1)rotate(%i)'>\n", angle[i]);
+      sprintf(buffer, "<g transform='scale(1,-1)rotate(%f)'>\n", angle[i]);
       fputs(buffer, outFile);
     } else {
-      sprintf(buffer, "<g transform='translate(%i,0)rotate(%i)'>\n", length[i-1], angle[i]);
+      sprintf(buffer, "<g transform='translate(%f,0)rotate(%f)'>\n", length[i-1], angle[i]);
       fputs(buffer, outFile);
     }
 
-    sprintf(buffer, "<rect id='segment' x='0' y='-2' height='4' width='%i' stroke='lime' fill='rgb(50,50,90)'/>\n", length[i]);
+    sprintf(buffer, "<rect id='segment' x='0' y='-2' height='4' width='%f' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>\n", length[i]);
     fputs(buffer, outFile);
     fputs("<use xlink:href='#dot' />\n", outFile);
   }
 
-  printf("length[i-1]: %i, length[i]: %i\n", length[i-1], length[i]);
-
-  sprintf(buffer, "<g transform='translate(%i,0)'>\n", length[SECTIONS-1]);
+  sprintf(buffer, "<g transform='translate(%f,0)'>\n", length[SECTIONS-1]);
   fputs(buffer, outFile);
   fputs("<use xlink:href='#endbox' />\n", outFile);
   fputs("<use xlink:href='#dot' />\n", outFile);
