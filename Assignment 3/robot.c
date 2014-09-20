@@ -7,12 +7,16 @@ void usage() {
   exit(1);
 }
 
-int main(int argc, char *argv[]) {
+double deg2rad(double degrees) {
+  return degrees*(M_PI/180.0);
+}
 
+int main(int argc, char *argv[]) {
   /* Declare variables */
   FILE * outFile;
   int i;
   int SECTIONS;
+  double curAngle;
   char buffer[1024];
 
   /* Check argument length */
@@ -20,6 +24,7 @@ int main(int argc, char *argv[]) {
     usage();
   }
 
+  /* Find number of sections needed and create arrays based on this */
   SECTIONS = (argc - 2) / 2;
   double angle[SECTIONS];
   double length[SECTIONS];
@@ -34,19 +39,24 @@ int main(int argc, char *argv[]) {
   }
 
   /* Get angles from arguments */
+  curAngle = 0;
   for (i = 0; i < SECTIONS; i++) {
     angle[i] = atoi(argv[i*2 + 2]);
     length[i] = atoi(argv[i*2 + 3]);
 
+    /* Find initial end point */
     if (i == 0) {
-      x[i] = (length[i] * cos(angle[i])) - (length[i] * sin(angle[i]));
-      y[i] = (length[i] * sin(angle[i])) + (length[i] * cos(angle[i]));
-    } else {
-      x[i] = x[i-1] + (length[i] * cos(angle[i])) - (length[i] * sin(angle[i]));
-      y[i] = y[i-1] + (length[i] * sin(angle[i])) + (length[i] * cos(angle[i]));
+      x[i] = length[i] * cos(deg2rad(angle[i]));
+      y[i] = length[i] * sin(deg2rad(angle[i]));
+      curAngle = angle[i];
+    } else { // Find all endpoints after the first
+      x[i] = x[i-1] + length[i] * cos(deg2rad(angle[i] + curAngle));
+      y[i] = y[i-1] + length[i] * sin(deg2rad(angle[i] + curAngle));
+      curAngle = curAngle + angle[i];
     }
 
-    printf("Angle[%i]: %f, Length[%i]: %f, Coords[i]: (%f, %f)\n", i, angle[i], i, length[i], x[i], y[i]);
+
+    printf("Angle[%i]: %.2f°, Length[%i]: %.2f, Coords[i]: (%.2f, %.2f)\n", i, angle[i], i, length[i], x[i], y[i]);
   }
 
 
@@ -62,9 +72,17 @@ int main(int argc, char *argv[]) {
   fputs("</defs>\n", outFile);
 
   /* Set up grid */
-  fputs("<rect x='-50' y='-50' height='75' width='100' stroke='black' fill='#EEE' />\n", outFile);
-  fputs("<line x1='0' y1='-50' x2='0' y2='25' stroke='#888' stroke-width='.5' />\n", outFile);
-  fputs("<line x1='-50' y1='0' x2='50' y2='0' stroke='#888' stroke-width='.5' />\n", outFile);
+  for (i = -10; i < 11; i++) {
+    sprintf(buffer, "<line x1='-50' y1='%i' x2='50' y2='%i' stroke='#aaa' stroke-width='.5' />\n", i*5, i*5);
+    fputs(buffer, outFile);
+    sprintf(buffer, "<line x1='%i' y1='-50' x2='%i' y2='25' stroke='#aaa' stroke-width='.5' />\n", i*5, i*5);
+    fputs(buffer, outFile);
+  }
+
+  fputs("<line x1='0' y1='-50' x2='0' y2='25' stroke='#333' stroke-width='.5' />\n", outFile);
+  fputs("<line x1='-50' y1='0' x2='50' y2='0' stroke='#333' stroke-width='.5' />\n", outFile);
+  fputs("<rect x='-50' y='-50' height='75' width='100' stroke='black' fill='none' />\n", outFile);
+
 
   /* Actual svg */
   for (i = 0; i < SECTIONS; i++) {
@@ -81,21 +99,20 @@ int main(int argc, char *argv[]) {
     fputs("<use xlink:href='#dot' />\n", outFile);
   }
 
+  /* Complete rest of last shape */
   sprintf(buffer, "<g transform='translate(%f,0)'>\n", length[SECTIONS-1]);
   fputs(buffer, outFile);
   fputs("<use xlink:href='#endbox' />\n", outFile);
   fputs("<use xlink:href='#dot' />\n", outFile);
 
+  /* Close all groups */
   for (i=0; i < SECTIONS + 1; i++) {
     fputs("</g>\n", outFile);
   }
 
+  /* EOF */
   fputs("</svg>", outFile);
 
   exit(0);
-
-}
-
-void rotateAtCenter() {
 
 }
