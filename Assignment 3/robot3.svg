@@ -1,0 +1,82 @@
+<!-- Uses some of the sample code for the robot arm, as provided on the course site -->
+<!-- CS559 Assignment 3 Example - robot arm - by Michael Gleicher -->
+<!-- you may use this example as a starting point for your own work, but course policy requires proper attribution -->
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='250px' width='400px' viewBox='-50 -50 100 75'>
+<defs>
+  <circle id='dot' cx='0' cy='0' r='1' stroke='black' stroke-width='.5' fill='rgb(255,98,0)'/>
+  <rect id='endbox' x='-3' y='-3' height='6' width='6' fill='blue' opacity='.5' stroke='rgb(70,111,213)'/>
+</defs>
+<line x1='-50' y1='-50' x2='50' y2='-50' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-50' x2='-50' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-45' x2='50' y2='-45' stroke='#aaa' stroke-width='.5' />
+<line x1='-45' y1='-50' x2='-45' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-40' x2='50' y2='-40' stroke='#aaa' stroke-width='.5' />
+<line x1='-40' y1='-50' x2='-40' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-35' x2='50' y2='-35' stroke='#aaa' stroke-width='.5' />
+<line x1='-35' y1='-50' x2='-35' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-30' x2='50' y2='-30' stroke='#aaa' stroke-width='.5' />
+<line x1='-30' y1='-50' x2='-30' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-25' x2='50' y2='-25' stroke='#aaa' stroke-width='.5' />
+<line x1='-25' y1='-50' x2='-25' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-20' x2='50' y2='-20' stroke='#aaa' stroke-width='.5' />
+<line x1='-20' y1='-50' x2='-20' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-15' x2='50' y2='-15' stroke='#aaa' stroke-width='.5' />
+<line x1='-15' y1='-50' x2='-15' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-10' x2='50' y2='-10' stroke='#aaa' stroke-width='.5' />
+<line x1='-10' y1='-50' x2='-10' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='-5' x2='50' y2='-5' stroke='#aaa' stroke-width='.5' />
+<line x1='-5' y1='-50' x2='-5' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='0' x2='50' y2='0' stroke='#aaa' stroke-width='.5' />
+<line x1='0' y1='-50' x2='0' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='5' x2='50' y2='5' stroke='#aaa' stroke-width='.5' />
+<line x1='5' y1='-50' x2='5' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='10' x2='50' y2='10' stroke='#aaa' stroke-width='.5' />
+<line x1='10' y1='-50' x2='10' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='15' x2='50' y2='15' stroke='#aaa' stroke-width='.5' />
+<line x1='15' y1='-50' x2='15' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='20' x2='50' y2='20' stroke='#aaa' stroke-width='.5' />
+<line x1='20' y1='-50' x2='20' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='25' x2='50' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='25' y1='-50' x2='25' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='30' x2='50' y2='30' stroke='#aaa' stroke-width='.5' />
+<line x1='30' y1='-50' x2='30' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='35' x2='50' y2='35' stroke='#aaa' stroke-width='.5' />
+<line x1='35' y1='-50' x2='35' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='40' x2='50' y2='40' stroke='#aaa' stroke-width='.5' />
+<line x1='40' y1='-50' x2='40' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='45' x2='50' y2='45' stroke='#aaa' stroke-width='.5' />
+<line x1='45' y1='-50' x2='45' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='-50' y1='50' x2='50' y2='50' stroke='#aaa' stroke-width='.5' />
+<line x1='50' y1='-50' x2='50' y2='25' stroke='#aaa' stroke-width='.5' />
+<line x1='0' y1='-50' x2='0' y2='25' stroke='#333' stroke-width='.5' />
+<line x1='-50' y1='0' x2='50' y2='0' stroke='#333' stroke-width='.5' />
+<rect x='-50' y='-50' height='75' width='100' stroke='black' fill='none' />
+<g transform='scale(1,-1)rotate(0.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='10.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(10.000000,0)rotate(90.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='10.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(10.000000,0)rotate(90.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='10.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(10.000000,0)rotate(-50.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='20.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(20.000000,0)rotate(90.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='12.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(12.000000,0)rotate(-90.000000)'>
+<rect id='segment' x='0' y='-2' height='4' width='25.000000' stroke='rgb(103,227,0)' fill='rgb(18,62,171)'/>
+<use xlink:href='#dot' />
+<g transform='translate(25.000000,0)'>
+<use xlink:href='#endbox' />
+<use xlink:href='#dot' />
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

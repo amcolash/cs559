@@ -1,25 +1,25 @@
 CC = gcc
 args = -O -Wall -lm
 
-all:: test
+all:: test1 test2 test3
 
 robot.o: robot.c
 	$(CC) $(args) robot.c -o robot.o
 
-test: robot.o
+test1: robot.o
 	@echo "--------------------------------------------------"
-	./robot.o robot.svg 0 10 0 10 0 10 0 10
+	./robot.o robot1.svg 0 10 0 10 0 10 0 10
 	@echo "--------------------------------------------------"
 
 test2: robot.o
 	@echo "--------------------------------------------------"
-	./robot.o robot.svg 45 10 -45 10 45 10 90 10
+	./robot.o robot2.svg 45 10 -45 10 45 10 90 10
 	@echo "--------------------------------------------------"
 
 test3: robot.o
 	@echo "--------------------------------------------------"
-	./robot.o robot.svg 0 10 90 10 90 10 -50 20 90 12 -90 25
+	./robot.o robot3.svg 0 10 90 10 90 10 -50 20 90 12 -90 25
 	@echo "--------------------------------------------------"
 
 clean::
-	rm -f robot.o robot.svg
+	rm -f robot.o *.svg
