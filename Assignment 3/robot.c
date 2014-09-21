@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     }
 
 
-    printf("Angle[%i]: %.2f°, Length[%i]: %.2f, Coords[i]: (%.2f, %.2f)\n", i, angle[i], i, length[i], x[i], y[i]);
+    printf("Angle[%i]: %.2f°, Length[%i]: %.2f, Coords[%i]: (%.2f, %.2f)\n", i, angle[i], i, length[i], i, x[i], y[i]);
   }
 
 
