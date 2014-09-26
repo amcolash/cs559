@@ -1,18 +1,32 @@
 $(function () {
-  var mySlider = $("input.slider").slider();
-});
-
-$('.slider').slider({
-  formatter: function(value) {
-    return 'Current value: ' + value;
-  }
+  genCode();
 });
 
 $('input').change(changeVal);
 
 function changeVal() {
-  alert($('#width').val());
-  alert($('#height').val());
+  var height = $('#heightRange').val();
+  var width = $('#widthRange').val();
+  $('#svgImage #box').attr("width", width);
+  $('#svgImage #box').attr("height", height);
+  genCode();
+}
+
+function genCode() {
+  var svg = $('#svgImage')[0];
+  var svg_xml = (new XMLSerializer).serializeToString(svg);
+  svg_xml = vkbeautify.xml(svg_xml);
+  $('#svgCode').text(svg_xml);
+  $('#svgCode').removeClass('prettyprinted');
+  prettyPrint();
+}
+
+function reset() {
+  $('#heightValue').val('100');
+  $('#widthValue').val('100');
+  $('#heightRange').val('100');
+  $('#widthRange').val('100');
+  changeVal();
 }
 
 /* Code taken from svg-crowbar, found at https://nytimes.github.io/svg-crowbar */
