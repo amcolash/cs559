@@ -38,8 +38,8 @@ Svg Code Generation Example: github.com/agordon/d3export_demo/blob/master/index.
           <h2>Image</h2>
           <hr>
 
-          <svg id="svgImage" class="center-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="375px" width="375px">
-            <rect x="0" y="0" height="375" width="375" fill="white" stroke="black" stroke-width="5" />
+          <svg id="svgImage" class="center-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="350px" width="350px">
+            <rect x="0" y="0" height="350" width="350" fill="white" stroke="black" stroke-width="5" />
             <rect id="box" x="50" y="50" height="100" width="100" fill="green" />
           </svg>
 
@@ -47,26 +47,31 @@ Svg Code Generation Example: github.com/agordon/d3export_demo/blob/master/index.
         <div class="col-md-5 col-md-offset-1 col-xs-12 well">
           <h2>Settings</h2>
           <hr>
+          
           <div class="col-xs-12">
             <h3>Camera</h3>
+          </div>
+
+          <div class="col-xs-12">
+            <h3>Rectangle</h3>
 
             <div class="row margin">
               <div class="col-xs-3"><b>Height</b></div>
               <div class="col-xs-5">
-                <input id="heightRange" type = "range" min="0" max="200" value="100" onchange="heightValue.value=value"/>
+                <input id="heightRange" type = "range" min="0" max="250" value="100" onchange="heightValue.value=value"/>
               </div>
               <div class="col-xs-4">
-                <input id="heightValue" type="number" class="form-control rangevalue" min="0" max="200" value="100" onchange="heightRange.value=value"/>
+                <input id="heightValue" type="number" class="form-control rangevalue" min="0" max="250" value="100" onchange="heightRange.value=value"/>
               </div>
             </div>
 
             <div class="row margin">
               <div class="col-xs-3"><b>Width</b></div>
               <div class="col-xs-5">
-                <input id="widthRange" type = "range" min="0" max="200" value="100" onchange="widthValue.value=value"/>
+                <input id="widthRange" type = "range" min="0" max="250" value="100" onchange="widthValue.value=value"/>
               </div>
               <div class="col-xs-4">
-                <input id="widthValue" type="number" class="form-control rangevalue" min="0" max="200" value="100" onchange="widthRange.value=value"/>
+                <input id="widthValue" type="number" class="form-control rangevalue" min="0" max="250" value="100" onchange="widthRange.value=value"/>
               </div>
             </div>
 
