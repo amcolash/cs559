@@ -19,7 +19,21 @@ var app = new EmberApp();
 
 // Include js libraries
 app.import('vendor/bootstrap/dist/js/bootstrap.js');
-app.import('vendor/prettify.js');
-app.import('vendor/vkbeautify.0.99.00.beta.js');
+
+app.import('vendor/prettify.js', {
+  exports : {
+    'prettyPrint' : [
+      'default'
+    ]
+  }
+});
+
+app.import('vendor/vkbeautify.0.99.00.beta.js', {
+  exports : {
+    'vkbeautify' : [
+      'default'
+    ]
+  }
+});
 
 module.exports = app.toTree();

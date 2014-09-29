@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import prettyPrint from 'prettyPrint';
+import vkbeautify from 'vkbeautify';
 
 export default Ember.Controller.extend({
 
@@ -17,7 +19,6 @@ export default Ember.Controller.extend({
 
   actions: {
     add : function() {
-      var myThis = this;
       var lines = this.get('lines');
       lines.pushObject([ this.get('tempx1'), this.get('tempy1'), this.get('tempz1'), this.get('tempx2'), this.get('tempy2'), this.get('tempz2') ]);
       this.set('lines', lines);
@@ -27,7 +28,7 @@ export default Ember.Controller.extend({
 
     codeGen : function() {
       var svg = $('#svgImage')[0];
-      var svg_xml = (new XMLSerializer).serializeToString(svg);
+      var svg_xml = (new XMLSerializer ()).serializeToString(svg);
       svg_xml = vkbeautify.xml(svg_xml);
       $('#svgCode').text(svg_xml);
       $('#svgCode').removeClass('prettyprinted');
@@ -45,7 +46,7 @@ export default Ember.Controller.extend({
           temp[i] = lines[i];
         }
         temp.splice(index, 1);
-      };
+      }
       this.set('lines', temp);
     },
 
