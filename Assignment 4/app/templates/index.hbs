@@ -1,0 +1,115 @@
+<!-- The following resources, code snippets and libraries were used for this project:
+Twitter Bootstrap: getbootstrap.com/
+jQuery: jquery.com/
+SVG Crowbar: nytimes.github.io/svg-crowbar/
+Modified HTML5 Slider Styling: codepen.io/thehonestape/pen/yjlGi
+Google Code Prettify: code.google.com/p/google-code-prettify/
+vkBeautify: github.com/vkiryukhin/vkBeautify
+Svg Code Generation Example: github.com/agordon/d3export_demo/blob/master/index.html
+EmberCli: ember-cli.com/
+-->
+
+<div class="container">
+  <div class="col-xs-12">
+    <h1 class="text-center">Assignment 4</h1>
+    <hr>
+    <div class="col-md-6 col-xs-12 well">
+      <h2>Image</h2>
+      <hr>
+
+      <svg id="svgImage" class="center-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="350px" width="350px">
+        <rect x="0" y="0" height="350" width="350" fill="white" stroke="black" stroke-width="5" />
+        <rect id="box" x="50" y="50" {{bindAttr height="height"}} {{bindAttr width="width"}} fill="green" />
+      </svg>
+
+    </div>
+    <div class="col-md-5 col-md-offset-1 col-xs-12 well">
+      <h2>Settings</h2>
+      <hr>
+
+      <div class="col-xs-12">
+        <h3>Camera</h3>
+      </div>
+
+      <div class="col-xs-12">
+        <h3>Rectangle</h3>
+
+        <div class="row margin">
+          <div class="col-xs-3"><b>Height</b></div>
+          <div class="col-xs-5 sliderMargin">
+            {{input id="heightRange" type="range" min="0" max="250" value=height}}
+          </div>
+          <div class="col-xs-4">
+            {{input id="heightValue" type="number" class="form-control rangevalue" min="0" max="250" value=height}}
+          </div>
+        </div>
+
+        <div class="row margin">
+          <div class="col-xs-3"><b>Width</b></div>
+          <div class="col-xs-5 sliderMargin">
+            {{input id="widthRange" type ="range" min="0" max="250" value=width}}
+          </div>
+          <div class="col-xs-4">
+            {{input id="widthValue" type="number" class="form-control rangevalue" min="0" max="250" value=width}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div class="col-xs-12">
+            <h3>Lines</h3>
+          </div>
+
+          <div class="col-xs-12 lines">
+
+            <div class="item">
+              <div class="col-xs-10">
+                My Item One
+              </div>
+              <div class="col-xs-2">
+                <button class="btn btn-danger remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button> 
+              </div>
+            </div>
+
+          </div>
+
+          <div class="clearfix"></div>
+
+          <hr>
+
+          <div class="col-xs-12">
+            <button class="btn btn-primary pull-right btnSpace" onclick="saveSvg()">Save SVG</button>
+            <button class="btn btn-success pull-right btnSpace" data-toggle="modal" data-target="#myModal">View SVG</button>
+            <button class="btn btn-danger pull-right btnSpace" onclick="reset()">Reset</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">SVG Code</h4>
+          </div>
+          <div class="modal-body">
+            <pre id="svgCode" class="prettyprint linenums" lang-xml><test></pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
