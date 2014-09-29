@@ -22,7 +22,7 @@ EmberCli: ember-cli.com/
           <rect x="0" y="0" height="350" width="350" fill="white" stroke="black" stroke-width="5" />
           <rect id="box" x="50" y="50" {{bind-attr height="height"}} {{bind-attr width="width"}} fill="green" />
           {{#each finalLines}}
-            <line {{bind-attr x1="this.[0]"}} {{bind-attr y1="this.[1]"}} {{bind-attr x2="this.[2]"}} {{bind-attr y2="this.[3]"}} stroke="black" stroke-width="2"/>
+            <line {{bind-attr x1=this.[0]}} {{bind-attr y1=this.[1]}} {{bind-attr x2=this.[2]}} {{bind-attr y2=this.[3]}} stroke="black" stroke-width="2"/>
           {{/each}}
         </svg>
 

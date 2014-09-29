@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import prettyPrint from 'prettyPrint';
-import vkbeautify from 'vkbeautify';
+//import prettyPrint from 'prettyPrint';
+//import vkbeautify from 'vkbeautify';
 
 export default Ember.Controller.extend({
 
@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
   tempz2 : 0,
   
   lines : [[2,3,9,0,4,2], [1,-1,-8,2,6,5], [7,1,-1,6,2,5]],
-  finalLines : [[]],
+  finalLines : [[50,20,90,150]],
 
   actions: {
     add : function() {
