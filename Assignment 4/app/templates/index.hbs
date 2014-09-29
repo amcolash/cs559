@@ -19,7 +19,7 @@ EmberCli: ember-cli.com/
 
       <svg id="svgImage" class="center-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="350px" width="350px">
         <rect x="0" y="0" height="350" width="350" fill="white" stroke="black" stroke-width="5" />
-        <rect id="box" x="50" y="50" {{bindAttr height="height"}} {{bindAttr width="width"}} fill="green" />
+        <rect id="box" x="50" y="50" {{bind-attr height="height"}} {{bind-attr width="width"}} fill="green" />
       </svg>
 
     </div>
@@ -64,17 +64,18 @@ EmberCli: ember-cli.com/
           </div>
 
           <div class="col-xs-12 lines">
-
-            <div class="item">
-              <div class="col-xs-10">
-                My Item One
+            {{#each lines}}
+              <div class="item">
+                <div class="col-xs-10">
+                  P1: ({{this.[0]}}, {{this.[1]}}), P2: ({{this.[2]}}, {{this.[3]}})
+                </div>
+                <div class="col-xs-2">
+                  <button class="btn btn-danger remove" {{action 'remove' this}}>
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button> 
+                </div>
               </div>
-              <div class="col-xs-2">
-                <button class="btn btn-danger remove">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button> 
-              </div>
-            </div>
+            {{/each}}
 
           </div>
 
@@ -83,9 +84,9 @@ EmberCli: ember-cli.com/
           <hr>
 
           <div class="col-xs-12">
-            <button class="btn btn-primary pull-right btnSpace" onclick="saveSvg()">Save SVG</button>
-            <button class="btn btn-success pull-right btnSpace" data-toggle="modal" data-target="#myModal">View SVG</button>
-            <button class="btn btn-danger pull-right btnSpace" onclick="reset()">Reset</button>
+            <button class="btn btn-primary pull-right btnSpace" {{action 'save'}}>Save SVG</button>
+            <button class="btn btn-success pull-right btnSpace" data-toggle="modal" data-target="#myModal" {{action 'codeGen'}}>View SVG</button>
+            <button class="btn btn-danger pull-right btnSpace" {{action 'reset'}}>Reset</button>
           </div>
 
 

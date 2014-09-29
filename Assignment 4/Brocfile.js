@@ -17,7 +17,9 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-// Include bootstrap JS library
+// Include js libraries
 app.import('vendor/bootstrap/dist/js/bootstrap.js');
+app.import('vendor/prettify.js');
+app.import('vendor/vkbeautify.0.99.00.beta.js');
 
 module.exports = app.toTree();
