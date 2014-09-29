@@ -2,7 +2,7 @@
  
 git filter-branch --env-filter '
  
-OLD_EMAIL="andrew@Andrews-Mac-Pro.local"
+OLD_EMAIL="amcolah@gmail.com"
 CORRECT_NAME="Andrew McOlash"
 CORRECT_EMAIL="amcolash@gmail.com"
  
