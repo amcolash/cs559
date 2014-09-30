@@ -36,6 +36,7 @@ app.import('vendor/vkbeautify.0.99.00.beta.js', {
   }
 });
 
+app.import('vendor/saveFile.js');
 app.import('vendor/vector.js');
 app.import('vendor/matrix.js');
 

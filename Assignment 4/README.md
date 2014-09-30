@@ -1,8 +1,19 @@
-# Assignment-4
+# Assignment 4
 
-This README outlines the details of collaborating on this Ember application.
+An Ember application that can be used to dynamically generate svg 3d content
 
-A short introduction of this app could easily go here.
+## Resources Used
+
+The following resources, code snippets and libraries were used for this project:
+* Twitter Bootstrap: getbootstrap.com/
+* jQuery: jquery.com/
+* HTML5 Blob file saving: codepen.io/ashblue/pen/jEhmH
+  --> original stack overflow post: stackoverflow.com/questions/19327749/javascript-blob-filename-without-link
+* Modified HTML5 Slider Styling: codepen.io/thehonestape/pen/yjlGi
+* Google Code Prettify: code.google.com/p/google-code-prettify/
+* vkBeautify: github.com/vkiryukhin/vkBeautify
+* Svg Code Generation Example: github.com/agordon/d3export_demo/blob/master/index.html
+* EmberCli: ember-cli.com/
 
 ## Prerequisites
 

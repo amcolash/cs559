@@ -4,6 +4,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  code : '',
+
   height : 250,
   width : 250,
 
@@ -29,9 +31,9 @@ export default Ember.Controller.extend({
   },
   
   lines : [[2,3,9,0,4,2], [1,-1,-8,2,6,5], [7,1,-1,6,2,5]],
-  //finalLines : [[50,20,90,150]],
+  
   finalLines : function() {
-
+    // return [[20,40,60,80]];
   }.property('lines'),
 
   actions: {
@@ -58,12 +60,9 @@ export default Ember.Controller.extend({
       console.log("[" + temp.m[8] + ", " + temp.m[9] + ", " + temp.m[10] + ", " + temp.m[11] + "]");
       console.log("[" + temp.m[12] + ", " + temp.m[13] + ", " + temp.m[14] + ", " + temp.m[15] + "]");
 
-      point = Matrix(5,0,0,0
-                     0,5,0,0
-                     0,0,1,0
-                     0,0,0,0);
+      var point = new Matrix( [5,0,0,0, 0,5,0,0, 0,0,1,0, 0,0,0,0] );
 
-      temp = temp.Multiply(temp);
+      temp = point.multiply(temp);
       console.log("-------------------------------");
       console.log("[" + temp.m[0] + ", " + temp.m[1] + ", " + temp.m[2] + ", " + temp.m[3] + "]");
       console.log("[" + temp.m[4] + ", " + temp.m[5] + ", " + temp.m[6] + ", " + temp.m[7] + "]");
@@ -84,6 +83,8 @@ export default Ember.Controller.extend({
       var svg_xml = (new XMLSerializer ()).serializeToString(svg);
       svg_xml = svg_xml.replace(/<script.*>/g, "");
       svg_xml = svg_xml.replace(/data-bindattr-[0-9]*="[0-9]*" /g, "");
+      console.log(svg_xml);
+      this.set('code', svg_xml);
       svg_xml = vkbeautify.xml(svg_xml);
       $('#svgCode').text(svg_xml);
       $('#svgCode').removeClass('prettyprinted');
@@ -118,11 +119,10 @@ export default Ember.Controller.extend({
     },
 
     save : function() {
-      /* Code taken from svg-crowbar, found at https://nytimes.github.io/svg-crowbar */
-      var e = document.createElement('script');
-      e.setAttribute('src', 'https://nytimes.github.io/svg-crowbar/svg-crowbar.js');
-      e.setAttribute('class', 'svg-crowbar');
-      document.body.appendChild(e);
+      this.send('codeGen');
+      var fileName = "svgImge.svg";
+
+      saveData(this.get('code'), fileName);
     }
   }
 
