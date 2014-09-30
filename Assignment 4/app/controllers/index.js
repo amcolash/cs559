@@ -10,12 +10,12 @@ export default Ember.Controller.extend({
   width : 250,
 
   line : {
-    x1 : 0,
-    y1 : 0,
-    z1 : 0,
-    x2 : 0,
-    y2 : 0,
-    z2 : 0,
+    x1 : 50,
+    y1 : 100,
+    z1 : 30,
+    x2 : 150,
+    y2 : 90,
+    z2 : 220
   },
 
   perspective : {
@@ -30,10 +30,18 @@ export default Ember.Controller.extend({
     uz : 0
   },
   
-  lines : [[2,3,9,0,4,2], [1,-1,-8,2,6,5], [7,1,-1,6,2,5]],
-  
+  lines : [[50,50,0,50,300,0], [50,50,0,300,50,0], [50,300,0,300,300,0], [300,50,0,300,300,0]],
+
   finalLines : function() {
-    // return [[20,40,60,80]];
+    console.log("lines changed");
+    var temp = [[]];
+    var lines = this.get('lines');
+
+    for (var i = 0; i < lines.length; i++) {
+      temp[i] = [ lines[i][0], lines[i][1], lines[i][3], lines[i][4] ];
+    }
+
+    return temp;
   }.property('lines'),
 
   actions: {
@@ -71,11 +79,16 @@ export default Ember.Controller.extend({
     },
 
     add : function() {
+      var temp = [[]];
       var lines = this.get('lines');
-      lines.pushObject([ this.get('line.x1'), this.get('line.y1'), this.get('line.z1'), this.get('line.x2'), this.get('line.y2'), this.get('line.z2') ]);
-      this.set('lines', lines);
-      console.log(lines);
-      console.log(this.get('lines'));
+      for (var i = 0; i < lines.length; i++) {
+        temp[i] = [ lines[i][0], lines[i][1], lines[i][2], lines[i][3], lines[i][4], lines[i][5] ];
+      }
+
+      temp[i] = [ this.get('line.x1'), this.get('line.y1'), this.get('line.z1'), this.get('line.x2'), this.get('line.y2'), this.get('line.z2') ];
+      this.set('lines', temp);
+      //console.log(lines);
+      //console.log(this.get('lines'));
     },
 
     codeGen : function() {
@@ -92,13 +105,12 @@ export default Ember.Controller.extend({
     },
 
     remove : function(element) {
-      var i = 0;
       var temp = [[]];
       var lines = this.get('lines');
       var index = lines.indexOf(element);
       if (index > -1) {
         // Make a copy of the array to manipulate, ember gets grumpy otherwise
-        for (i = 0; i < lines.length; i++) {
+        for (var i = 0; i < lines.length; i++) {
           temp[i] = lines[i];
         }
         temp.splice(index, 1);
