@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
   lines : [[50,50,0,50,300,0], [50,50,0,300,50,0], [50,300,0,300,300,0], [300,50,0,300,300,0]],
 
   finalLines : function() {
-    console.log("lines changed");
+//    console.log("lines changed");
     var temp = [[]];
     var lines = this.get('lines');
 
