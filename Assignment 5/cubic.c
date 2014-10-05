@@ -12,7 +12,7 @@ void usage() {
 }
 
 int main(int argc, char *argv[]) {
-  point p0, p1, p2, p3, q0, q1, q2, r0;
+  point p0, p1, p2, p3, q0, q1, q2, r0, s0, s1;
   int color, steps;
   float angle, t;
   FILE * outFile;
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   fputs("<rect x='0' y='0' width='300' height='300' fill='none' stroke='black' stroke-width='15'/>", outFile);
 
 
-  color = 735;
+  color = 624;
 
   steps = atoi(argv[2]);
   p0.x = atoi(argv[3]);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 
   for (t = 0.0; t < 1.00001; t = t + 1.0/steps) {
     if (t >= 0.5) {
-      color = 375;
+      color = 264;
     }
     q0.x = (1-t)*p0.x + t*p1.x;
     q0.y = (1-t)*p0.y + t*p1.y;
@@ -59,20 +59,26 @@ int main(int argc, char *argv[]) {
     q2.x = (1-t)*p2.x + t*p3.x;
     q2.y = (1-t)*p2.y + t*p3.y;
 
+    s0.x = (1-t)*q0.x + t*q1.x;
+    s0.y = (1-t)*q0.y + t*q1.y;
+
+    s1.x = (1-t)*q1.x + t*q2.x;
+    s1.y = (1-t)*q1.y + t*q2.y;
+
     r0.x = pow((1-t),2)*q0.x + 2*t*(1-t)*q1.x + pow(t,2)*q2.x;
     r0.y = pow((1-t),2)*q0.y + 2*t*(1-t)*q1.y + pow(t,2)*q2.y;
 
-    if (t > 0.50) {
-      angle = 180 - (atan2(q2.x-q1.x, q2.y-q1.y) * (180 / 3.14159265));
-    } else {
-      angle = 180 - (atan2(q1.x-q0.x, q1.y-q0.y) * (180 / 3.14159265));
-    }
+    angle = 180 - (atan2(s1.x-s0.x, s1.y-s0.y) * (180 / 3.14159265));
 
     sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='#%d' stroke-width='1.5' />\n", q0.x, q0.y, q1.x, q1.y, color);
     fputs(buffer, outFile);
 
     sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='#%d' stroke-width='1.5' />\n", q1.x, q1.y, q2.x, q2.y, color);
     fputs(buffer, outFile);
+
+    sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='lime' stroke-width='4' />\n", s0.x, s0.y, s1.x, s1.y);
+    fputs(buffer, outFile);
+
 
     sprintf(buffer, "<rect x='%.2f' y='%2.f' width='8' height='8' fill='orange' transform='rotate(%.2f %.2f %.2f)'/>\n", r0.x-4, r0.y-4, angle, r0.x, r0.y);
     fputs(buffer, outFile);
