@@ -13,13 +13,13 @@ void usage() {
 
 int main(int argc, char *argv[]) {
   point p0, p1, p2, q0, q1, r0;
-  int color;
+  int color, steps;
   float angle, t;
   FILE * outFile;
   char buffer[1024];
 
   /* Check argument length */
-  if (argc != 8) {
+  if (argc != 9) {
     usage();
   }
 
@@ -36,14 +36,15 @@ int main(int argc, char *argv[]) {
 
   color = 735;
 
-  p0.x = atoi(argv[2]);
-  p0.y = atoi(argv[3]);
-  p1.x = atoi(argv[4]);
-  p1.y = atoi(argv[5]);
-  p2.x = atoi(argv[6]);
-  p2.y = atoi(argv[7]);
+  steps = atoi(argv[2]);
+  p0.x = atoi(argv[3]);
+  p0.y = atoi(argv[4]);
+  p1.x = atoi(argv[5]);
+  p1.y = atoi(argv[6]);
+  p2.x = atoi(argv[7]);
+  p2.y = atoi(argv[8]);
 
-  for (t = 0.0; t < 1.01; t = t + 0.1) {
+  for (t = 0.0; t < 1.00001; t = t + 1.0/steps) {
     if (t >= 0.5) {
       color = 375;
     }
