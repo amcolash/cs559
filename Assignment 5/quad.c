@@ -7,19 +7,19 @@ typedef struct {
 } point;
 
 void usage() {
-  fprintf(stderr, "usage: quad.o <outfile> <p0.x> <p0.y> <p1.x> <p1.y> <p2.x> <p2.y>\n");
+  fprintf(stderr, "usage: quad.o <outfile> <debug?> <p0.x> <p0.y> <p1.x> <p1.y> <p2.x> <p2.y>\n");
   exit(1);
 }
 
 int main(int argc, char *argv[]) {
   point p0, p1, p2, q0, q1, r0;
-  int color, steps;
+  int color, debug, steps;
   float angle, t;
   FILE * outFile;
   char buffer[1024];
 
   /* Check argument length */
-  if (argc != 9) {
+  if (argc != 10) {
     usage();
   }
 
@@ -36,13 +36,14 @@ int main(int argc, char *argv[]) {
 
   color = 735;
 
-  steps = atoi(argv[2]);
-  p0.x = atoi(argv[3]);
-  p0.y = atoi(argv[4]);
-  p1.x = atoi(argv[5]);
-  p1.y = atoi(argv[6]);
-  p2.x = atoi(argv[7]);
-  p2.y = atoi(argv[8]);
+  debug = atoi(argv[2]);
+  steps = atoi(argv[3]);
+  p0.x = atoi(argv[4]);
+  p0.y = atoi(argv[5]);
+  p1.x = atoi(argv[6]);
+  p1.y = atoi(argv[7]);
+  p2.x = atoi(argv[8]);
+  p2.y = atoi(argv[9]);
 
   for (t = 0.0; t < 1.00001; t = t + 1.0/steps) {
     if (t >= 0.5) {
@@ -59,10 +60,10 @@ int main(int argc, char *argv[]) {
 
     angle = 180 - (atan2(q1.x-q0.x, q1.y-q0.y) * (180 / 3.14159265));
 
-    sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='#%d' stroke-width='1.5' />\n",
-        q0.x, q0.y, q1.x, q1.y, color);
-    fputs(buffer, outFile);
-
+    if (debug == 1) {
+      sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='#%d' stroke-width='1.5' />\n", q0.x, q0.y, q1.x, q1.y, color);
+      fputs(buffer, outFile);
+    }
     sprintf(buffer, "<rect x='%.2f' y='%2.f' width='8' height='8' fill='orange' transform='rotate(%.2f %.2f %.2f)'/>\n", r0.x-4, r0.y-4, angle, r0.x, r0.y);
     fputs(buffer, outFile);
 
