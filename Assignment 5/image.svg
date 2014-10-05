@@ -1,0 +1,23 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect x='0' y='0' width='300' height='300' fill='none' stroke='black' stroke-width='15'/><line x1='45.00' y1='275' x2='150.00' y2='30.00' stroke='#735' stroke-width='1.5' />
+<rect x='41.00' y='271' width='8' height='8' fill='orange' transform='rotate(23.20 45.00 275.00)'/>
+<line x1='55.50' y1='250' x2='160.50' y2='54.50' stroke='#735' stroke-width='1.5' />
+<rect x='62.00' y='227' width='8' height='8' fill='orange' transform='rotate(28.18 66.00 230.90)'/>
+<line x1='66.00' y1='226' x2='171.00' y2='79.00' stroke='#735' stroke-width='1.5' />
+<rect x='83.00' y='193' width='8' height='8' fill='orange' transform='rotate(35.54 87.00 196.60)'/>
+<line x1='76.50' y1='202' x2='181.50' y2='103.50' stroke='#735' stroke-width='1.5' />
+<rect x='104.00' y='168' width='8' height='8' fill='orange' transform='rotate(46.97 108.00 172.10)'/>
+<line x1='87.00' y1='177' x2='192.00' y2='128.00' stroke='#735' stroke-width='1.5' />
+<rect x='125.00' y='153' width='8' height='8' fill='orange' transform='rotate(64.98 129.00 157.40)'/>
+<line x1='97.50' y1='152' x2='202.50' y2='152.50' stroke='#375' stroke-width='1.5' />
+<rect x='146.00' y='148' width='8' height='8' fill='orange' transform='rotate(90.00 150.00 152.50)'/>
+<line x1='108.00' y1='128' x2='213.00' y2='177.00' stroke='#375' stroke-width='1.5' />
+<rect x='167.00' y='153' width='8' height='8' fill='orange' transform='rotate(115.02 171.00 157.40)'/>
+<line x1='118.50' y1='103' x2='223.50' y2='201.50' stroke='#375' stroke-width='1.5' />
+<rect x='188.00' y='168' width='8' height='8' fill='orange' transform='rotate(133.03 192.00 172.10)'/>
+<line x1='129.00' y1='79' x2='234.00' y2='226.00' stroke='#375' stroke-width='1.5' />
+<rect x='209.00' y='193' width='8' height='8' fill='orange' transform='rotate(144.46 213.00 196.60)'/>
+<line x1='139.50' y1='54' x2='244.50' y2='250.50' stroke='#375' stroke-width='1.5' />
+<rect x='230.00' y='227' width='8' height='8' fill='orange' transform='rotate(151.82 234.00 230.90)'/>
+<line x1='150.00' y1='30' x2='255.00' y2='275.00' stroke='#375' stroke-width='1.5' />
+<rect x='251.00' y='271' width='8' height='8' fill='orange' transform='rotate(156.80 255.00 275.00)'/>
+<path d='M45.00,275.00 Q150.0000000000000000000000000,30.00 255.00,275.00' fill='none' stroke='black' stroke-width='2'/><circle cx='45.00' cy='275.00' r='8' fill='blue'/><circle cx='255.00' cy='275.00' r='8' fill='blue'/><circle cx='150.00' cy='30.00' r='8' fill='red'/></svg>
