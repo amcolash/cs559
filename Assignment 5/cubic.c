@@ -59,10 +59,14 @@ int main(int argc, char *argv[]) {
     q2.x = (1-t)*p2.x + t*p3.x;
     q2.y = (1-t)*p2.y + t*p3.y;
 
-    r0.x = (1-t)*q0.x + t*q1.x;
-    r0.y = (1-t)*q0.y + t*q1.y;
+    r0.x = pow((1-t),2)*q0.x + 2*t*(1-t)*q1.x + pow(t,2)*q2.x;
+    r0.y = pow((1-t),2)*q0.y + 2*t*(1-t)*q1.y + pow(t,2)*q2.y;
 
-    angle = 180 - (atan2(q1.x-q0.x, q1.y-q0.y) * (180 / 3.14159265));
+    if (t > 0.50) {
+      angle = 180 - (atan2(q2.x-q1.x, q2.y-q1.y) * (180 / 3.14159265));
+    } else {
+      angle = 180 - (atan2(q1.x-q0.x, q1.y-q0.y) * (180 / 3.14159265));
+    }
 
     sprintf(buffer, "<line x1='%.2f' y1='%2.f' x2='%.2f' y2='%.2f' stroke='#%d' stroke-width='1.5' />\n", q0.x, q0.y, q1.x, q1.y, color);
     fputs(buffer, outFile);
@@ -71,9 +75,9 @@ int main(int argc, char *argv[]) {
     fputs(buffer, outFile);
 
     sprintf(buffer, "<rect x='%.2f' y='%2.f' width='8' height='8' fill='orange' transform='rotate(%.2f %.2f %.2f)'/>\n", r0.x-4, r0.y-4, angle, r0.x, r0.y);
-    //fputs(buffer, outFile);
+    fputs(buffer, outFile);
 
-    printf("t: %.2f --- q0 = (%.2f, %.2f), q1 = (%.2f, %.2f), r0 = (%.2f, %.2f), angle = %.2f\n", t, q0.x, q0.y, q1.x, q1.y, r0.x, r0.y, angle);
+    printf("t: %.2f --- q0 = (%.2f, %.2f), q1 = (%.2f, %.2f), q2 = (%.2f, %.2f), r0 = (%.2f, %.2f), angle = %.2f\n", t, q0.x, q0.y, q1.x, q1.y, q2.x, q2.y, r0.x, r0.y, angle);
   }
 
   sprintf(buffer, "<path d='M%.2f,%.2f C%.25f,%.2f %.2f,%.2f, %.2f, %.2f' fill='none' stroke='black' stroke-width='2'/>", p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);

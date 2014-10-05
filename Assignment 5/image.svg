@@ -1,43 +1,34 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect x='0' y='0' width='300' height='300' fill='none' stroke='black' stroke-width='15'/><line x1='45.00' y1='150' x2='45.00' y2='25.00' stroke='#735' stroke-width='1.5' />
 <line x1='45.00' y1='25' x2='255.00' y2='275.00' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='144' x2='55.50' y2='37.50' stroke='#735' stroke-width='1.5' />
-<line x1='55.50' y1='38' x2='255.00' y2='268.75' stroke='#735' stroke-width='1.5' />
+<rect x='41.00' y='146' width='8' height='8' fill='orange' transform='rotate(-0.00 45.00 150.00)'/>
 <line x1='45.00' y1='138' x2='66.00' y2='50.00' stroke='#735' stroke-width='1.5' />
 <line x1='66.00' y1='50' x2='255.00' y2='262.50' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='131' x2='76.50' y2='62.50' stroke='#735' stroke-width='1.5' />
-<line x1='76.50' y1='62' x2='255.00' y2='256.25' stroke='#735' stroke-width='1.5' />
+<rect x='46.88' y='119' width='8' height='8' fill='orange' transform='rotate(13.50 50.88 123.00)'/>
 <line x1='45.00' y1='125' x2='87.00' y2='75.00' stroke='#735' stroke-width='1.5' />
 <line x1='87.00' y1='75' x2='255.00' y2='250.00' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='119' x2='97.50' y2='87.50' stroke='#735' stroke-width='1.5' />
-<line x1='97.50' y1='88' x2='255.00' y2='243.75' stroke='#735' stroke-width='1.5' />
+<rect x='62.84' y='110' width='8' height='8' fill='orange' transform='rotate(40.03 66.84 114.00)'/>
 <line x1='45.00' y1='112' x2='108.00' y2='100.00' stroke='#735' stroke-width='1.5' />
 <line x1='108.00' y1='100' x2='255.00' y2='237.50' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='106' x2='118.50' y2='112.50' stroke='#735' stroke-width='1.5' />
-<line x1='118.50' y1='113' x2='255.00' y2='231.25' stroke='#735' stroke-width='1.5' />
+<rect x='86.36' y='114' width='8' height='8' fill='orange' transform='rotate(78.78 90.36 118.50)'/>
 <line x1='45.00' y1='100' x2='129.00' y2='125.00' stroke='#735' stroke-width='1.5' />
 <line x1='129.00' y1='125' x2='255.00' y2='225.00' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='94' x2='139.50' y2='137.50' stroke='#735' stroke-width='1.5' />
-<line x1='139.50' y1='138' x2='255.00' y2='218.75' stroke='#735' stroke-width='1.5' />
-<line x1='45.00' y1='87' x2='150.00' y2='150.00' stroke='#375' stroke-width='1.5' />
+<rect x='114.92' y='128' width='8' height='8' fill='orange' transform='rotate(106.57 118.92 132.00)'/>
+<line x1='45.00' y1='88' x2='150.00' y2='150.00' stroke='#375' stroke-width='1.5' />
 <line x1='150.00' y1='150' x2='255.00' y2='212.50' stroke='#375' stroke-width='1.5' />
-<line x1='45.00' y1='81' x2='160.50' y2='162.50' stroke='#375' stroke-width='1.5' />
-<line x1='160.50' y1='163' x2='255.00' y2='206.25' stroke='#375' stroke-width='1.5' />
+<rect x='146.00' y='146' width='8' height='8' fill='orange' transform='rotate(120.76 150.00 150.00)'/>
 <line x1='45.00' y1='75' x2='171.00' y2='175.00' stroke='#375' stroke-width='1.5' />
 <line x1='171.00' y1='175' x2='255.00' y2='200.00' stroke='#375' stroke-width='1.5' />
-<line x1='45.00' y1='69' x2='181.50' y2='187.50' stroke='#375' stroke-width='1.5' />
-<line x1='181.50' y1='188' x2='255.00' y2='193.75' stroke='#375' stroke-width='1.5' />
+<rect x='177.08' y='164' width='8' height='8' fill='orange' transform='rotate(106.57 181.08 168.00)'/>
 <line x1='45.00' y1='62' x2='192.00' y2='200.00' stroke='#375' stroke-width='1.5' />
 <line x1='192.00' y1='200' x2='255.00' y2='187.50' stroke='#375' stroke-width='1.5' />
-<line x1='45.00' y1='56' x2='202.50' y2='212.50' stroke='#375' stroke-width='1.5' />
-<line x1='202.50' y1='213' x2='255.00' y2='181.25' stroke='#375' stroke-width='1.5' />
+<rect x='205.64' y='178' width='8' height='8' fill='orange' transform='rotate(78.78 209.64 181.50)'/>
 <line x1='45.00' y1='50' x2='213.00' y2='225.00' stroke='#375' stroke-width='1.5' />
 <line x1='213.00' y1='225' x2='255.00' y2='175.00' stroke='#375' stroke-width='1.5' />
-<line x1='45.00' y1='44' x2='223.50' y2='237.50' stroke='#375' stroke-width='1.5' />
-<line x1='223.50' y1='238' x2='255.00' y2='168.75' stroke='#375' stroke-width='1.5' />
+<rect x='229.16' y='182' width='8' height='8' fill='orange' transform='rotate(40.03 233.16 186.00)'/>
 <line x1='45.00' y1='37' x2='234.00' y2='250.00' stroke='#375' stroke-width='1.5' />
 <line x1='234.00' y1='250' x2='255.00' y2='162.50' stroke='#375' stroke-width='1.5' />
-<line x1='45.00' y1='31' x2='244.50' y2='262.50' stroke='#375' stroke-width='1.5' />
-<line x1='244.50' y1='263' x2='255.00' y2='156.25' stroke='#375' stroke-width='1.5' />
+<rect x='245.12' y='173' width='8' height='8' fill='orange' transform='rotate(13.50 249.12 177.00)'/>
 <line x1='45.00' y1='25' x2='255.00' y2='275.00' stroke='#375' stroke-width='1.5' />
 <line x1='255.00' y1='275' x2='255.00' y2='150.00' stroke='#375' stroke-width='1.5' />
+<rect x='251.00' y='146' width='8' height='8' fill='orange' transform='rotate(360.00 255.00 150.00)'/>
 <path d='M45.00,150.00 C45.0000000000000000000000000,25.00 255.00,275.00, 255.00, 150.00' fill='none' stroke='black' stroke-width='2'/><circle cx='45.00' cy='150.00' r='8' fill='blue'/><circle cx='255.00' cy='150.00' r='8' fill='blue'/><circle cx='45.00' cy='25.00' r='8' fill='red'/><circle cx='255.00' cy='275.00' r='8' fill='red'/></svg>
