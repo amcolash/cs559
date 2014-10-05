@@ -1,7 +1,7 @@
 CC = gcc
 args = -O -Wall -lm
 
-all:: testQuad
+all:: testCubic
 
 quad.o: quad.c
 	$(CC) $(args) -o quad.o quad.c
