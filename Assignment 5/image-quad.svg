@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect x='0' y='0' width='300' height='300' fill='none' stroke='black' stroke-width='15'/><rect x='36.00' y='271' width='8' height='8' fill='orange' transform='rotate(24.18 40.00 275.00)'/>
+<rect x='58.00' y='227' width='8' height='8' fill='orange' transform='rotate(29.30 62.00 230.90)'/>
+<rect x='80.00' y='193' width='8' height='8' fill='orange' transform='rotate(36.81 84.00 196.60)'/>
+<rect x='102.00' y='168' width='8' height='8' fill='orange' transform='rotate(48.30 106.00 172.10)'/>
+<rect x='124.00' y='153' width='8' height='8' fill='orange' transform='rotate(65.99 128.00 157.40)'/>
+<rect x='146.00' y='148' width='8' height='8' fill='orange' transform='rotate(90.00 150.00 152.50)'/>
+<rect x='168.00' y='153' width='8' height='8' fill='orange' transform='rotate(114.01 172.00 157.40)'/>
+<rect x='190.00' y='168' width='8' height='8' fill='orange' transform='rotate(131.70 194.00 172.10)'/>
+<rect x='212.00' y='193' width='8' height='8' fill='orange' transform='rotate(143.19 216.00 196.60)'/>
+<rect x='234.00' y='227' width='8' height='8' fill='orange' transform='rotate(150.70 238.00 230.90)'/>
+<rect x='256.00' y='271' width='8' height='8' fill='orange' transform='rotate(155.82 260.00 275.00)'/>
+<path d='M40.00,275.00 Q150.0000000000000000000000000,30.00 260.00,275.00' fill='none' stroke='black' stroke-width='2'/><circle cx='40.00' cy='275.00' r='8' fill='blue'/><circle cx='260.00' cy='275.00' r='8' fill='blue'/><circle cx='150.00' cy='30.00' r='8' fill='red'/></svg>
