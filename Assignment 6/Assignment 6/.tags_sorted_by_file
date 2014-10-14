@@ -1,0 +1,69 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+PI	a6_GL_Window.cpp	/^const float PI = 3.14159265f;$/;"	v
+a6_GL_window	a6_GL_Window.cpp	/^a6_GL_window::a6_GL_window(int x, int y, int w, int h, const char * name) : Fl_Gl_Window(x, y, w, h, name) {$/;"	f	class:a6_GL_window
+draw	a6_GL_Window.cpp	/^void a6_GL_window::draw() {$/;"	f	class:a6_GL_window
+drawBalloon	a6_GL_Window.cpp	/^void a6_GL_window::drawBalloon() {$/;"	f	class:a6_GL_window
+drawCube	a6_GL_Window.cpp	/^void a6_GL_window::drawCube() {$/;"	f	class:a6_GL_window
+drawDuck	a6_GL_Window.cpp	/^void a6_GL_window::drawDuck() {$/;"	f	class:a6_GL_window
+drawTriangle	a6_GL_Window.cpp	/^void a6_GL_window::drawTriangle() {$/;"	f	class:a6_GL_window
+initGL	a6_GL_Window.cpp	/^void a6_GL_window::initGL() {$/;"	f	class:a6_GL_window
+initTransforms	a6_GL_Window.cpp	/^void a6_GL_window::initTransforms() {$/;"	f	class:a6_GL_window
+lightsOff	a6_GL_Window.cpp	/^void a6_GL_window::lightsOff() {$/;"	f	class:a6_GL_window
+lightsOn	a6_GL_Window.cpp	/^void a6_GL_window::lightsOn() {$/;"	f	class:a6_GL_window
+q	a6_GL_Window.cpp	/^static GLUquadric * q = gluNewQuadric();$/;"	v	file:
+rotate	a6_GL_Window.cpp	/^void a6_GL_window::rotate(int x, int y, int z) {$/;"	f	class:a6_GL_window
+rotate_x	a6_GL_Window.cpp	/^void a6_GL_window::rotate_x(int theta) {$/;"	f	class:a6_GL_window
+rotate_y	a6_GL_Window.cpp	/^void a6_GL_window::rotate_y(int theta) {$/;"	f	class:a6_GL_window
+rotate_z	a6_GL_Window.cpp	/^void a6_GL_window::rotate_z(int theta) {$/;"	f	class:a6_GL_window
+setDrawBalloon	a6_GL_Window.cpp	/^void a6_GL_window::setDrawBalloon() {$/;"	f	class:a6_GL_window
+setDrawCube	a6_GL_Window.cpp	/^void a6_GL_window::setDrawCube() {$/;"	f	class:a6_GL_window
+setDrawDuck	a6_GL_Window.cpp	/^void a6_GL_window::setDrawDuck() {$/;"	f	class:a6_GL_window
+setDrawTri	a6_GL_Window.cpp	/^void a6_GL_window::setDrawTri() {$/;"	f	class:a6_GL_window
+va_indices	a6_GL_Window.cpp	/^std::vector<ivec3> a6_GL_window::va_indices;$/;"	m	class:a6_GL_window	file:
+va_normals	a6_GL_Window.cpp	/^std::vector<vec3> a6_GL_window::va_normals;$/;"	m	class:a6_GL_window	file:
+a6_GL_window	a6_GL_window.h	/^class a6_GL_window : public Fl_Gl_Window {$/;"	c
+angle_x	a6_GL_window.h	/^	int angle_x, angle_y, angle_z;$/;"	m	class:a6_GL_window
+angle_y	a6_GL_window.h	/^	int angle_x, angle_y, angle_z;$/;"	m	class:a6_GL_window
+angle_z	a6_GL_window.h	/^	int angle_x, angle_y, angle_z;$/;"	m	class:a6_GL_window
+displayListHandle	a6_GL_window.h	/^	int displayListHandle;$/;"	m	class:a6_GL_window
+draw_balloon	a6_GL_window.h	/^	bool draw_balloon;$/;"	m	class:a6_GL_window
+draw_cu	a6_GL_window.h	/^	bool draw_cu;$/;"	m	class:a6_GL_window
+draw_duck	a6_GL_window.h	/^	bool draw_duck;$/;"	m	class:a6_GL_window
+draw_tri	a6_GL_window.h	/^	bool draw_tri;$/;"	m	class:a6_GL_window
+firstDraw	a6_GL_window.h	/^    bool firstDraw;$/;"	m	class:a6_GL_window
+va_indices	a6_GL_window.h	/^	static std::vector<glm::ivec3> va_indices; \/\/array used to hold groups of points that form a single triangular piece of the overall balloon$/;"	m	class:a6_GL_window
+va_normals	a6_GL_window.h	/^	static std::vector<glm::vec3> va_normals;  \/\/array used to hold the normal to each point in space, used for light and shadow calculations$/;"	m	class:a6_GL_window
+va_vertices	a6_GL_window.h	/^	static std::vector<glm::vec3> va_vertices; \/\/array used to hold the points in space used to define the shape of a balloon$/;"	m	class:a6_GL_window
+a6_window	a6_window.cpp	/^a6_window::a6_window(int x, int y, int w, int h, const char * name) : Fl_Double_Window(x, y, w, h, name) {$/;"	f	class:a6_window
+damageMe	a6_window.cpp	/^void a6_window::damageMe() {$/;"	f	class:a6_window
+drawBalloon	a6_window.cpp	/^void a6_window::drawBalloon() {$/;"	f	class:a6_window
+drawCube	a6_window.cpp	/^void a6_window::drawCube() {$/;"	f	class:a6_window
+drawDuck	a6_window.cpp	/^void a6_window::drawDuck() {$/;"	f	class:a6_window
+drawTriangle	a6_window.cpp	/^void a6_window::drawTriangle() {$/;"	f	class:a6_window
+getCanvas	a6_window.cpp	/^a6_GL_window * a6_window::getCanvas() {$/;"	f	class:a6_window
+rotate_x	a6_window.cpp	/^void a6_window::rotate_x() {$/;"	f	class:a6_window
+rotate_y	a6_window.cpp	/^void a6_window::rotate_y() {$/;"	f	class:a6_window
+rotate_z	a6_window.cpp	/^void a6_window::rotate_z() {$/;"	f	class:a6_window
+a6_window	a6_window.h	/^class a6_window : public Fl_Double_Window {$/;"	c
+angle_x	a6_window.h	/^	Fl_Hor_Value_Slider * angle_x;$/;"	m	class:a6_window
+angle_y	a6_window.h	/^	Fl_Hor_Value_Slider * angle_y;$/;"	m	class:a6_window
+angle_z	a6_window.h	/^	Fl_Hor_Value_Slider * angle_z;$/;"	m	class:a6_window
+balloon	a6_window.h	/^	Fl_Button * balloon;$/;"	m	class:a6_window
+canvas	a6_window.h	/^	a6_GL_window * canvas;$/;"	m	class:a6_window
+cube	a6_window.h	/^	Fl_Button * cube;$/;"	m	class:a6_window
+duck	a6_window.h	/^	Fl_Button * duck;$/;"	m	class:a6_window
+triangle	a6_window.h	/^	Fl_Button * triangle;$/;"	m	class:a6_window
+widgets	a6_window.h	/^	Fl_Group * widgets;$/;"	m	class:a6_window
+draw_balloon_CB	callbacks.cpp	/^void draw_balloon_CB(Fl_Widget*, a6_window* w) {$/;"	f
+draw_cu_CB	callbacks.cpp	/^void draw_cu_CB(Fl_Widget*, a6_window* w) {$/;"	f
+draw_duck_CB	callbacks.cpp	/^void draw_duck_CB(Fl_Widget*, a6_window* w) {$/;"	f
+draw_tri_CB	callbacks.cpp	/^void draw_tri_CB(Fl_Widget*, a6_window* w) {$/;"	f
+rotate_x_CB	callbacks.cpp	/^void rotate_x_CB(Fl_Widget*, a6_window* w) {$/;"	f
+rotate_y_CB	callbacks.cpp	/^void rotate_y_CB(Fl_Widget*, a6_window* w) {$/;"	f
+rotate_z_CB	callbacks.cpp	/^void rotate_z_CB(Fl_Widget*, a6_window* w) {$/;"	f
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+main	main.cpp	/^int main(int argc, char * argv[]) {$/;"	f

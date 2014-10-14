@@ -11,4 +11,39 @@ Andrew McOlash
             Rot Y: 135
             Rot Z: 180
 
-2)  
+2)  In order to use z-x-z Euler coordinates, it would be necessary to change the
+    rotation functions defined in the a6_window.cpp file. There it would be
+    necessary to change both the actual fltk interface as well as the rotate
+    callback to reflect the new function that will be mad. Next change
+    a6_GL_Window.cpp around lines 18-28 to reflect the new rotations to take place.
+    At line 91, change the rotations to: rotate(angle_z1, angle_x, angle_z2);
+    Finally at line 108, change the transform gl functions to reflect the z-x-z
+    rotations.
+
+3)  damageMe() is a function that appears to mark the GL window as "dirty",
+    meaning that it is necessary for the window to be redrawn
+
+4)  To change the red side of the cube, change line 133 in a6_GL_Window.cpp
+    from glColor3f(1, 0, 0); to glColor3f(0, 0, 1);
+
+5)  In each of the glVertex2d function calls in a6_GL_Window.cpp on lines 119,
+    121, and 123, you would need to change the values to either smaller or larger
+    values - depending on what way you wanted to scale the triangle.
+
+6)  The glPushMatrix and glPopMatrix are necessary to use different transformation
+    matrices for different parts of the drawn object. This allows for creation
+    of non-unit sized objects that all have independent transformations.
+
+7)  It appears that the coordinate system set up is of unit length 1. This means
+    that all of the objects are drawn inside of the unit cube (device coordinates).
+
+8)  To draw all of the objects on top of each other, inside of the a6_GL_Window.cpp
+    file, it would be necessary to simply define a function that draws all of the
+    objects, i.e.
+
+    void a6_GL_Window::drawAll() {
+      drawTriangle();
+      drawCube();
+      drawDuck();
+      drawBalloon();
+    }
