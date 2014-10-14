@@ -1,0 +1,14 @@
+CS 559 - Assignment 6
+Andrew McOlash
+
+---------------------------------------------------------
+
+1)  Set 1:  Rot X: 45
+            Rot Y: 45
+            Rot Z: 0
+
+    Set 2:  Rot X: 225
+            Rot Y: 135
+            Rot Z: 180
+
+2)  
