@@ -95,6 +95,9 @@ void a6_GL_window::draw() {
 	}
 	else if (draw_cu) {
 		drawCube();
+		drawTriangle();
+		drawDuck();
+		drawBalloon();
 	}
 	else if (draw_duck) {
 		drawDuck();
