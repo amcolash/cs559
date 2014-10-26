@@ -241,22 +241,9 @@ void TrainView::drawStuff(bool doingShadows)
 			world->points[i].draw();
 		}
 	}
-	// draw the track
+
 	// TODO: call your own track drawing code
-  glBegin(GL_LINES);
-  // Loop through the points and draw each segment
-  for(size_t i = 0; i < world->points.size()-1; ++i) {
-    glVertex3f(world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
-    glVertex3f(world->points[i+1].pos.x, world->points[i+1].pos.y, world->points[i+1].pos.z);
-    printf("Point %d: (%f, %f, %f)\n", i, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
-  }
-  // Draw line between last and first points
-  glVertex3f(world->points[world->points.size() - 1].pos.x, world->points[world->points.size() - 1].pos.y, world->points[world->points.size()-1].pos.z);
-  glVertex3f(world->points[0].pos.x, world->points[0].pos.y, world->points[0].pos.z);
-
-  printf("\n");
-  glEnd();
-
+  drawTrack(doingShadows);
 #ifdef EXAMPLE_SOLUTION
 	drawTrack(this, doingShadows);
 #endif
@@ -319,6 +306,73 @@ void TrainView::doPick()
 		selectedCube = -1;
 
 	printf("Selected Cube %d\n",selectedCube);
+}
+
+void TrainView::drawTrack(bool doingShadows) {
+  if (!doingShadows) {
+    glColor3ub(100, 50, 0);
+  }
+
+  if (tw->splineBrowser->value() == 1 ) {
+
+    glBegin(GL_LINE_LOOP);
+    // Loop through the points and draw each segment
+    for (size_t i = 0; i < world->points.size(); ++i) {
+      glVertex3f(world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
+      printf("Point %d: (%f, %f, %f)\n", i, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
+    }
+
+    printf("\n");
+    glEnd();
+
+  }
+
+  if (tw->splineBrowser->value() == 2) {
+    float tension = 1;
+    int steps = 15;
+    glBegin(GL_LINE_LOOP);
+    // Loop through the points and draw each segment
+    for (size_t i = 0; i < world->points.size(); ++i) {
+      Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
+      Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
+      Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
+      Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
+      printf("P%d is using: (%d, %d) (%d, %d) (%d, %d) (%d, %d)\n", i, P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, P4.x, P4.y);
+
+      for (float t = 0; t < 1.0; t += (1.0 / steps)) {
+        float t2 = t*t;
+        float t3 = t*t*t;
+
+        float x = 0.5 *((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+          * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
+        float y = 0.5 *((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+          * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
+        float z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+          * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
+
+      /*
+        if (!doingShadows) {
+          float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+          float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+          float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+          glColor3f(r, g, b);
+        }
+      */
+          
+
+        glVertex3f(x, y, z);
+        //printf("Point %d[%d]: (%f, %f, %f)\n", i, t, x, y, z);
+      }
+    }
+
+    printf("\n");
+    glEnd();
+
+  }
+}
+
+void TrainView::drawTrain(bool doingShadows) {
+
 }
 
 // CVS Header - if you don't know what this is, don't worry about it

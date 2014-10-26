@@ -66,6 +66,10 @@ public:
 	// easy access to parent
 	TrainWindow* tw;
 	World* world;
+
+  // my drawing functions
+  void drawTrack(bool doingShadows);
+  void drawTrain(bool doingShadows);
 };
 
 
