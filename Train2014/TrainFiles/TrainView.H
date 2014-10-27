@@ -33,6 +33,9 @@ class World;
 // this uses the old ArcBall Code
 #include "Utilities/ArcBallCam.H"
 
+#include "Utilities/Pnt3f.H"
+#include <vector>
+
 // note that this mainly takes care of the drawing and other window
 // stuff
 class TrainView : public Fl_Gl_Window
@@ -70,6 +73,13 @@ public:
   // my drawing functions
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
+
+  // track points
+  std::vector<Pnt3f> trackPts;
+  // track directional vectors
+  std::vector<Pnt3f> trackDir;
+  // length of track
+  float trackLength;
 };
 
 
