@@ -56,6 +56,16 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		speed->align(FL_ALIGN_LEFT);
 		speed->type(FL_HORIZONTAL);
 
+    pty += 30;
+
+    // Position slider to control where the train is
+    train_pos = new Fl_Value_Slider(655, pty, 140, 20, "position");
+    train_pos->range(0, 1);
+    train_pos->value(0);
+    train_pos->align(FL_ALIGN_LEFT);
+    train_pos->type(FL_HORIZONTAL);
+    train_pos->callback((Fl_Callback*)damageCB, this);
+
 		pty += 30;
 
 		// camera buttons - in a radio button group
@@ -158,6 +168,8 @@ void TrainWindow::damageMe()
 // if the run button is pressed
 void TrainWindow::advanceTrain(float dir)
 {
+
+  train_pos->value( (double) fmod(train_pos->value() + 0.01, 1));
 	// TODO: make this work for your train
 #ifdef EXAMPLE_SOLUTION
 	// note - we give a little bit more example code here than normal,

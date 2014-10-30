@@ -67,6 +67,7 @@ public:
 	Fl_Button* runButton;
 	// if we're animating it, how fast should it go?
 	Fl_Value_Slider* speed;
+  Fl_Value_Slider* train_pos;
 	Fl_Button* arcLength;		// do we use arc length for speed?
 
 	// call this method when things change

@@ -344,18 +344,18 @@ void TrainView::drawTrack(bool doingShadows) {
       Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
       Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
 
-      for (float t = 0; t < 1.0; t += (1.0 / steps)) {
-        float t2 = t*t;
-        float t3 = t*t*t;
+      for (double t = 0; t < 1.0; t += (1.0 / steps)) {
+        double t2 = t*t;
+        double t3 = t*t*t;
 
-        float x = 0.5 *((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+        double x = 0.5 *((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
           * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
-        float y = 0.5 *((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+        double y = 0.5 *((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
           * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
-        float z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+        double z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
           * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
 
-        trackPts.push_back(Pnt3f(x, y, z));
+        trackPts.push_back(Pnt3f((float) x, (float) y, (float) z));
       }
     }
   }
@@ -377,63 +377,72 @@ void TrainView::drawTrack(bool doingShadows) {
       trackLength += temp;
     }
   }
+
   //printf("Track Length: %f\n", trackLength);
   glEnd();
 }
 
 void TrainView::drawTrain(bool doingShadows) {
   if (!doingShadows)
-    glColor3f(0.4, 0.4, 0.4);
-  
+    glColor3ub(30, 170, 30);
+
+  int size = 4;
+  int length = 3;
+
   glPushMatrix();
-  glTranslatef(50.0, 30.0, 20.0);
 
-  // FRONT
-  glBegin(GL_POLYGON);
-  glVertex3f(5.0, 5.0, -10.0);
-  glVertex3f(5.0, 15.0, -10.0);
-  glVertex3f(-5.0, 15.0, -10.0);
-  glVertex3f(-5.0, 5.0, -10.0);
-  glEnd();
+  float decpos = tw->train_pos->value() * trackPts.size()-1;
+  int pos = int(decpos + 0.5);
+  //printf("pos %d = %f * %f, points_size: %d\n", pos, tw->train_pos->value(), trackLength, trackPts.size());
+  glTranslatef(trackPts[pos].x, trackPts[pos].y, trackPts[pos].z);
   
-  // BACK
-  glBegin(GL_POLYGON);
-  glVertex3f(5.0, 5.0, 10.0);
-  glVertex3f(5.0, 15.0, 10.0);
-  glVertex3f(-5.0, 15.0, 10.0);
-  glVertex3f(-5.0, 5.0, 10.0);
-  glEnd();
+  printf("rot: %d\n", trackDir[pos].x);
+  //glRotatef(trackDir[pos].x, 1.0, 0, 0);
 
-  // RIGHT
-  glBegin(GL_POLYGON);
-  glVertex3f(5.0, 5.0, -10.0);
-  glVertex3f(5.0, 15.0, -10.0);
-  glVertex3f(5.0, 15.0, 10.0);
-  glVertex3f(5.0, 5.0, 10.0);
-  glEnd();
+  glBegin(GL_QUADS);
 
-  // LEFT
-  glBegin(GL_POLYGON);
-  glVertex3f(-5.0, 5.0, 10.0);
-  glVertex3f(-5.0, 15.0, 10.0);
-  glVertex3f(-5.0, 15.0, -10.0);
-  glVertex3f(-5.0, 5.0, -10.0);
-  glEnd();
+    // Front
+    glNormal3f(0, 0, 1);
+    glVertex3f(size, size, size);
+    glVertex3f(-size, size, size);
+    glVertex3f(-size, -size, size);
+    glVertex3f(size, -size, size);
 
-  // TOP
-  glBegin(GL_POLYGON);
-  glVertex3f(5.0, 15.0, 10.0);
-  glVertex3f(5.0, 15.0, -10.0);
-  glVertex3f(-5.0, 15.0, -10.0);
-  glVertex3f(-5.0, 15.0, 10.0);
-  glEnd();
+    // Back
+    glNormal3f(0, 0, -1);
+    glVertex3f(size, size, -size*length);
+    glVertex3f(size, -size, -size*length);
+    glVertex3f(-size, -size, -size*length);
+    glVertex3f(-size, size, -size*length);
 
-  // BOTTOM
-  glBegin(GL_POLYGON);
-  glVertex3f(5.0, 5.0, -10.0);
-  glVertex3f(5.0, 5.0, 10.0);
-  glVertex3f(-5.0, 5.0, 10.0);
-  glVertex3f(-5.0, 5.0, -10.0);
+    //Top
+    glNormal3f(0, 1, 0);
+    glVertex3f(size, size, size);
+    glVertex3f(-size, size, size);
+    glVertex3f(-size, size, -size*length);
+    glVertex3f(size, size, -size*length);
+
+    // Bottom
+    glNormal3f(0, -1, 0);
+    glVertex3f(size, -size, size);
+    glVertex3f(-size, -size, size);
+    glVertex3f(-size, -size, -size*length);
+    glVertex3f(size, -size, -size*length);
+
+    // Left Side
+    glNormal3f(1, 0, 0);
+    glVertex3f(size, size, size);
+    glVertex3f(size, -size, size);
+    glVertex3f(size, -size, -size*length);
+    glVertex3f(size, size, -size*length);
+
+    // Right Side
+    glNormal3f(-1, 0, 0);
+    glVertex3f(-size, size, size);
+    glVertex3f(-size, size, -size*length);
+    glVertex3f(-size, -size, -size*length);
+    glVertex3f(-size, -size, size);
+
   glEnd();
 
   glPopMatrix();
