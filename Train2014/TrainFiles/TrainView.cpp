@@ -322,7 +322,7 @@ void TrainView::drawTrack(bool doingShadows) {
     glColor3ub(100, 50, 0);
   }
 
-  int steps = 20;
+  float steps = 20.0;
 
   trackPts.resize(0);
   trackDir.resize(0);
@@ -371,9 +371,9 @@ void TrainView::drawTrack(bool doingShadows) {
         double zDir = 0.5 *((-P1.z + P3.z) + 2 * (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z) * t + 3
           * (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t2);
 
-        xDir = atan2f(yDir, zDir)* (180 / M_PI);
-        yDir = atan2f(xDir, zDir)* (180 / M_PI);
-        zDir = atan2f(xDir, yDir)* (180 / M_PI);
+        xDir = atan2f(yDir, zDir) * (180.0 / M_PI);
+        yDir = atan2f(xDir, zDir) * (180.0 / M_PI);
+        zDir = atan2f(xDir, yDir) * (180.0 / M_PI);
 
         trackPts.push_back(Pnt3f((float) x, (float) y, (float) z));
         trackDir.push_back(Pnt3f((float) xDir, (float) yDir, (float) zDir));
@@ -407,9 +407,6 @@ void TrainView::drawTrain(bool doingShadows) {
   if (!doingShadows)
     glColor3ub(30, 170, 30);
 
-  int size = 4;
-  int length = 3;
-
   glPushMatrix();
 
   float decpos = tw->train_pos->value() * trackPts.size()-1;
@@ -418,8 +415,12 @@ void TrainView::drawTrain(bool doingShadows) {
   
   glTranslatef(trackPts[pos].x, trackPts[pos].y, trackPts[pos].z);
   
-  //printf("(%d): %f, %f, %f\n", pos, trackDir[pos].x, trackDir[pos].y, trackDir[pos].z);
-  //glRotatef(trackDir[pos].z*3, 0, 1.0, 0);
+  //tw->world.train_angle = trackDir[pos].x;
+  printf("(%d): %f, %f, %f\n", pos, trackDir[pos].x, trackDir[pos].y, trackDir[pos].z);
+  //glRotatef(trackDir[pos].z, 0, 1.0, 0);
+
+  float size = 4;
+  float length = 3;
 
   glBegin(GL_QUADS);
 
