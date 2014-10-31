@@ -11,6 +11,9 @@
 
 #include <Fl/fl.h>
 
+#define _USE_MATH_DEFINES // for C++
+#include <math.h>
+
 // we will need OpenGL, and OpenGL needs windows.h
 #include <windows.h>
 #include "GL/gl.h"
@@ -319,6 +322,8 @@ void TrainView::drawTrack(bool doingShadows) {
     glColor3ub(100, 50, 0);
   }
 
+  int steps = 20;
+
   trackPts.resize(0);
   trackDir.resize(0);
   trackLength = 0;
@@ -327,15 +332,19 @@ void TrainView::drawTrack(bool doingShadows) {
   if (tw->splineBrowser->value() == 1) {
     // Loop through the points and draw each segment
     for (size_t i = 0; i < world->points.size(); ++i) {
-      Pnt3f P1 = world->points[i].pos;
-      Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
-      trackPts.push_back(P1);
+      for (float j = 0; j < steps; j++) {
+        Pnt3f P1 = world->points[i].pos;
+        Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
+        float x = P1.x * (1.0 - (j / steps)) + P2.x * (j / steps);
+        float y = P1.y * (1.0 - (j / steps)) + P2.y * (j / steps);
+        float z = P1.z * (1.0 - (j / steps)) + P2.z * (j / steps);
+        trackPts.push_back(Pnt3f(x, y, z));
+      }
     }
   }
 
   // If using cubic interpolation of points
   if (tw->splineBrowser->value() == 2) {
-    int steps = 15;
 
     // Loop through the points and draw each segment
     for (size_t i = 0; i < world->points.size(); ++i) {
@@ -355,7 +364,19 @@ void TrainView::drawTrack(bool doingShadows) {
         double z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
           * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
 
+        double xDir = 0.5 *((-P1.x + P3.x) + 2 * (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x) * t + 3
+          * (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t2);
+        double yDir = 0.5 *((-P1.y + P3.y) + 2 * (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y) * t + 3
+          * (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t2);
+        double zDir = 0.5 *((-P1.z + P3.z) + 2 * (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z) * t + 3
+          * (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t2);
+
+        xDir = atan2f(yDir, zDir)* (180 / M_PI);
+        yDir = atan2f(xDir, zDir)* (180 / M_PI);
+        zDir = atan2f(xDir, yDir)* (180 / M_PI);
+
         trackPts.push_back(Pnt3f((float) x, (float) y, (float) z));
+        trackDir.push_back(Pnt3f((float) xDir, (float) yDir, (float) zDir));
       }
     }
   }
@@ -370,7 +391,7 @@ void TrainView::drawTrack(bool doingShadows) {
     glVertex3f(P1.x, P1.y, P1.z);
     if (!doingShadows) {
       // Calculate velocity vector
-      trackDir.push_back(Pnt3f(P1.x - P2.x, P1.y - P2.y, P1.z - P2.z));
+      //trackDir.push_back(Pnt3f(P1.x - P2.x, P1.y - P2.y, P1.z - P2.z));
 
       // Figure out length of track segment
       float temp = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
@@ -394,10 +415,11 @@ void TrainView::drawTrain(bool doingShadows) {
   float decpos = tw->train_pos->value() * trackPts.size()-1;
   int pos = int(decpos + 0.5);
   //printf("pos %d = %f * %f, points_size: %d\n", pos, tw->train_pos->value(), trackLength, trackPts.size());
+  
   glTranslatef(trackPts[pos].x, trackPts[pos].y, trackPts[pos].z);
   
-  printf("rot: %d\n", trackDir[pos].x);
-  //glRotatef(trackDir[pos].x, 1.0, 0, 0);
+  //printf("(%d): %f, %f, %f\n", pos, trackDir[pos].x, trackDir[pos].y, trackDir[pos].z);
+  //glRotatef(trackDir[pos].z*3, 0, 1.0, 0);
 
   glBegin(GL_QUADS);
 

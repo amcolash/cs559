@@ -29,6 +29,7 @@ void resetCB(Fl_Widget*, TrainWindow* tw)
 	tw->trainView->selectedCube = -1;
 	tw->world.trainU = 0;
 	tw->damageMe();
+  tw->train_pos->value(0);
 }
 
 // any time something changes, you need to force a redraw

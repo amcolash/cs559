@@ -52,7 +52,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		pty+=25;
 		speed = new Fl_Value_Slider(655,pty,140,20,"speed");
 		speed->range(0,5);
-		speed->value(2);
+		speed->value(1);
 		speed->align(FL_ALIGN_LEFT);
 		speed->type(FL_HORIZONTAL);
 
@@ -97,7 +97,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		splineBrowser->callback((Fl_Callback*)damageCB,this);
 		splineBrowser->add("Linear");
 		splineBrowser->add("Cardinal Cubic");
-		splineBrowser->add("Cubic B-Spline");
+		//splineBrowser->add("Cubic B-Spline");
 		splineBrowser->select(2);
 
 		pty += 110;
@@ -169,7 +169,7 @@ void TrainWindow::damageMe()
 void TrainWindow::advanceTrain(float dir)
 {
 
-  train_pos->value( (double) fmod(train_pos->value() + 0.01, 1));
+  train_pos->value( (double) fmod(train_pos->value() + (0.01 * speed->value()), 1));
 	// TODO: make this work for your train
 #ifdef EXAMPLE_SOLUTION
 	// note - we give a little bit more example code here than normal,

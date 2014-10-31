@@ -38,6 +38,7 @@ public:		// we don't make anything private - for no good reason
 	// it is in parameter space
 	// TODO: you might want to do this differently
 	float trainU;
+  float train_angle;
 
 	// read and write to files
 	void readPoints(const char* filename);
