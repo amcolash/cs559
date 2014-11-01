@@ -338,6 +338,7 @@ void TrainView::drawTrack(bool doingShadows) {
         float x = P1.x * (1.0 - (j / steps)) + P2.x * (j / steps);
         float y = P1.y * (1.0 - (j / steps)) + P2.y * (j / steps);
         float z = P1.z * (1.0 - (j / steps)) + P2.z * (j / steps);
+
         trackPts.push_back(Pnt3f(x, y, z));
       }
     }
@@ -364,19 +365,7 @@ void TrainView::drawTrack(bool doingShadows) {
         double z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
           * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
 
-        double xDir = 0.5 *((-P1.x + P3.x) + 2 * (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x) * t + 3
-          * (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t2);
-        double yDir = 0.5 *((-P1.y + P3.y) + 2 * (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y) * t + 3
-          * (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t2);
-        double zDir = 0.5 *((-P1.z + P3.z) + 2 * (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z) * t + 3
-          * (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t2);
-
-        xDir = atan2f(yDir, zDir) * (180.0 / M_PI);
-        yDir = atan2f(xDir, zDir) * (180.0 / M_PI);
-        zDir = atan2f(xDir, yDir) * (180.0 / M_PI);
-
         trackPts.push_back(Pnt3f((float) x, (float) y, (float) z));
-        trackDir.push_back(Pnt3f((float) xDir, (float) yDir, (float) zDir));
       }
     }
   }
@@ -386,6 +375,11 @@ void TrainView::drawTrack(bool doingShadows) {
   for (unsigned i = 0; i < trackPts.size(); i++) {
     Pnt3f P1 = trackPts[i];
     Pnt3f P2 = trackPts[(i + 1) % trackPts.size()];
+
+    float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
+    float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
+    float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
+    trackDir.push_back(Pnt3f(xDir, yDir, zDir));
 
     // Add to OpenGL Line
     glVertex3f(P1.x, P1.y, P1.z);
@@ -404,25 +398,25 @@ void TrainView::drawTrack(bool doingShadows) {
 }
 
 void TrainView::drawTrain(bool doingShadows) {
-  if (!doingShadows)
-    glColor3ub(30, 170, 30);
 
   glPushMatrix();
+
+  float size = 4;
+  float length = 3;
 
   float decpos = tw->train_pos->value() * trackPts.size()-1;
   int pos = int(decpos + 0.5);
   //printf("pos %d = %f * %f, points_size: %d\n", pos, tw->train_pos->value(), trackLength, trackPts.size());
   
-  glTranslatef(trackPts[pos].x, trackPts[pos].y, trackPts[pos].z);
+  glTranslatef(trackPts[pos].x, trackPts[pos].y + size, trackPts[pos].z);
   
   //tw->world.train_angle = trackDir[pos].x;
-  printf("(%d): %f, %f, %f\n", pos, trackDir[pos].x, trackDir[pos].y, trackDir[pos].z);
-  //glRotatef(trackDir[pos].z, 0, 1.0, 0);
-
-  float size = 4;
-  float length = 3;
+  glRotatef(trackDir[pos].y, 0, 1.0, 0);
 
   glBegin(GL_QUADS);
+
+    if (!doingShadows)
+      glColor3ub(30, 30, 170);
 
     // Front
     glNormal3f(0, 0, 1);
@@ -430,6 +424,9 @@ void TrainView::drawTrain(bool doingShadows) {
     glVertex3f(-size, size, size);
     glVertex3f(-size, -size, size);
     glVertex3f(size, -size, size);
+
+    if (!doingShadows)
+      glColor3ub(30, 170, 30);
 
     // Back
     glNormal3f(0, 0, -1);
