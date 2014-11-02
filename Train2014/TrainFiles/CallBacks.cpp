@@ -77,12 +77,12 @@ void deletePointCB(Fl_Widget*, TrainWindow* tw)
 // Callbacks for advancing/pulling back train
 void forwCB(Fl_Widget*, TrainWindow* tw)
 {
-	tw->advanceTrain(2);
+	tw->advanceTrain(0.01);
 	tw->damageMe();
 }
 void backCB(Fl_Widget*, TrainWindow* tw)
 {
-	tw->advanceTrain(-2);
+	tw->advanceTrain(-0.01);
 	tw->damageMe();
 }
 
@@ -100,7 +100,7 @@ void runButtonCB(TrainWindow* tw)
 	if (tw->runButton->value()) {	// only advance time if appropriate
 		if (clock() - lastRedraw > CLOCKS_PER_SEC/30) {
 			lastRedraw = clock();
-			tw->advanceTrain();
+			tw->advanceTrain(0.01);
 			tw->damageMe();
 		}
 	}

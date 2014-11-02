@@ -370,6 +370,8 @@ void TrainView::drawTrack(bool doingShadows) {
     }
   }
 
+  glLineWidth(3.0);
+
   glBegin(GL_LINE_LOOP);
 
   for (unsigned i = 0; i < trackPts.size(); i++) {
@@ -410,8 +412,10 @@ void TrainView::drawTrain(bool doingShadows) {
   
   glTranslatef(trackPts[pos].x, trackPts[pos].y + size, trackPts[pos].z);
   
-  //tw->world.train_angle = trackDir[pos].x;
+  // rotate the train around the y axis (change in xz)
   glRotatef(trackDir[pos].y, 0, 1.0, 0);
+
+  //glRotatef(trackDir[pos].x, 1.0, 0, 0);
 
   glBegin(GL_QUADS);
 

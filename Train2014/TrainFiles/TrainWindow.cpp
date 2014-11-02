@@ -168,8 +168,14 @@ void TrainWindow::damageMe()
 // if the run button is pressed
 void TrainWindow::advanceTrain(float dir)
 {
+  float value = fmodf(train_pos->value() + dir * speed->value(), 1.0);
+  if (value < 0)
+    value += 1.0;
 
-  train_pos->value( (double) fmod(train_pos->value() + (0.01 * speed->value()), 1));
+  printf("value: %f\n", value);
+
+  train_pos->value ( (double) value );
+
 	// TODO: make this work for your train
 #ifdef EXAMPLE_SOLUTION
 	// note - we give a little bit more example code here than normal,
