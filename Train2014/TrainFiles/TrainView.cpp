@@ -333,15 +333,14 @@ void TrainView::drawTrack(bool doingShadows) {
     float pointLength = 0;
 
     for (float t = 0; t <= 1.0; t += 0.05) {
-      Pnt3f P1 = genPoint(i, t, 0);
-      Pnt3f P2 = genPoint(i, t + 0.01, 0);
+      Pnt3f P1 = genPoint(i, t, 0, 0);
+      Pnt3f P2 = genPoint(i, t + 0.01, 0, 0);
       glVertex3f(P1.x, P1.y, P1.z);
 
       float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
 
       pointLength += tempLength;
       trackLength += tempLength;
-
       arcPoint temp;
       temp.lowDist = trackLength;
       temp.point = i;
@@ -350,10 +349,9 @@ void TrainView::drawTrack(bool doingShadows) {
     }
 
     world->points[i].length = pointLength;
+    //printf("control point(%d): (%f, %f, %f) %f\n", i, pointLength, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
   }
   glEnd();
-
-  printf("%f\n", trackLength);
 
   /*
   // Find arc length parameterized segments
@@ -421,7 +419,7 @@ void TrainView::drawTrain(bool doingShadows) {
 
   int i = tw->train_pos->value() * world->points.size();
   float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
-  Pnt3f temp = genPoint(i, t, 1);
+  Pnt3f temp = genPoint(i, t, 1, 0);
 
   glTranslatef(temp.x, temp.y + size, temp.z);
   glRotatef(genDir(i, t).y, 0, 1.0, 0);
@@ -429,6 +427,82 @@ void TrainView::drawTrain(bool doingShadows) {
   train_geom(doingShadows, size, length);
 
   glPopMatrix();
+}
+
+Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
+  double x, y, z;
+  
+  if (tw->arcLength->value() && arc == 1) {
+    float dist = tw->train_pos->value() * trackLength;
+
+    if (special == 1)
+      dist = (tw->train_pos->value() + 0.01) * trackLength;
+
+    for (int j = 0; j < arcTable.size(); j++) {
+      if (arcTable[j].lowDist >= dist) {
+        int point = arcTable[j].point;
+        printf("j: %d, found point (%d), dist: %f, current: %d\n", j, point, dist, i);
+        
+        float prevLength = 0;
+        for (int k = 0; k < arcTable[j].point; k++) {
+          prevLength += world->points[k].length;
+        }
+
+        float u = (dist - prevLength) / world->points[point].length;
+        //printf("dist - prev / ptLength = u: %f - %f / %f = %f\n", dist, prevLength, world->points[point].length, u);
+        t = u;
+
+        if (u >= 0.99)
+          u = 0.99;
+        i = point;
+        break;
+        
+      }
+    }
+
+  }
+  
+  if (tw->splineBrowser->value() == 1) {
+    Pnt3f P1 = world->points[(i) % (world->points.size())].pos;
+    Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
+
+    x = (1.0 - t) * P1.x + t * P2.x;
+    y = (1.0 - t) * P1.y + t * P2.y;
+    z = (1.0 - t) * P1.z + t * P2.z;
+  } else {
+    Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
+    Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
+    Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
+    Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
+
+    double t2 = t*t;
+    double t3 = t*t*t;
+
+    x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+      * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
+    y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+      * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
+    z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+      * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
+  }
+
+  return Pnt3f((float)x, (float)y, (float)z);
+}
+
+Pnt3f TrainView::genDir(int i, float t) {
+  printf("rot: ");
+  Pnt3f P1 = genPoint(i, t, 1, 0);
+  printf("rot: ");
+  Pnt3f P2 = genPoint(i, t + 0.01, 1, 1);
+
+  float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
+  float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
+  float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
+
+  //printf("(%f, %f, %f), (%f, %f, %f)\n", P1.x, P1.y, P1.z, P2.x, P2.y, P2.z);
+  //printf("x: %f, y: %f, z: %f\n", xDir, yDir, zDir);
+
+  return Pnt3f(xDir, yDir, zDir);
 }
 
 void TrainView::train_geom(bool doingShadows, float size, float length) {
@@ -484,66 +558,6 @@ void TrainView::train_geom(bool doingShadows, float size, float length) {
 
   glEnd();
 }
-
-Pnt3f TrainView::genPoint(int i, float t, int arc) {
-  double x, y, z;
-
-  printf("%d\n", arcTable.size());
-  
-  
-  if (tw->arcLength->value() && arc == 1) {
-    for (int i = 0; i < arcTable.size(); i++) {
-      int a;
-    }
-
-  }
-  
-  
-  if (tw->splineBrowser->value() == 1) {
-    Pnt3f P1 = world->points[(i) % (world->points.size())].pos;
-    Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
-
-    x = (1.0 - t) * P1.x + t * P2.x;
-    y = (1.0 - t) * P1.y + t * P2.y;
-    z = (1.0 - t) * P1.z + t * P2.z;
-  } else {
-    Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
-    Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
-    Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
-    Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
-
-    double t2 = t*t;
-    double t3 = t*t*t;
-
-    x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
-      * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
-    y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
-      * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
-    z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
-      * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
-  }
-
-  return Pnt3f((float)x, (float)y, (float)z);
-}
-
-Pnt3f TrainView::genDir(int i, float t) {
-  Pnt3f P1, P2;
-
-  if (tw->splineBrowser->value() == 1) {
-    P1 = world->points[(i) % (world->points.size())].pos;
-    P2 = world->points[(i + 1) % (world->points.size())].pos;
-  } else {
-    P1 = genPoint(i, t, 1);
-    P2 = genPoint(i, t + 0.01, 1);
-  }
-
-  float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
-  float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
-  float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
-
-  return Pnt3f(xDir, yDir, zDir);
-}
-
 
 // CVS Header - if you don't know what this is, don't worry about it
 // This code tells us where the original came from in CVS

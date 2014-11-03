@@ -18,7 +18,7 @@ public:
 	Pnt3f pos;
 	Pnt3f orient;
 
-  int length;
+  float length;
 
 	// constructors
 	ControlPoint();					// need a default constructor for making arrays
