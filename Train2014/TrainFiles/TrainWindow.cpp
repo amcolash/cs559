@@ -50,7 +50,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		togglify(arcLength,1);
   
 		pty+=25;
-		speed = new Fl_Value_Slider(655,pty,140,20,"speed");
+		speed = new Fl_Value_Slider(655,pty,140,20,"Speed");
 		speed->range(0,5);
 		speed->value(1);
 		speed->align(FL_ALIGN_LEFT);
@@ -59,7 +59,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     pty += 30;
 
     // Position slider to control where the train is
-    train_pos = new Fl_Value_Slider(655, pty, 140, 20, "position");
+    train_pos = new Fl_Value_Slider(655, pty, 140, 20, "Position");
     train_pos->range(0, 1);
     train_pos->value(0);
     train_pos->align(FL_ALIGN_LEFT);

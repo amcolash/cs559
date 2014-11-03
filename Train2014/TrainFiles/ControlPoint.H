@@ -18,6 +18,8 @@ public:
 	Pnt3f pos;
 	Pnt3f orient;
 
+  int length;
+
 	// constructors
 	ControlPoint();					// need a default constructor for making arrays
 	ControlPoint(const Pnt3f& pos);	// create in a position

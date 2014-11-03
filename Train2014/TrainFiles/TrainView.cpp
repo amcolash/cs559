@@ -324,13 +324,14 @@ void TrainView::drawTrack(bool doingShadows) {
 
   float steps = 20.0;
 
+  // Clear previous track and recompute
   trackPts.resize(0);
-  trackDir.resize(0);
+  trackArc.resize(0);
   trackLength = 0;
 
   // If using linear interpolation of points
   if (tw->splineBrowser->value() == 1) {
-    // Loop through the points and draw each segment
+    // Loop through the points and calculate each segment
     for (size_t i = 0; i < world->points.size(); ++i) {
       for (float j = 0; j < steps; j++) {
         Pnt3f P1 = world->points[i].pos;
@@ -339,7 +340,13 @@ void TrainView::drawTrack(bool doingShadows) {
         float y = P1.y * (1.0 - (j / steps)) + P2.y * (j / steps);
         float z = P1.z * (1.0 - (j / steps)) + P2.z * (j / steps);
 
-        trackPts.push_back(Pnt3f(x, y, z));
+        // Make new point for the track
+        trackPoint temp;
+        temp.pos = (Pnt3f((float)x, (float)y, (float)z));
+        temp.u = j;
+        temp.parent = world->points[i];
+
+        trackPts.push_back(temp);
       }
     }
   }
@@ -347,8 +354,9 @@ void TrainView::drawTrack(bool doingShadows) {
   // If using cubic interpolation of points
   if (tw->splineBrowser->value() == 2) {
 
-    // Loop through the points and draw each segment
+    // Loop through the points and calculate each segment
     for (size_t i = 0; i < world->points.size(); ++i) {
+
       Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
       Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
       Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
@@ -358,118 +366,197 @@ void TrainView::drawTrack(bool doingShadows) {
         double t2 = t*t;
         double t3 = t*t*t;
 
-        double x = 0.5 *((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+        double x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
           * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
-        double y = 0.5 *((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+        double y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
           * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
-        double z = 0.5 *((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+        double z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
           * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
 
-        trackPts.push_back(Pnt3f((float) x, (float) y, (float) z));
+        // Make new point for the track
+        trackPoint temp;
+        temp.pos = (Pnt3f((float)x, (float)y, (float)z));
+        temp.u = t;
+        temp.point = i;
+        temp.parent = world->points[i];
+
+        trackPts.push_back(temp);
       }
     }
   }
 
+  // Compute rotations and draw final lines
   glLineWidth(3.0);
-
   glBegin(GL_LINE_LOOP);
 
   for (unsigned i = 0; i < trackPts.size(); i++) {
-    Pnt3f P1 = trackPts[i];
-    Pnt3f P2 = trackPts[(i + 1) % trackPts.size()];
+    Pnt3f P1 = trackPts[i].pos;
+    Pnt3f P2 = trackPts[(i + 1) % trackPts.size()].pos;
 
     float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
     float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
     float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
-    trackDir.push_back(Pnt3f(xDir, yDir, zDir));
+
+    trackPts[i].dir.x = xDir;
+    trackPts[i].dir.y = yDir;
+    trackPts[i].dir.z = zDir;
 
     // Add to OpenGL Line
     glVertex3f(P1.x, P1.y, P1.z);
-    if (!doingShadows) {
-      // Calculate velocity vector
-      //trackDir.push_back(Pnt3f(P1.x - P2.x, P1.y - P2.y, P1.z - P2.z));
 
-      // Figure out length of track segment
+    // Figure out length of track segment
+    if (!doingShadows) {
       float temp = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
       trackLength += temp;
+      trackPts[i].dist = trackLength;
+      world->points[trackPts[i].point].length += temp;
     }
   }
+  glEnd();
 
   //printf("Track Length: %f\n", trackLength);
-  glEnd();
+
+  // Find arc length parameterized segments
+  if (tw->arcLength->value()) {
+
+    // TEMPORARY
+    trackArc = trackPts;
+
+    if (false) {
+
+      for (unsigned i = 0; i < trackPts.size(); i++) {
+        float length = ((float)i / trackPts.size()) * trackLength;
+        float u = length / trackLength;
+        float prevLength = 0;
+
+        printf("length: %f, u: %f\n", length, u);
+
+        for (unsigned j = 0; j < trackPts.size(); j++) {
+          if (trackPts[j].dist >= length) {
+            //printf("i: %d, len: %f, u: %f, segment point: %d\n", i, length, u, j);
+            int ctrlPt = trackPts[j].point;
+
+            Pnt3f P1 = world->points[(ctrlPt - 1) % (world->points.size())].pos;
+            Pnt3f P2 = world->points[(ctrlPt) % (world->points.size())].pos;
+            Pnt3f P3 = world->points[(ctrlPt + 1) % (world->points.size())].pos;
+            Pnt3f P4 = world->points[(ctrlPt + 2) % (world->points.size())].pos;
+
+            float t = (length - prevLength) / world->points[(ctrlPt) % (world->points.size())].length;
+
+            double t2 = t*t;
+            double t3 = t*t*t;
+
+            double x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+              * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
+            double y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+              * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
+            double z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+              * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
+
+            // Make new point for the track
+            trackPoint temp;
+            temp.pos = (Pnt3f((float)x, (float)y, (float)z));
+            temp.u = t;
+
+            trackArc.push_back(temp);
+
+            break;
+          }
+        }
+      }
+
+    } // IF
+
+
+  }
+
 }
 
 void TrainView::drawTrain(bool doingShadows) {
-
-  glPushMatrix();
-
   float size = 4;
   float length = 3;
 
-  float decpos = tw->train_pos->value() * trackPts.size()-1;
-  int pos = int(decpos + 0.5);
   //printf("pos %d = %f * %f, points_size: %d\n", pos, tw->train_pos->value(), trackLength, trackPts.size());
+
+  glPushMatrix();
+
+  // If not using arc-length parameterization
+  if (!tw->arcLength->value()) {
+    float decpos = tw->train_pos->value() * trackPts.size() - 1;
+    int pos = int(decpos + 0.5);
+    // move train to non-arclength position
+    glTranslatef(trackPts[pos].pos.x, trackPts[pos].pos.y + size, trackPts[pos].pos.z);
+    // rotate the train around the y axis (change in xz)
+    glRotatef(trackPts[pos].dir.y, 0, 1.0, 0);
+  } else {    
+    //printf("now attempting to translate\n");
+    float decpos = tw->train_pos->value() * trackArc.size() - 1;
+    int pos = int(decpos + 0.5);
+
+    printf("now trying to translate using pos %d\n", pos);
+
+    // Using arc length parameterization
+    glTranslatef(trackArc[pos].pos.x, trackArc[pos].pos.y + size, trackArc[pos].pos.z);
   
-  glTranslatef(trackPts[pos].x, trackPts[pos].y + size, trackPts[pos].z);
+  }
   
-  // rotate the train around the y axis (change in xz)
-  glRotatef(trackDir[pos].y, 0, 1.0, 0);
-
-  //glRotatef(trackDir[pos].x, 1.0, 0, 0);
-
-  glBegin(GL_QUADS);
-
-    if (!doingShadows)
-      glColor3ub(30, 30, 170);
-
-    // Front
-    glNormal3f(0, 0, 1);
-    glVertex3f(size, size, size);
-    glVertex3f(-size, size, size);
-    glVertex3f(-size, -size, size);
-    glVertex3f(size, -size, size);
-
-    if (!doingShadows)
-      glColor3ub(30, 170, 30);
-
-    // Back
-    glNormal3f(0, 0, -1);
-    glVertex3f(size, size, -size*length);
-    glVertex3f(size, -size, -size*length);
-    glVertex3f(-size, -size, -size*length);
-    glVertex3f(-size, size, -size*length);
-
-    //Top
-    glNormal3f(0, 1, 0);
-    glVertex3f(size, size, size);
-    glVertex3f(-size, size, size);
-    glVertex3f(-size, size, -size*length);
-    glVertex3f(size, size, -size*length);
-
-    // Bottom
-    glNormal3f(0, -1, 0);
-    glVertex3f(size, -size, size);
-    glVertex3f(-size, -size, size);
-    glVertex3f(-size, -size, -size*length);
-    glVertex3f(size, -size, -size*length);
-
-    // Left Side
-    glNormal3f(1, 0, 0);
-    glVertex3f(size, size, size);
-    glVertex3f(size, -size, size);
-    glVertex3f(size, -size, -size*length);
-    glVertex3f(size, size, -size*length);
-
-    // Right Side
-    glNormal3f(-1, 0, 0);
-    glVertex3f(-size, size, size);
-    glVertex3f(-size, size, -size*length);
-    glVertex3f(-size, -size, -size*length);
-    glVertex3f(-size, -size, size);
-
-  glEnd();
+  train_geom(doingShadows, size, length);
 
   glPopMatrix();
+}
+
+void TrainView::train_geom(bool doingShadows, float size, float length) {
+  glBegin(GL_QUADS);
+
+  if (!doingShadows)
+    glColor3ub(30, 30, 170);
+
+  // Front
+  glNormal3f(0, 0, 1);
+  glVertex3f(size, size, size);
+  glVertex3f(-size, size, size);
+  glVertex3f(-size, -size, size);
+  glVertex3f(size, -size, size);
+
+  if (!doingShadows)
+    glColor3ub(30, 170, 30);
+
+  // Back
+  glNormal3f(0, 0, -1);
+  glVertex3f(size, size, -size*length);
+  glVertex3f(size, -size, -size*length);
+  glVertex3f(-size, -size, -size*length);
+  glVertex3f(-size, size, -size*length);
+
+  //Top
+  glNormal3f(0, 1, 0);
+  glVertex3f(size, size, size);
+  glVertex3f(-size, size, size);
+  glVertex3f(-size, size, -size*length);
+  glVertex3f(size, size, -size*length);
+
+  // Bottom
+  glNormal3f(0, -1, 0);
+  glVertex3f(size, -size, size);
+  glVertex3f(-size, -size, size);
+  glVertex3f(-size, -size, -size*length);
+  glVertex3f(size, -size, -size*length);
+
+  // Left Side
+  glNormal3f(1, 0, 0);
+  glVertex3f(size, size, size);
+  glVertex3f(size, -size, size);
+  glVertex3f(size, -size, -size*length);
+  glVertex3f(size, size, -size*length);
+
+  // Right Side
+  glNormal3f(-1, 0, 0);
+  glVertex3f(-size, size, size);
+  glVertex3f(-size, size, -size*length);
+  glVertex3f(-size, -size, -size*length);
+  glVertex3f(-size, -size, size);
+
+  glEnd();
 }
 
 // CVS Header - if you don't know what this is, don't worry about it

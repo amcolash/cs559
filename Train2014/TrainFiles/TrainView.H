@@ -34,7 +34,17 @@ class World;
 #include "Utilities/ArcBallCam.H"
 
 #include "Utilities/Pnt3f.H"
+#include "ControlPoint.H"
 #include <vector>
+
+typedef struct {
+  Pnt3f pos;
+  Pnt3f dir;
+  float u;
+  float dist;
+  int point;
+  ControlPoint parent;
+} trackPoint;
 
 // note that this mainly takes care of the drawing and other window
 // stuff
@@ -74,12 +84,16 @@ public:
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
 
+  void train_geom(bool doingShadows, float size, float length);
+
   // track points
-  std::vector<Pnt3f> trackPts;
-  // track directional vectors
-  std::vector<Pnt3f> trackDir;
+  std::vector<trackPoint> trackPts;
+  // track points for arc length version
+  std::vector<trackPoint> trackArc;
   // length of track
   float trackLength;
+
+
 };
 
 
