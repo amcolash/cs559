@@ -38,13 +38,10 @@ class World;
 #include <vector>
 
 typedef struct {
-  Pnt3f pos;
-  Pnt3f dir;
-  float u;
-  float dist;
+  float lowDist;
+  float highDist;
   int point;
-  ControlPoint parent;
-} trackPoint;
+} arcPoint;
 
 // note that this mainly takes care of the drawing and other window
 // stuff
@@ -85,14 +82,13 @@ public:
   void drawTrain(bool doingShadows);
 
   void train_geom(bool doingShadows, float size, float length);
+  Pnt3f genPoint(int i, float t, int arc);
+  Pnt3f genDir(int i, float t);
 
-  // track points
-  std::vector<trackPoint> trackPts;
   // track points for arc length version
-  std::vector<trackPoint> trackArc;
+  std::vector<arcPoint> arcTable;
   // length of track
   float trackLength;
-
 
 };
 

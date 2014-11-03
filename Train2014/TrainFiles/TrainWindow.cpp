@@ -172,7 +172,7 @@ void TrainWindow::advanceTrain(float dir)
   if (value < 0)
     value += 1.0;
 
-  printf("value: %f\n", value);
+  //printf("value: %f\n", value);
 
   train_pos->value ( (double) value );
 

@@ -322,100 +322,40 @@ void TrainView::drawTrack(bool doingShadows) {
     glColor3ub(100, 50, 0);
   }
 
-  float steps = 20.0;
-
-  // Clear previous track and recompute
-  trackPts.resize(0);
-  trackArc.resize(0);
+  arcTable.resize(0);
   trackLength = 0;
 
-  // If using linear interpolation of points
-  if (tw->splineBrowser->value() == 1) {
-    // Loop through the points and calculate each segment
-    for (size_t i = 0; i < world->points.size(); ++i) {
-      for (float j = 0; j < steps; j++) {
-        Pnt3f P1 = world->points[i].pos;
-        Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
-        float x = P1.x * (1.0 - (j / steps)) + P2.x * (j / steps);
-        float y = P1.y * (1.0 - (j / steps)) + P2.y * (j / steps);
-        float z = P1.z * (1.0 - (j / steps)) + P2.z * (j / steps);
-
-        // Make new point for the track
-        trackPoint temp;
-        temp.pos = (Pnt3f((float)x, (float)y, (float)z));
-        temp.u = j;
-        temp.parent = world->points[i];
-
-        trackPts.push_back(temp);
-      }
-    }
-  }
-
-  // If using cubic interpolation of points
-  if (tw->splineBrowser->value() == 2) {
-
-    // Loop through the points and calculate each segment
-    for (size_t i = 0; i < world->points.size(); ++i) {
-
-      Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
-      Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
-      Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
-      Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
-
-      for (double t = 0; t < 1.0; t += (1.0 / steps)) {
-        double t2 = t*t;
-        double t3 = t*t*t;
-
-        double x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
-          * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
-        double y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
-          * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
-        double z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
-          * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
-
-        // Make new point for the track
-        trackPoint temp;
-        temp.pos = (Pnt3f((float)x, (float)y, (float)z));
-        temp.u = t;
-        temp.point = i;
-        temp.parent = world->points[i];
-
-        trackPts.push_back(temp);
-      }
-    }
-  }
-
-  // Compute rotations and draw final lines
   glLineWidth(3.0);
   glBegin(GL_LINE_LOOP);
 
-  for (unsigned i = 0; i < trackPts.size(); i++) {
-    Pnt3f P1 = trackPts[i].pos;
-    Pnt3f P2 = trackPts[(i + 1) % trackPts.size()].pos;
+  // Loop through the points and calculate each segment
+  for (int i = 0; i < world->points.size(); i++) {
+    float pointLength = 0;
 
-    float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
-    float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
-    float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
+    for (float t = 0; t <= 1.0; t += 0.05) {
+      Pnt3f P1 = genPoint(i, t, 0);
+      Pnt3f P2 = genPoint(i, t + 0.01, 0);
+      glVertex3f(P1.x, P1.y, P1.z);
 
-    trackPts[i].dir.x = xDir;
-    trackPts[i].dir.y = yDir;
-    trackPts[i].dir.z = zDir;
+      float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
 
-    // Add to OpenGL Line
-    glVertex3f(P1.x, P1.y, P1.z);
+      pointLength += tempLength;
+      trackLength += tempLength;
 
-    // Figure out length of track segment
-    if (!doingShadows) {
-      float temp = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
-      trackLength += temp;
-      trackPts[i].dist = trackLength;
-      world->points[trackPts[i].point].length += temp;
+      arcPoint temp;
+      temp.lowDist = trackLength;
+      temp.point = i;
+      temp.highDist = trackLength;
+      arcTable.push_back(temp);
     }
+
+    world->points[i].length = pointLength;
   }
   glEnd();
 
-  //printf("Track Length: %f\n", trackLength);
+  printf("%f\n", trackLength);
 
+  /*
   // Find arc length parameterized segments
   if (tw->arcLength->value()) {
 
@@ -466,9 +406,10 @@ void TrainView::drawTrack(bool doingShadows) {
       }
 
     } // IF
-
+    
 
   }
+  */
 
 }
 
@@ -476,30 +417,15 @@ void TrainView::drawTrain(bool doingShadows) {
   float size = 4;
   float length = 3;
 
-  //printf("pos %d = %f * %f, points_size: %d\n", pos, tw->train_pos->value(), trackLength, trackPts.size());
-
   glPushMatrix();
 
-  // If not using arc-length parameterization
-  if (!tw->arcLength->value()) {
-    float decpos = tw->train_pos->value() * trackPts.size() - 1;
-    int pos = int(decpos + 0.5);
-    // move train to non-arclength position
-    glTranslatef(trackPts[pos].pos.x, trackPts[pos].pos.y + size, trackPts[pos].pos.z);
-    // rotate the train around the y axis (change in xz)
-    glRotatef(trackPts[pos].dir.y, 0, 1.0, 0);
-  } else {    
-    //printf("now attempting to translate\n");
-    float decpos = tw->train_pos->value() * trackArc.size() - 1;
-    int pos = int(decpos + 0.5);
+  int i = tw->train_pos->value() * world->points.size();
+  float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
+  Pnt3f temp = genPoint(i, t, 1);
 
-    printf("now trying to translate using pos %d\n", pos);
+  glTranslatef(temp.x, temp.y + size, temp.z);
+  glRotatef(genDir(i, t).y, 0, 1.0, 0);
 
-    // Using arc length parameterization
-    glTranslatef(trackArc[pos].pos.x, trackArc[pos].pos.y + size, trackArc[pos].pos.z);
-  
-  }
-  
   train_geom(doingShadows, size, length);
 
   glPopMatrix();
@@ -558,6 +484,66 @@ void TrainView::train_geom(bool doingShadows, float size, float length) {
 
   glEnd();
 }
+
+Pnt3f TrainView::genPoint(int i, float t, int arc) {
+  double x, y, z;
+
+  printf("%d\n", arcTable.size());
+  
+  
+  if (tw->arcLength->value() && arc == 1) {
+    for (int i = 0; i < arcTable.size(); i++) {
+      int a;
+    }
+
+  }
+  
+  
+  if (tw->splineBrowser->value() == 1) {
+    Pnt3f P1 = world->points[(i) % (world->points.size())].pos;
+    Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
+
+    x = (1.0 - t) * P1.x + t * P2.x;
+    y = (1.0 - t) * P1.y + t * P2.y;
+    z = (1.0 - t) * P1.z + t * P2.z;
+  } else {
+    Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
+    Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
+    Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
+    Pnt3f P4 = world->points[(i + 2) % (world->points.size())].pos;
+
+    double t2 = t*t;
+    double t3 = t*t*t;
+
+    x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
+      * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
+    y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
+      * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
+    z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
+      * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
+  }
+
+  return Pnt3f((float)x, (float)y, (float)z);
+}
+
+Pnt3f TrainView::genDir(int i, float t) {
+  Pnt3f P1, P2;
+
+  if (tw->splineBrowser->value() == 1) {
+    P1 = world->points[(i) % (world->points.size())].pos;
+    P2 = world->points[(i + 1) % (world->points.size())].pos;
+  } else {
+    P1 = genPoint(i, t, 1);
+    P2 = genPoint(i, t + 0.01, 1);
+  }
+
+  float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
+  float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
+  float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
+
+  return Pnt3f(xDir, yDir, zDir);
+}
+
 
 // CVS Header - if you don't know what this is, don't worry about it
 // This code tells us where the original came from in CVS
