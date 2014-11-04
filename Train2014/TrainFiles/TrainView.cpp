@@ -223,7 +223,7 @@ void TrainView::setProjection()
     
     int i = tw->train_pos->value() * world->points.size();
     float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
-    Pnt3f pos = genPoint(i, t + tw->t->value(), 1, 0);
+    Pnt3f pos = genPoint(i, t, 1, 0);
     Pnt3f rot = genDir(i, t);
 
     if (tw->runButton->value()) {
@@ -236,8 +236,8 @@ void TrainView::setProjection()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    double aspect = 1.33;
-    gluPerspective(50, aspect, .1, 1000);
+    double aspect = ((double)arcball.getWidth()) / ((double)arcball.getHeight());
+    gluPerspective(40, aspect, .1, 1000);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -286,7 +286,7 @@ void TrainView::drawStuff(bool doingShadows)
 
   // draw the train
   // TODO: call your own train drawing code
-  //if (!tw->trainCam->value())
+  if (!tw->trainCam->value())
     drawTrain(doingShadows);
 #ifdef EXAMPLE_SOLUTION
   // don't draw the train if you're looking out the front window
@@ -355,7 +355,7 @@ void TrainView::drawTrack(bool doingShadows) {
   arcTable.resize(0);
   trackLength = 0;
 
-  glLineWidth(3.0);
+  glLineWidth(5.0);
   glBegin(GL_LINE_LOOP);
 
   // Loop through the points and calculate each segment
@@ -382,62 +382,6 @@ void TrainView::drawTrack(bool doingShadows) {
     //printf("control point(%d): (%f, %f, %f) %f\n", i, pointLength, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
   }
   glEnd();
-
-  /*
-  // Find arc length parameterized segments
-  if (tw->arcLength->value()) {
-
-    // TEMPORARY
-    trackArc = trackPts;
-
-    if (false) {
-
-      for (unsigned i = 0; i < trackPts.size(); i++) {
-        float length = ((float)i / trackPts.size()) * trackLength;
-        float u = length / trackLength;
-        float prevLength = 0;
-
-        printf("length: %f, u: %f\n", length, u);
-
-        for (unsigned j = 0; j < trackPts.size(); j++) {
-          if (trackPts[j].dist >= length) {
-            //printf("i: %d, len: %f, u: %f, segment point: %d\n", i, length, u, j);
-            int ctrlPt = trackPts[j].point;
-
-            Pnt3f P1 = world->points[(ctrlPt - 1) % (world->points.size())].pos;
-            Pnt3f P2 = world->points[(ctrlPt) % (world->points.size())].pos;
-            Pnt3f P3 = world->points[(ctrlPt + 1) % (world->points.size())].pos;
-            Pnt3f P4 = world->points[(ctrlPt + 2) % (world->points.size())].pos;
-
-            float t = (length - prevLength) / world->points[(ctrlPt) % (world->points.size())].length;
-
-            double t2 = t*t;
-            double t3 = t*t*t;
-
-            double x = 0.5 * ((2 * P2.x) + (-P1.x + P3.x) * t + (2 * P1.x - 5 * P2.x + 4 * P3.x - P4.x)
-              * t2 + (-P1.x + 3 * P2.x - 3 * P3.x + P4.x) * t3);
-            double y = 0.5 * ((2 * P2.y) + (-P1.y + P3.y) * t + (2 * P1.y - 5 * P2.y + 4 * P3.y - P4.y)
-              * t2 + (-P1.y + 3 * P2.y - 3 * P3.y + P4.y) * t3);
-            double z = 0.5 * ((2 * P2.z) + (-P1.z + P3.z) * t + (2 * P1.z - 5 * P2.z + 4 * P3.z - P4.z)
-              * t2 + (-P1.z + 3 * P2.z - 3 * P3.z + P4.z) * t3);
-
-            // Make new point for the track
-            trackPoint temp;
-            temp.pos = (Pnt3f((float)x, (float)y, (float)z));
-            temp.u = t;
-
-            trackArc.push_back(temp);
-
-            break;
-          }
-        }
-      }
-
-    } // IF
-    
-
-  }
-  */
 
 }
 

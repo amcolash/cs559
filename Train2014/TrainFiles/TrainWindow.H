@@ -74,7 +74,6 @@ public:
   Fl_Value_Slider* eyeZ;
   Fl_Value_Slider* rotY;
   Fl_Value_Slider* rotZ;
-  Fl_Value_Slider* t;
 
 	Fl_Button* arcLength;		// do we use arc length for speed?
 

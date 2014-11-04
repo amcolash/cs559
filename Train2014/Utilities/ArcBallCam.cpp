@@ -55,6 +55,14 @@ ArcBallCam::ArcBallCam() : wind(0),
 {
 }
 
+int ArcBallCam::getHeight() {
+  return wind->h();
+}
+
+int ArcBallCam::getWidth() {
+  return wind->w();
+}
+
 // really do the setup stuff, once you have the window
 void ArcBallCam::setup(Fl_Gl_Window* _wind, float _fieldOfView, float _eyeZ,
 					   float _isx, float _isy, float _isz)
