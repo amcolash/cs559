@@ -68,17 +68,72 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
 		pty += 30;
 
+    // Start of camera controls
+    eyeX = new Fl_Value_Slider(655, pty, 140, 20, "Eye X");
+    eyeX->range(-100, 100);
+    eyeX->value(-50);
+    eyeX->align(FL_ALIGN_LEFT);
+    eyeX->type(FL_HORIZONTAL);
+    eyeX->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    eyeY = new Fl_Value_Slider(655, pty, 140, 20, "Eye Y");
+    eyeY->range(-100, 100);
+    eyeY->value(-5);
+    eyeY->align(FL_ALIGN_LEFT);
+    eyeY->type(FL_HORIZONTAL);
+    eyeY->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    eyeZ = new Fl_Value_Slider(655, pty, 140, 20, "Eye Z");
+    eyeZ->range(-100, 100);
+    eyeZ->value(-1.5);
+    eyeZ->align(FL_ALIGN_LEFT);
+    eyeZ->type(FL_HORIZONTAL);
+    eyeZ->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    rotY = new Fl_Value_Slider(655, pty, 140, 20, "Rot Y");
+    rotY->range(-180, 180);
+    rotY->value(0);
+    rotY->align(FL_ALIGN_LEFT);
+    rotY->type(FL_HORIZONTAL);
+    rotY->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    rotZ = new Fl_Value_Slider(655, pty, 140, 20, "Rot Z");
+    rotZ->range(-180, 180);
+    rotZ->value(7);
+    rotZ->align(FL_ALIGN_LEFT);
+    rotZ->type(FL_HORIZONTAL);
+    rotZ->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    t = new Fl_Value_Slider(655, pty, 140, 20, "t");
+    t->range(0, 1);
+    t->value(0);
+    t->align(FL_ALIGN_LEFT);
+    t->type(FL_HORIZONTAL);
+    t->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
 		// camera buttons - in a radio button group
 		Fl_Group* camGroup = new Fl_Group(600,pty,195,20);
 		camGroup->begin();
 		worldCam = new Fl_Button(605, pty, 60, 20, "World");
         worldCam->type(FL_RADIO_BUTTON);		// radio button
-        worldCam->value(1);			// turned on
+        worldCam->value(0);			// turned on
         worldCam->selection_color((Fl_Color)3); // yellow when pressed
 		worldCam->callback((Fl_Callback*)damageCB,this);
 		trainCam = new Fl_Button(670, pty, 60, 20, "Train");
         trainCam->type(FL_RADIO_BUTTON);
-        trainCam->value(0);
+        trainCam->value(1);
         trainCam->selection_color((Fl_Color)3);
 		trainCam->callback((Fl_Callback*)damageCB,this);
 		topCam = new Fl_Button(735, pty, 60, 20, "Top");

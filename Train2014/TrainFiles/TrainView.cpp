@@ -220,6 +220,36 @@ void TrainView::setProjection()
   }
   else {
     // TODO: put code for train view projection here!
+    
+    int i = tw->train_pos->value() * world->points.size();
+    float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
+    Pnt3f pos = genPoint(i, t + tw->t->value(), 1, 0);
+    Pnt3f rot = genDir(i, t);
+
+    if (tw->runButton->value()) {
+      tw->eyeX->value(-pos.x);
+      tw->eyeY->value(-pos.y);
+      tw->eyeZ->value(-pos.z);
+      tw->rotY->value(rot.y);
+    }
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    double aspect = 1.33;
+    gluPerspective(50, aspect, .1, 1000);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    //glRotatef(tw->rotY->value(), 0, 1, 0);
+
+    glRotatef(tw->rotZ->value(), 1, 0, 0);
+    glRotatef(-tw->rotY->value() + 180, 0, 1, 0);
+
+    glTranslatef(tw->eyeX->value(), tw->eyeY->value() - 10, tw->eyeZ->value());
+    
+
 #ifdef EXAMPLE_SOLUTION
     trainCamView(this,aspect);
 #endif
@@ -256,7 +286,7 @@ void TrainView::drawStuff(bool doingShadows)
 
   // draw the train
   // TODO: call your own train drawing code
-  if (!tw->trainCam->value())
+  //if (!tw->trainCam->value())
     drawTrain(doingShadows);
 #ifdef EXAMPLE_SOLUTION
   // don't draw the train if you're looking out the front window
@@ -441,7 +471,7 @@ Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
     for (int j = 0; j < arcTable.size(); j++) {
       if (arcTable[j].lowDist >= dist) {
         int point = arcTable[j].point;
-        printf("j: %d, found point (%d), dist: %f, current: %d\n", j, point, dist, i);
+        //printf("j: %d, found point (%d), dist: %f, current: %d\n", j, point, dist, i);
         
         float prevLength = 0;
         for (int k = 0; k < arcTable[j].point; k++) {
@@ -490,9 +520,7 @@ Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
 }
 
 Pnt3f TrainView::genDir(int i, float t) {
-  printf("rot: ");
   Pnt3f P1 = genPoint(i, t, 1, 0);
-  printf("rot: ");
   Pnt3f P2 = genPoint(i, t + 0.01, 1, 1);
 
   float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
@@ -557,6 +585,18 @@ void TrainView::train_geom(bool doingShadows, float size, float length) {
   glVertex3f(-size, -size, size);
 
   glEnd();
+
+  glPushMatrix();
+  glTranslatef(0, 0, size);
+
+  if (!doingShadows)
+    glColor3ub(30, 30, 170);
+
+  GLUquadricObj *quadObj = gluNewQuadric();
+  gluCylinder(quadObj, 5, 0, 5, 16, 3);
+
+  glPopMatrix();
+
 }
 
 // CVS Header - if you don't know what this is, don't worry about it

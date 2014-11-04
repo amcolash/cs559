@@ -68,6 +68,14 @@ public:
 	// if we're animating it, how fast should it go?
 	Fl_Value_Slider* speed;
   Fl_Value_Slider* train_pos;
+
+  Fl_Value_Slider* eyeX;
+  Fl_Value_Slider* eyeY;
+  Fl_Value_Slider* eyeZ;
+  Fl_Value_Slider* rotY;
+  Fl_Value_Slider* rotZ;
+  Fl_Value_Slider* t;
+
 	Fl_Button* arcLength;		// do we use arc length for speed?
 
 	// call this method when things change
