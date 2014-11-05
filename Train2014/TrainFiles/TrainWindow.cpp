@@ -214,6 +214,7 @@ void TrainWindow::damageMe()
 // if the run button is pressed
 void TrainWindow::advanceTrain(float dir)
 {
+  dir = dir / 2;
   float value = fmodf(train_pos->value() + dir * speed->value(), 1.0);
   if (value < 0)
     value += 1.0;

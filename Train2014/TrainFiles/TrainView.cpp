@@ -220,23 +220,20 @@ void TrainView::setProjection()
   }
   else {
     // TODO: put code for train view projection here!
-    
+    printf("i was called\n");
     int i = tw->train_pos->value() * world->points.size();
     float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
     Pnt3f pos = genPoint(i, t, 1, 0);
     Pnt3f rot = genDir(i, t);
 
-    if (tw->runButton->value()) {
-      tw->eyeX->value(-pos.x);
-      tw->eyeY->value(-pos.y);
-      tw->eyeZ->value(-pos.z);
-      tw->rotY->value(rot.y);
-    }
+    tw->eyeX->value(-pos.x);
+    tw->eyeY->value(-pos.y);
+    tw->eyeZ->value(-pos.z);
+    tw->rotY->value(rot.y);
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    double aspect = ((double)arcball.getWidth()) / ((double)arcball.getHeight());
     gluPerspective(40, aspect, .1, 1000);
 
     glMatrixMode(GL_MODELVIEW);
@@ -352,6 +349,8 @@ void TrainView::drawTrack(bool doingShadows) {
     glColor3ub(100, 50, 0);
   }
 
+  vector<Pnt3f> tracks;
+
   arcTable.resize(0);
   trackLength = 0;
 
@@ -365,7 +364,7 @@ void TrainView::drawTrack(bool doingShadows) {
     for (float t = 0; t <= 1.0; t += 0.05) {
       Pnt3f P1 = genPoint(i, t, 0, 0);
       Pnt3f P2 = genPoint(i, t + 0.01, 0, 0);
-      glVertex3f(P1.x, P1.y, P1.z);
+      //glVertex3f(P1.x, P1.y, P1.z);
 
       float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
 
@@ -382,6 +381,38 @@ void TrainView::drawTrack(bool doingShadows) {
     //printf("control point(%d): (%f, %f, %f) %f\n", i, pointLength, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
   }
   glEnd();
+
+
+  //glPushMatrix();
+  //glRotatef(90, 0, 1, 0);
+  for (float j = 0; j <= 1.0; j += 0.01) {
+    glBegin(GL_LINES);
+    
+    int i = j * world->points.size();
+    float t = (j - (i * (1.0 / world->points.size()))) * world->points.size();
+    Pnt3f temp = genPoint(i, t, 1, 1);
+    Pnt3f dir = genDir(i, t);
+    glRotatef(dir.y, 0, 1.0, 0);
+
+    printf("t: %f, Point: (%f, %f, %f), dir: %f\n", t, temp.x, temp.y, temp.z, dir.y);
+
+    glVertex3f(temp.x + 5, temp.y, temp.z);
+    glVertex3f(temp.x - 5, temp.y, temp.z);
+
+    glEnd();
+
+    /*
+    float cx = (P1.x + P2.x) / 2;
+    float cy = (P1.y + P2.y) / 2;
+
+    float track1x = ((P1.x - cx) * cos(90) + (P1.y - cy) * sin(90)) + cx;
+    float track1y = ((P1.x - cx) * sin(90) + (P1.y - cy) * cos(90)) + cy;
+
+    float track2x = ((P2.x - cx) * cos(90) + (P2.y - cy) * sin(90)) + cx;
+    float track2y = ((P2.x - cx) * sin(90) + (P2.y - cy) * cos(90)) + cy;
+    */
+  }
+  //glPopMatrix();
 
 }
 

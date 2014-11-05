@@ -164,9 +164,6 @@ public:
 	// assume the window does it
 	void getMouseNDC(float& x, float& y);
 
-  int getHeight();
-  int getWidth();
-
 private:
 
 
