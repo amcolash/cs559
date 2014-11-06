@@ -86,6 +86,33 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
+    xTrans = new Fl_Value_Slider(655, pty, 140, 20, "X");
+    xTrans->range(-10, 10);
+    xTrans->value(0);
+    xTrans->align(FL_ALIGN_LEFT);
+    xTrans->type(FL_HORIZONTAL);
+    xTrans->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    yTrans = new Fl_Value_Slider(655, pty, 140, 20, "Y");
+    yTrans->range(-10, 10);
+    yTrans->value(0);
+    yTrans->align(FL_ALIGN_LEFT);
+    yTrans->type(FL_HORIZONTAL);
+    yTrans->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    zTrans = new Fl_Value_Slider(655, pty, 140, 20, "Z");
+    zTrans->range(-10, 10);
+    zTrans->value(0);
+    zTrans->align(FL_ALIGN_LEFT);
+    zTrans->type(FL_HORIZONTAL);
+    zTrans->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
 		// camera buttons - in a radio button group
 		Fl_Group* camGroup = new Fl_Group(600,pty,195,20);
 		camGroup->begin();

@@ -81,7 +81,7 @@ public:
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
 
-  void train_geom(bool doingShadows, float size, float length);
+  void train_geom(bool doingShadows, float size, float length, float frontRot, float backRot);
   void track_geom(bool doingShadows, float length);
   
   Pnt3f genPoint(int i, float t, int arc);

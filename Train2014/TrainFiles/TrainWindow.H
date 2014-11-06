@@ -72,6 +72,10 @@ public:
   Fl_Value_Slider* rotZ;
   Fl_Value_Slider* trackSpace;
 
+  Fl_Value_Slider* xTrans;
+  Fl_Value_Slider* yTrans;
+  Fl_Value_Slider* zTrans;
+
   // Specify track type
   Fl_Browser* trackType;
 

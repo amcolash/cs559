@@ -19,6 +19,12 @@
 #include "GL/gl.h"
 #include "GL/glu.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+
 #ifdef EXAMPLE_SOLUTION
 #include "TrainExample/TrainExample.H"
 #endif
@@ -245,9 +251,9 @@ void TrainView::setProjection()
     glLoadIdentity();
 
     //glRotatef(tw->rotY->value(), 0, 1, 0);
-
-    glRotatef(tw->rotZ->value(), 1, 0, 0);
-    glRotatef(-dir.y + 180, 0, 1, 0);
+    //printf("%f\n", dir.z);
+    glRotatef(tw->rotZ->value(), 1.0, 0, 0);
+    glRotatef(-dir.y + 180, 0, 1.0, 0);
 
     glTranslatef(-pos.x, -pos.y - 10, -pos.z);
     
@@ -391,7 +397,6 @@ void TrainView::drawTrack(bool doingShadows) {
   if (tw->trackType->value() == 2) {
 
     float trackSpace = 5 / trackLength * tw->trackSpace->value();
-    printf("%f\n", trackSpace);
 
     for (float j = 0; j <= 1.0; j += trackSpace) {
 
@@ -427,30 +432,69 @@ void TrainView::drawTrack(bool doingShadows) {
 
 void TrainView::drawTrain(bool doingShadows) {
   float size = 4;
-  float length = 3;
-
-  glPushMatrix();
+  float length = 4;
 
   int i = tw->train_pos->value() * world->points.size();
   float t;
   Pnt3f pos;
   Pnt3f dir;
+  float frontRot;
+  float backRot;
 
   if (tw->arcLength->value()) {
     t = tw->train_pos->value();
     pos = genPoint(i, t, 1);
-    dir = genDir(i, t, 1);
+    dir = genDir(i, t - 0.03, 1);
+    frontRot = dir.y - genDir(i, t + 0.025, 1).y;
+    backRot = dir.y - genDir(i, t - 0.045, 1).y;
   } else {
     t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
     pos = genPoint(i, t, 0);
     dir = genDir(i, t, 0);
-    printf("dir: %f\n", dir.y);
+    
+    frontRot = dir.y - genDir(i, t + 0.025, 0).y;
+    backRot = dir.y - genDir(i, t - 0.1, 0).y;
+    
+    /*
+    if (t - 0.1 < 0) {
+      float temp1 = genDir(i-1, t - 0.05, 0).y - genDir(i, t - 0.1, 0).y;
+      float temp2 = dir.y - genDir(i+1, t, 0).y;
+      backRot = (temp1 - temp2) / 2;
+      if (!doingShadows)
+        printf("i: %d, t: %f, (%f + %f) / 2 = %f\n", i, t, temp1, temp2, (temp1 + temp2) / 2);
+    }
+    else {
+      backRot = dir.y - genDir(i, t - 0.1, 0).y;
+    }
+    */
+    
+
+    // TODO: t - 0.1 < 0, then average i-- and i together
+    //backRot = dir.y - genDir(i, t - 0.1, 0).y;
   }
 
-  glTranslatef(pos.x, pos.y + size + 3, pos.z);
+  /*
+  glm::mat4 flip = glm::rotate((float) 90.0, glm::vec3(1.0, 0, 0));
+  glm::mat4 rotX = glm::rotate(dir.x, glm::vec3(1.0,   0, 0  ));
+  glm::mat4 rotY = glm::rotate(dir.y, glm::vec3(  0,   0, 1.0));
+  glm::mat4 rotZ = glm::rotate(dir.z, glm::vec3(  0,   0, 1.0));
+
+  glm::mat4 translate = glm::translate(glm::vec3(pos.x, pos.y, pos.z));
+  
+  glm::mat4 rotMatrix = rotY * flip * translate;
+  */
+  
+  glPushMatrix();
+
+  //glLoadMatrixf((GLfloat*) &rotMatrix[0]);
+  glTranslatef(pos.x, pos.y + size * 2.3, pos.z);
   glRotatef(dir.y, 0, 1.0, 0);
 
-  train_geom(doingShadows, size, length);
+  //glRotatef(dir.y, 0, 1.0, 0);
+  //glRotatef(dir.x, 0, 0, 1.0);
+  
+
+  train_geom(doingShadows, size, length, frontRot, backRot);
 
   glPopMatrix();
 }
@@ -535,7 +579,7 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
   return Pnt3f(xDir, yDir, zDir);
 }
 
-void TrainView::train_geom(bool doingShadows, float size, float length) {
+void TrainView::train_geom(bool doingShadows, float size, float length, float frontRot, float backRot) {
   glBegin(GL_QUADS);
 
   if (!doingShadows)
@@ -594,11 +638,43 @@ void TrainView::train_geom(bool doingShadows, float size, float length) {
   if (!doingShadows)
     glColor3ub(30, 30, 170);
 
-  GLUquadricObj *quadObj = gluNewQuadric();
-  gluCylinder(quadObj, 5, 0, 5, 16, 3);
+  GLUquadricObj *front = gluNewQuadric();
+  gluCylinder(front, 5, 0, 5, 16, 3);
+  glPopMatrix();
+  
+  
+  if (!doingShadows)
+    glColor3ub(175, 10, 200);
+
+  // Draw the front wheel
+  glPushMatrix();
+  GLUquadricObj *wheelFront = gluNewQuadric();
+
+  glTranslatef(-1.5 * size, -1.5 * size, -0.25 * length);
+  glRotatef(90 - frontRot, 0, 1.0, 0);
+  
+
+  gluCylinder(wheelFront, size / 2, size / 2, size*3, 16, 3);
+  gluDisk(wheelFront, 0, size / 2, 16, 1);
+  glTranslatef(0, 0, size*3);
+  gluDisk(wheelFront, 0, size / 2, 16, 1);
 
   glPopMatrix();
 
+  // Draw the back wheel
+  glPushMatrix();
+  GLUquadricObj *wheelBack = gluNewQuadric();
+
+  glTranslatef(-1.5 * size, -1.5 * size, -3 * length);
+  glRotatef(90 - backRot, 0, 1.0, 0);
+  
+
+  gluCylinder(wheelBack, size / 2, size / 2, size * 3, 16, 3);
+  gluDisk(wheelBack, 0, size / 2, 16, 1);
+  glTranslatef(0, 0, size * 3);
+  gluDisk(wheelBack, 0, size / 2, 16, 1);
+
+  glPopMatrix();
 }
 
 void TrainView::track_geom(bool doingShadows, float length) {
