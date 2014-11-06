@@ -86,30 +86,30 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
-    xTrans = new Fl_Value_Slider(655, pty, 140, 20, "X");
-    xTrans->range(-10, 10);
-    xTrans->value(0);
-    xTrans->align(FL_ALIGN_LEFT);
-    xTrans->type(FL_HORIZONTAL);
-    xTrans->callback((Fl_Callback*)damageCB, this);
+    seed = new Fl_Value_Slider(655, pty, 140, 20, "Seed");
+    seed->range(0, 1000);
+    seed->value(0);
+    seed->align(FL_ALIGN_LEFT);
+    seed->type(FL_HORIZONTAL);
+    seed->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
 
-    yTrans = new Fl_Value_Slider(655, pty, 140, 20, "Y");
-    yTrans->range(-10, 10);
-    yTrans->value(0);
-    yTrans->align(FL_ALIGN_LEFT);
-    yTrans->type(FL_HORIZONTAL);
-    yTrans->callback((Fl_Callback*)damageCB, this);
+    terrainHeight = new Fl_Value_Slider(655, pty, 140, 20, "Height");
+    terrainHeight->range(5, 40);
+    terrainHeight->value(5);
+    terrainHeight->align(FL_ALIGN_LEFT);
+    terrainHeight->type(FL_HORIZONTAL);
+    terrainHeight->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
 
-    zTrans = new Fl_Value_Slider(655, pty, 140, 20, "Z");
-    zTrans->range(-10, 10);
-    zTrans->value(0);
-    zTrans->align(FL_ALIGN_LEFT);
-    zTrans->type(FL_HORIZONTAL);
-    zTrans->callback((Fl_Callback*)damageCB, this);
+    samples = new Fl_Value_Slider(655, pty, 140, 20, "Samples");
+    samples->range(5, 150);
+    samples->value(5);
+    samples->align(FL_ALIGN_LEFT);
+    samples->type(FL_HORIZONTAL);
+    samples->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
 

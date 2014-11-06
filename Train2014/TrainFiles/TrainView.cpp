@@ -19,12 +19,6 @@
 #include "GL/gl.h"
 #include "GL/glu.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-
 #ifdef EXAMPLE_SOLUTION
 #include "TrainExample/TrainExample.H"
 #endif
@@ -180,6 +174,7 @@ void TrainView::draw()
   // now draw the ground plane
   setupFloor();
   glDisable(GL_LIGHTING);
+  //drawTerrain();
   drawFloor(200, 10);
   glEnable(GL_LIGHTING);
   setupObjects();
@@ -301,6 +296,9 @@ void TrainView::drawStuff(bool doingShadows)
   if (!tw->trainCam->value())
     drawTrain(this, doingShadows);
 #endif
+
+  if (!doingShadows)
+    drawTerrain();
 }
 
 // this tries to see which control point is under the mouse
@@ -497,6 +495,112 @@ void TrainView::drawTrain(bool doingShadows) {
   train_geom(doingShadows, size, length, frontRot, backRot);
 
   glPopMatrix();
+}
+
+void TrainView::drawTerrain() {
+  /*
+  vector<float> terrain = { 80, 80, 80, 80, 80,
+    80, 40, 40, 40, 80,
+    80, 40, 00, 40, 80,
+    80, 40, 40, 40, 80,
+    80, 80, 80, 80, 80 };
+  
+  int size = 200;
+  int num = 5;
+  int step = size / (num - 1);
+
+  
+  for (int i = 0; i < terrain.size(); i+= num) {
+    glBegin(GL_TRIANGLE_STRIP);
+    for (int j = 0; j < terrain.size() / num; j++) {
+      //glVertex3f((float) (i / num) * step, terrain[i + j], (float) j * step);
+      printf("i: %d, j: %d, array[%d]: (%f, %f, %f)\n", i, j, i + j, (float)(i / num) * step, terrain[i + j], (float) j * step);
+    }
+    glEnd();
+  }
+  */
+  /*
+  int terrain[5][5] = { { 00, 01, 02, 03, 04 },
+                        { 10, 11, 12, 13, 14 },
+                        { 20, 21, 22, 23, 24 },
+                        { 30, 31, 32, 33, 34 },
+                        { 40, 41, 42, 43, 44 } };
+  */
+  
+  int size = 210;
+  int num = tw->samples->value();
+  int step = size / (num - 1);
+  int severity = 5;
+  
+  vector< vector<int> > terrain(num);
+
+  for (int i = 0; i < num; i++)
+    terrain[i].resize(num);
+  
+  
+  srand(tw->seed->value());
+
+  for (int z = 0; z < num; z++) {
+    for (int x = 0; x < num; x++) {
+      int random = rand() / (RAND_MAX / tw->terrainHeight->value());
+      terrain[z][x] = random;
+    }
+  }
+
+  terrain[0][0] = 0;
+  terrain[0][num-1] = 0;
+  terrain[num-1][0] = 0;
+  terrain[num-1][num-1] = 0;
+  
+  glPushMatrix();
+  
+  glTranslatef(-100, 1, -100);
+
+  //glColor3ub(30, 130, 30);
+
+  for (int z = 0; z < num - 1 ; z++) {
+    glBegin(GL_TRIANGLE_STRIP);
+    for (int x = 0; x < num - 1; x++) {
+      glNormal3f(0, 1, 0);
+      //glColor3f((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+      glVertex3f(x * step, terrain[z][x], z * step);
+      glVertex3f((x+1) * step, terrain[z][x+1], z * step);
+      glVertex3f(x * step, terrain[z+1][x], (z+1) * step);
+      glVertex3f((x+1) * step, terrain[z+1][x+1], (z+1) * step);
+    }
+    glEnd();
+  }
+
+  glPopMatrix();
+}
+
+void TrainView::DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level) {
+  if (level < 1) return;
+
+  // diamonds
+  for (unsigned i = x1 + level; i < x2; i += level)
+    for (unsigned j = y1 + level; j < y2; j += level) {
+    float a = terrain[i - level][j - level];
+    float b = terrain[i][j - level];
+    float c = terrain[i - level][j];
+    float d = terrain[i][j];
+    float e = terrain[i - level / 2][j - level / 2] = (a + b + c + d) / 4 + (rand() / (RAND_MAX / range));
+    }
+
+  // squares
+  for (unsigned i = x1 + 2 * level; i < x2; i += level)
+    for (unsigned j = y1 + 2 * level; j < y2; j += level) {
+    float a = terrain[i - level][j - level];
+    float b = terrain[i][j - level];
+    float c = terrain[i - level][j];
+    float d = terrain[i][j];
+    float e = terrain[i - level / 2][j - level / 2];
+
+    float f = terrain[i - level][j - level / 2] = (a + c + e + terrain[i - 3 * level / 2][j - level / 2]) / 4 + (rand() / (RAND_MAX / range));
+    float g = terrain[i - level / 2][j - level] = (a + b + e + terrain[i - level / 2][j - 3 * level / 2]) / 4 + (rand() / (RAND_MAX / range));
+    }
+
+  DiamondSquare(x1, y1, x2, y2, range / 2, level / 2);
 }
 
 Pnt3f TrainView::genPoint(int i, float t, int arc) {

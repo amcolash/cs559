@@ -71,10 +71,11 @@ public:
 
   Fl_Value_Slider* rotZ;
   Fl_Value_Slider* trackSpace;
+  
 
-  Fl_Value_Slider* xTrans;
-  Fl_Value_Slider* yTrans;
-  Fl_Value_Slider* zTrans;
+  Fl_Value_Slider* seed;
+  Fl_Value_Slider* terrainHeight;
+  Fl_Value_Slider* samples;
 
   // Specify track type
   Fl_Browser* trackType;
