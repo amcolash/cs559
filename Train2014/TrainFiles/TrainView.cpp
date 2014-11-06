@@ -582,58 +582,67 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
 void TrainView::train_geom(bool doingShadows, float size, float length, float frontRot, float backRot) {
   glBegin(GL_QUADS);
 
+  float offset;
+
+  if (tw->arcLength->value()) {
+    offset = 0.5 * length;
+  } else {
+    offset = -length;
+  }
+    
+
   if (!doingShadows)
     glColor3ub(30, 30, 170);
 
   // Front
   glNormal3f(0, 0, 1);
-  glVertex3f(size, size, size);
-  glVertex3f(-size, size, size);
-  glVertex3f(-size, -size, size);
-  glVertex3f(size, -size, size);
+  glVertex3f(size, size, size - offset);
+  glVertex3f(-size, size, size - offset);
+  glVertex3f(-size, -size, size - offset);
+  glVertex3f(size, -size, size - offset);
 
   if (!doingShadows)
     glColor3ub(30, 170, 30);
 
   // Back
   glNormal3f(0, 0, -1);
-  glVertex3f(size, size, -size*length);
-  glVertex3f(size, -size, -size*length);
-  glVertex3f(-size, -size, -size*length);
-  glVertex3f(-size, size, -size*length);
+  glVertex3f(size, size, -size*length - offset);
+  glVertex3f(size, -size, -size*length - offset);
+  glVertex3f(-size, -size, -size*length - offset);
+  glVertex3f(-size, size, -size*length - offset);
 
   //Top
   glNormal3f(0, 1, 0);
-  glVertex3f(size, size, size);
-  glVertex3f(-size, size, size);
-  glVertex3f(-size, size, -size*length);
-  glVertex3f(size, size, -size*length);
+  glVertex3f(size, size, size - offset);
+  glVertex3f(-size, size, size - offset);
+  glVertex3f(-size, size, -size*length - offset);
+  glVertex3f(size, size, -size*length - offset);
 
   // Bottom
   glNormal3f(0, -1, 0);
-  glVertex3f(size, -size, size);
-  glVertex3f(-size, -size, size);
-  glVertex3f(-size, -size, -size*length);
-  glVertex3f(size, -size, -size*length);
+  glVertex3f(size, -size, size - offset);
+  glVertex3f(-size, -size, size - offset);
+  glVertex3f(-size, -size, -size*length - offset);
+  glVertex3f(size, -size, -size*length - offset);
 
   // Left Side
   glNormal3f(1, 0, 0);
-  glVertex3f(size, size, size);
-  glVertex3f(size, -size, size);
-  glVertex3f(size, -size, -size*length);
-  glVertex3f(size, size, -size*length);
+  glVertex3f(size, size, size - offset);
+  glVertex3f(size, -size, size - offset);
+  glVertex3f(size, -size, -size*length - offset);
+  glVertex3f(size, size, -size*length - offset);
 
   // Right Side
   glNormal3f(-1, 0, 0);
-  glVertex3f(-size, size, size);
-  glVertex3f(-size, size, -size*length);
-  glVertex3f(-size, -size, -size*length);
-  glVertex3f(-size, -size, size);
+  glVertex3f(-size, size, size - offset);
+  glVertex3f(-size, size, -size*length - offset);
+  glVertex3f(-size, -size, -size*length - offset);
+  glVertex3f(-size, -size, size - offset);
 
   glEnd();
 
   glPushMatrix();
-  glTranslatef(0, 0, size);
+  glTranslatef(0, 0, size - offset);
 
   if (!doingShadows)
     glColor3ub(30, 30, 170);
@@ -650,7 +659,13 @@ void TrainView::train_geom(bool doingShadows, float size, float length, float fr
   glPushMatrix();
   GLUquadricObj *wheelFront = gluNewQuadric();
 
-  glTranslatef(-1.5 * size, -1.5 * size, -0.25 * length);
+  if (tw->arcLength->value()) {
+    glTranslatef(-1.5 * size, -1.5 * size, -0.25 * length - offset * 1.5);
+  }
+  else {
+    glTranslatef(-1.5 * size, -1.5 * size, -0.25 * length - offset);
+  }
+  
   glRotatef(90 - frontRot, 0, 1.0, 0);
   
 
@@ -665,7 +680,12 @@ void TrainView::train_geom(bool doingShadows, float size, float length, float fr
   glPushMatrix();
   GLUquadricObj *wheelBack = gluNewQuadric();
 
-  glTranslatef(-1.5 * size, -1.5 * size, -3 * length);
+  if (tw->arcLength->value()) {
+    glTranslatef(-1.5 * size, -1.5 * size, -3 * length);
+  } else {
+    glTranslatef(-1.5 * size, -1.5 * size, -3 * length - offset * 1.5);
+  }
+  
   glRotatef(90 - backRot, 0, 1.0, 0);
   
 
