@@ -69,11 +69,11 @@ public:
 	Fl_Value_Slider* speed;
   Fl_Value_Slider* train_pos;
 
-  Fl_Value_Slider* eyeX;
-  Fl_Value_Slider* eyeY;
-  Fl_Value_Slider* eyeZ;
-  Fl_Value_Slider* rotY;
   Fl_Value_Slider* rotZ;
+  Fl_Value_Slider* trackSpace;
+
+  // Specify track type
+  Fl_Browser* trackType;
 
 	Fl_Button* arcLength;		// do we use arc length for speed?
 

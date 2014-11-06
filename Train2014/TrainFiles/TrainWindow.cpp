@@ -68,49 +68,21 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
 		pty += 30;
 
-    // Start of camera controls
-    eyeX = new Fl_Value_Slider(655, pty, 140, 20, "Eye X");
-    eyeX->range(-100, 100);
-    eyeX->value(-50);
-    eyeX->align(FL_ALIGN_LEFT);
-    eyeX->type(FL_HORIZONTAL);
-    eyeX->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
-    eyeY = new Fl_Value_Slider(655, pty, 140, 20, "Eye Y");
-    eyeY->range(-100, 100);
-    eyeY->value(-5);
-    eyeY->align(FL_ALIGN_LEFT);
-    eyeY->type(FL_HORIZONTAL);
-    eyeY->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
-    eyeZ = new Fl_Value_Slider(655, pty, 140, 20, "Eye Z");
-    eyeZ->range(-100, 100);
-    eyeZ->value(-1.5);
-    eyeZ->align(FL_ALIGN_LEFT);
-    eyeZ->type(FL_HORIZONTAL);
-    eyeZ->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
-    rotY = new Fl_Value_Slider(655, pty, 140, 20, "Rot Y");
-    rotY->range(-180, 180);
-    rotY->value(0);
-    rotY->align(FL_ALIGN_LEFT);
-    rotY->type(FL_HORIZONTAL);
-    rotY->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
     rotZ = new Fl_Value_Slider(655, pty, 140, 20, "Rot Z");
     rotZ->range(-180, 180);
     rotZ->value(10);
     rotZ->align(FL_ALIGN_LEFT);
     rotZ->type(FL_HORIZONTAL);
     rotZ->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    trackSpace = new Fl_Value_Slider(655, pty, 140, 20, "Spacing");
+    trackSpace->range(0.1, 1);
+    trackSpace->value(0.4);
+    trackSpace->align(FL_ALIGN_LEFT);
+    trackSpace->type(FL_HORIZONTAL);
+    trackSpace->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
 
@@ -138,7 +110,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
 		// browser to select spline types
 		// TODO: make sure these choices are the same as what the code supports
-		splineBrowser = new Fl_Browser(605,pty,120,75,"Spline Type");
+		splineBrowser = new Fl_Browser(605,pty,120,55,"Spline Type");
 		splineBrowser->type(2);		// select
 		splineBrowser->callback((Fl_Callback*)damageCB,this);
 		splineBrowser->add("Linear");
@@ -146,7 +118,19 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		//splineBrowser->add("Cubic B-Spline");
 		splineBrowser->select(2);
 
-		pty += 110;
+    pty += 85;
+    
+    // browser to select spline types
+    // TODO: make sure these choices are the same as what the code supports
+    trackType = new Fl_Browser(605, pty, 120, 55, "Track Type");
+    trackType->type(2);		// select
+    trackType->callback((Fl_Callback*)damageCB, this);
+    trackType->add("Simple Line");
+    trackType->add("3d Boxes");
+    //splineBrowser->add("Cubic B-Spline");
+    trackType->select(2);
+
+		pty += 85;
 
 		// add and delete points
 		Fl_Button* ap = new Fl_Button(605,pty,80,20,"Add Point");

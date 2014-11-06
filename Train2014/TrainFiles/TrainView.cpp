@@ -220,17 +220,22 @@ void TrainView::setProjection()
   }
   else {
     // TODO: put code for train view projection here!
-    printf("i was called\n");
     int i = tw->train_pos->value() * world->points.size();
     float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
-    Pnt3f pos = genPoint(i, t, 1, 0);
-    Pnt3f rot = genDir(i, t);
-
-    tw->eyeX->value(-pos.x);
-    tw->eyeY->value(-pos.y);
-    tw->eyeZ->value(-pos.z);
-    tw->rotY->value(rot.y);
     
+    Pnt3f pos;
+    Pnt3f dir;
+
+    if (tw->arcLength->value()) {
+      t = tw->train_pos->value();
+      pos = genPoint(i, t, 1);
+      dir = genDir(i, t, 1);
+    } else {
+      t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
+      pos = genPoint(i, t, 0);
+      dir = genDir(i, t, 0);
+    }
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
@@ -242,9 +247,9 @@ void TrainView::setProjection()
     //glRotatef(tw->rotY->value(), 0, 1, 0);
 
     glRotatef(tw->rotZ->value(), 1, 0, 0);
-    glRotatef(-tw->rotY->value() + 180, 0, 1, 0);
+    glRotatef(-dir.y + 180, 0, 1, 0);
 
-    glTranslatef(tw->eyeX->value(), tw->eyeY->value() - 10, tw->eyeZ->value());
+    glTranslatef(-pos.x, -pos.y - 10, -pos.z);
     
 
 #ifdef EXAMPLE_SOLUTION
@@ -357,14 +362,16 @@ void TrainView::drawTrack(bool doingShadows) {
   glLineWidth(5.0);
   glBegin(GL_LINE_LOOP);
 
-  // Loop through the points and calculate each segment
+  // Loop through the points and calculate length of each segment
   for (int i = 0; i < world->points.size(); i++) {
     float pointLength = 0;
 
     for (float t = 0; t <= 1.0; t += 0.05) {
-      Pnt3f P1 = genPoint(i, t, 0, 0);
-      Pnt3f P2 = genPoint(i, t + 0.01, 0, 0);
-      //glVertex3f(P1.x, P1.y, P1.z);
+      Pnt3f P1 = genPoint(i, t, 0);
+      Pnt3f P2 = genPoint(i, t + 0.01, 0);
+      
+      if (tw->trackType->value() == 1)
+        glVertex3f(P1.x, P1.y, P1.z);
 
       float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
 
@@ -378,42 +385,44 @@ void TrainView::drawTrack(bool doingShadows) {
     }
 
     world->points[i].length = pointLength;
-    //printf("control point(%d): (%f, %f, %f) %f\n", i, pointLength, world->points[i].pos.x, world->points[i].pos.y, world->points[i].pos.z);
   }
   glEnd();
+  
+  if (tw->trackType->value() == 2) {
 
+    float trackSpace = 5 / trackLength * tw->trackSpace->value();
+    printf("%f\n", trackSpace);
 
-  //glPushMatrix();
-  //glRotatef(90, 0, 1, 0);
-  for (float j = 0; j <= 1.0; j += 0.01) {
-    glBegin(GL_LINES);
-    
-    int i = j * world->points.size();
-    float t = (j - (i * (1.0 / world->points.size()))) * world->points.size();
-    Pnt3f temp = genPoint(i, t, 1, 1);
-    Pnt3f dir = genDir(i, t);
-    glRotatef(dir.y, 0, 1.0, 0);
+    for (float j = 0; j <= 1.0; j += trackSpace) {
 
-    printf("t: %f, Point: (%f, %f, %f), dir: %f\n", t, temp.x, temp.y, temp.z, dir.y);
+      int i = j * world->points.size();
+      float t;
 
-    glVertex3f(temp.x + 5, temp.y, temp.z);
-    glVertex3f(temp.x - 5, temp.y, temp.z);
+      Pnt3f pos;
+      Pnt3f dir;
 
-    glEnd();
+      if (tw->arcLength->value()) {
+        t = j;
+        pos = genPoint(i, t, 1);
+        dir = genDir(i, t, 1);
+      }
+      else {
+        t = (j - (i * (1.0 / world->points.size()))) * world->points.size();
+        pos = genPoint(i, t, 0);
+        dir = genDir(i, t, 0);
+      }
 
-    /*
-    float cx = (P1.x + P2.x) / 2;
-    float cy = (P1.y + P2.y) / 2;
+      glPushMatrix();
 
-    float track1x = ((P1.x - cx) * cos(90) + (P1.y - cy) * sin(90)) + cx;
-    float track1y = ((P1.x - cx) * sin(90) + (P1.y - cy) * cos(90)) + cy;
+      glTranslatef(pos.x, pos.y, pos.z);
+      glRotatef(dir.y, 0, 1.0, 0);
 
-    float track2x = ((P2.x - cx) * cos(90) + (P2.y - cy) * sin(90)) + cx;
-    float track2y = ((P2.x - cx) * sin(90) + (P2.y - cy) * cos(90)) + cy;
-    */
+      track_geom(doingShadows, 6);
+
+      glPopMatrix();
+    }
   }
-  //glPopMatrix();
-
+  
 }
 
 void TrainView::drawTrain(bool doingShadows) {
@@ -423,25 +432,34 @@ void TrainView::drawTrain(bool doingShadows) {
   glPushMatrix();
 
   int i = tw->train_pos->value() * world->points.size();
-  float t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
-  Pnt3f temp = genPoint(i, t, 1, 0);
+  float t;
+  Pnt3f pos;
+  Pnt3f dir;
 
-  glTranslatef(temp.x, temp.y + size, temp.z);
-  glRotatef(genDir(i, t).y, 0, 1.0, 0);
+  if (tw->arcLength->value()) {
+    t = tw->train_pos->value();
+    pos = genPoint(i, t, 1);
+    dir = genDir(i, t, 1);
+  } else {
+    t = (tw->train_pos->value() - (i * (1.0 / world->points.size()))) * world->points.size();
+    pos = genPoint(i, t, 0);
+    dir = genDir(i, t, 0);
+    printf("dir: %f\n", dir.y);
+  }
+
+  glTranslatef(pos.x, pos.y + size + 3, pos.z);
+  glRotatef(dir.y, 0, 1.0, 0);
 
   train_geom(doingShadows, size, length);
 
   glPopMatrix();
 }
 
-Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
+Pnt3f TrainView::genPoint(int i, float t, int arc) {
   double x, y, z;
   
   if (tw->arcLength->value() && arc == 1) {
-    float dist = tw->train_pos->value() * trackLength;
-
-    if (special == 1)
-      dist = (tw->train_pos->value() + 0.01) * trackLength;
+    float dist = t * trackLength;
 
     for (int j = 0; j < arcTable.size(); j++) {
       if (arcTable[j].lowDist >= dist) {
@@ -466,7 +484,7 @@ Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
     }
 
   }
-  
+
   if (tw->splineBrowser->value() == 1) {
     Pnt3f P1 = world->points[(i) % (world->points.size())].pos;
     Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
@@ -494,9 +512,18 @@ Pnt3f TrainView::genPoint(int i, float t, int arc, int special) {
   return Pnt3f((float)x, (float)y, (float)z);
 }
 
-Pnt3f TrainView::genDir(int i, float t) {
-  Pnt3f P1 = genPoint(i, t, 1, 0);
-  Pnt3f P2 = genPoint(i, t + 0.01, 1, 1);
+Pnt3f TrainView::genDir(int i, float t, int arc) {
+  Pnt3f P1;
+  Pnt3f P2;
+
+  if (arc == 1) {
+    P1 = genPoint(i, t, 1);
+    P2 = genPoint(i, t + 0.01, 1);
+  }
+  else {
+    P1 = genPoint(i, t, 0);
+    P2 = genPoint(i, t + 0.01, 0);
+  }
 
   float xDir = atan2(P2.y - P1.y, P2.z - P1.z) * (180.0 / M_PI);
   float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
@@ -571,6 +598,60 @@ void TrainView::train_geom(bool doingShadows, float size, float length) {
   gluCylinder(quadObj, 5, 0, 5, 16, 3);
 
   glPopMatrix();
+
+}
+
+void TrainView::track_geom(bool doingShadows, float length) {
+  float size = length / 6;
+  
+  glBegin(GL_QUADS);
+
+  if (!doingShadows)
+    glColor3ub(255, 150, 0);
+
+  // Front
+  glNormal3f(0, 0, 1);
+  glVertex3f(length, size, size);
+  glVertex3f(-length, size, size);
+  glVertex3f(-length, -size, size);
+  glVertex3f(length, -size, size);
+
+  // Back
+  glNormal3f(0, 0, -1);
+  glVertex3f(length, size, -size);
+  glVertex3f(length, -size, -size);
+  glVertex3f(-length, -size, -size);
+  glVertex3f(-length, size, -size);
+
+  //Top
+  glNormal3f(0, 1, 0);
+  glVertex3f(length, size, size);
+  glVertex3f(-length, size, size);
+  glVertex3f(-length, size, -size);
+  glVertex3f(length, size, -size);
+
+  // Bottom
+  glNormal3f(0, -1, 0);
+  glVertex3f(length, -size, size);
+  glVertex3f(-length, -size, size);
+  glVertex3f(-length, -size, -size);
+  glVertex3f(length, -size, -size);
+
+  // Left Side
+  glNormal3f(1, 0, 0);
+  glVertex3f(length, size, size);
+  glVertex3f(length, -size, size);
+  glVertex3f(length, -size, -size);
+  glVertex3f(length, size, -size);
+
+  // Right Side
+  glNormal3f(-1, 0, 0);
+  glVertex3f(-length, size, size);
+  glVertex3f(-length, size, -size);
+  glVertex3f(-length, -size, -size);
+  glVertex3f(-length, -size, size);
+
+  glEnd();
 
 }
 

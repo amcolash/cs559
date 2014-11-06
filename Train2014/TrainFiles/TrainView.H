@@ -82,8 +82,10 @@ public:
   void drawTrain(bool doingShadows);
 
   void train_geom(bool doingShadows, float size, float length);
-  Pnt3f genPoint(int i, float t, int arc, int special);
-  Pnt3f genDir(int i, float t);
+  void track_geom(bool doingShadows, float length);
+  
+  Pnt3f genPoint(int i, float t, int arc);
+  Pnt3f genDir(int i, float t, int arc);
 
   // track points for arc length version
   std::vector<arcPoint> arcTable;
