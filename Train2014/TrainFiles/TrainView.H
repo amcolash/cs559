@@ -38,10 +38,27 @@ class World;
 #include <vector>
 
 typedef struct {
+  float r;
+  float g;
+  float b;
+} color;
+
+typedef struct {
   float lowDist;
   float highDist;
   int point;
 } arcPoint;
+
+typedef struct {
+  float y;
+  color c;
+} terrainSegment;
+
+typedef struct {
+  Pnt3f pos;
+  float size;
+  color c;
+} tree;
 
 // note that this mainly takes care of the drawing and other window
 // stuff
@@ -81,12 +98,12 @@ public:
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
   void drawTerrain();
-  void drawTrees();
+  void drawTrees(bool doingShadows);
   
   // drawing of geometry for objects
   void track_geom(bool doingShadows, float length, float y);
   void train_geom(bool doingShadows, float size, float length, float frontRot, float backRot);
-  void trees_geom(float size);
+  void trees_geom(bool doingShadows, tree t);
   
   // helper functions
   Pnt3f genPoint(int i, float t, int arc);
@@ -95,7 +112,10 @@ public:
 
   // track points for arc length and for tree placement
   std::vector<arcPoint> arcTable;
-  std::vector<Pnt3f> track;
+  std::vector<Pnt3f> trackPos;
+  std::vector<Pnt3f> trackDir;
+  std::vector<terrainSegment> terrain;
+  std::vector<tree> trees;
 
   // length of track
   float trackLength;

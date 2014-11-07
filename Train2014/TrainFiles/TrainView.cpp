@@ -82,6 +82,7 @@ int TrainView::handle(int event)
       cp->pos.x = (float)rx;
       cp->pos.y = (float)ry;
       cp->pos.z = (float)rz;
+      tw->dirty = true;
       damage(1);
     }
     break;
@@ -169,12 +170,10 @@ void TrainView::draw()
   glLightfv(GL_LIGHT2, GL_POSITION, lightPosition3);
   glLightfv(GL_LIGHT2, GL_DIFFUSE, blueLight);
 
-
-
   // now draw the ground plane
   setupFloor();
   glDisable(GL_LIGHTING);
-  if (tw->terrain->value()) {
+  if (tw->drawingTerrain->value()) {
     drawTerrain();
   }
   else {
@@ -193,6 +192,8 @@ void TrainView::draw()
     drawStuff(true);
     unsetupShadows();
   }
+
+  tw->dirty = false;
 
 }
 
@@ -303,8 +304,8 @@ void TrainView::drawStuff(bool doingShadows)
 #endif
 
   // Since I am randomly generating trees, I am skipping shadows for simplicity
-  if (!doingShadows && tw->trees->value())
-    drawTrees();
+  if (tw->drawingTrees)
+    drawTrees(doingShadows);
 }
 
 // this tries to see which control point is under the mouse
@@ -357,86 +358,113 @@ void TrainView::doPick()
     selectedCube = -1;
 
   printf("Selected Cube %d\n", selectedCube);
+  tw->dirty = true;
 }
 
 void TrainView::drawTrack(bool doingShadows) {
+  float size = 6;
   if (!doingShadows) {
     glColor3ub(100, 50, 0);
   }
-
-  arcTable.resize(0);
-  track.resize(0);
-  trackLength = 0;
-
-  glLineWidth(8.0);
-  glBegin(GL_LINE_LOOP);
-
-  // Loop through the points and calculate length of each segment
-  for (int i = 0; i < world->points.size(); i++) {
-    float pointLength = 0;
-
-    for (float t = 0; t <= 1.0; t += 0.05) {
-      Pnt3f P1 = genPoint(i, t, 0);
-      Pnt3f P2 = genPoint(i, t + 0.01, 0);
-      
-      if (tw->trackType->value() == 1) {
-        glVertex3f(P1.x, P1.y, P1.z);
-        track.push_back(P1);
+  if (!tw->dirty) {
+    if (tw->trackType->value() == 1) {
+      glLineWidth(8.0);
+      glBegin(GL_LINE_LOOP);
+      for (int i = 0; i < trackPos.size(); i++) {
+        glVertex3f(trackPos[i].x, trackPos[i].y, trackPos[i].z);
       }
-
-      float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
+      glEnd();
+    } else {
       
-      // Set up some variables for later when checking arc length and what points go where
-      pointLength += tempLength;
-      trackLength += tempLength;
-      arcPoint temp;
-      temp.lowDist = trackLength;
-      temp.point = i;
-      temp.highDist = trackLength;
-      arcTable.push_back(temp);
+      for (int i = 0; i < trackPos.size(); i++) {
+        glPushMatrix();
+
+        glTranslatef(trackPos[i].x, trackPos[i].y, trackPos[i].z);
+        glRotatef(trackDir[i].y, 0, 1.0, 0);
+
+        track_geom(doingShadows, size, trackPos[i].y);
+
+        glPopMatrix();
+      }
     }
 
-    world->points[i].length = pointLength;
-  }
-  glEnd();
-  
-  // If using "fancy" tracks
-  if (tw->trackType->value() == 2 || tw->trackType->value() == 3) {
+  } else {
+    arcTable.resize(0);
+    trackPos.resize(0);
+    trackDir.resize(0);
+    trackLength = 0;
 
-    float trackSpace = 5 / trackLength * tw->trackSpace->value();
-    float size = 6;
+    glLineWidth(8.0);
+    glBegin(GL_LINE_LOOP);
 
-    // Generate tracks for all parts of the parameterized system
-    for (float j = 0; j <= 1.0; j += trackSpace) {
+    // Loop through the points and calculate length of each segment
+    for (int i = 0; i < world->points.size(); i++) {
+      float pointLength = 0;
 
-      int i = j * world->points.size();
-      float t;
+      for (float t = 0; t <= 1.0; t += 0.05) {
+        Pnt3f P1 = genPoint(i, t, 0);
+        Pnt3f P2 = genPoint(i, t + 0.01, 0);
 
-      Pnt3f pos;
-      Pnt3f dir;
+        if (tw->trackType->value() == 1) {
+          glVertex3f(P1.x, P1.y, P1.z);
+          trackPos.push_back(P1);
+          trackDir.push_back(genDir(i, t, 0));
+        }
 
-      if (tw->arcLength->value()) {
-        t = j;
-        pos = genPoint(i, t, 1);
-        dir = genDir(i, t, 1);
+        float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
+
+        // Set up some variables for later when checking arc length and what points go where
+        pointLength += tempLength;
+        trackLength += tempLength;
+        arcPoint temp;
+        temp.lowDist = trackLength;
+        temp.point = i;
+        temp.highDist = trackLength;
+        arcTable.push_back(temp);
       }
-      else {
-        t = (j - (i * (1.0 / world->points.size()))) * world->points.size();
-        pos = genPoint(i, t, 0);
-        dir = genDir(i, t, 0);
+
+      world->points[i].length = pointLength;
+    }
+    glEnd();
+
+    // If using "fancy" tracks
+    if (tw->trackType->value() == 2 || tw->trackType->value() == 3) {
+
+      float trackSpace = 5 / trackLength * tw->trackSpace->value();
+
+      // Generate tracks for all parts of the parameterized system
+      for (float j = 0; j <= 1.0; j += trackSpace) {
+
+        int i = j * world->points.size();
+        float t;
+
+        Pnt3f pos;
+        Pnt3f dir;
+
+        if (tw->arcLength->value()) {
+          t = j;
+          pos = genPoint(i, t, 1);
+          dir = genDir(i, t, 1);
+        }
+        else {
+          t = (j - (i * (1.0 / world->points.size()))) * world->points.size();
+          pos = genPoint(i, t, 0);
+          dir = genDir(i, t, 0);
+        }
+
+        trackPos.push_back(pos);
+        trackDir.push_back(dir);
+
+        // Train tracks ties
+        glPushMatrix();
+
+        glTranslatef(pos.x, pos.y, pos.z);
+        glRotatef(dir.y, 0, 1.0, 0);
+
+        track_geom(doingShadows, size, pos.y);
+
+        glPopMatrix();
       }
-
-      track.push_back(pos);
-
-      // Train tracks ties
-      glPushMatrix();
-
-      glTranslatef(pos.x, pos.y, pos.z);
-      glRotatef(dir.y, 0, 1.0, 0);
-
-      track_geom(doingShadows, size, pos.y);
-
-      glPopMatrix();
     }
   }
   
@@ -486,47 +514,74 @@ void TrainView::drawTrain(bool doingShadows) {
 }
 
 void TrainView::drawTerrain() {
-  
   float size = 250.0;
   int num = tw->samples->value();
   float step = size / (num - 1);
-  
-  vector< vector<int> > terrain(num);
+  vector< vector<terrainSegment> > tempTerrain(num);
 
   for (int i = 0; i < num; i++)
-    terrain[i].resize(num);
-  
-  srand(tw->seed->value());
+    tempTerrain[i].resize(num);
 
-  // Generate some random z values for the terrain
-  for (int z = 0; z < num; z++) {
-    for (int x = 0; x < num; x++) {
-      terrain[z][x] = rand() / (RAND_MAX / (10 * tw->roughness->value()));
+  if (!tw->dirty && terrain.size() == num * num) {
+    for (int z = 0; z < num; z++) {
+      for (int x = 0; x < num; x++) {
+        tempTerrain[z][x].y = terrain[z * num + x].y;
+        tempTerrain[z][x].c.r = terrain[z * num + x].c.r;
+        tempTerrain[z][x].c.g = terrain[z * num + x].c.g;
+        tempTerrain[z][x].c.b = terrain[z * num + x].c.b;
+      }
+    }
+  } else {
+
+    srand(tw->seed->value());
+
+    // Generate some random y values for the terrain
+    for (int z = 0; z < num; z++) {
+      for (int x = 0; x < num; x++) {
+        float y = rand() / (RAND_MAX / (10 * tw->roughness->value()));
+        float r = 10 + rand() / (RAND_MAX / 20);
+        float g = 100 + rand() / (RAND_MAX / 30);
+        float b = 10 + rand() / (RAND_MAX / 20);
+        
+        tempTerrain[z][x].y = y;
+        tempTerrain[z][x].c.r = r;
+        tempTerrain[z][x].c.g = g;
+        tempTerrain[z][x].c.b = b;
+
+        terrainSegment temp;
+        temp.y = y;
+        temp.c.r = r;
+        temp.c.g = g;
+        temp.c.b = b;
+        terrain.push_back(temp);
+      }
     }
   }
-  
+
   glPushMatrix();
-  
-  glTranslatef(-size/2, -5, -size/2);
+
+  glTranslatef(-size / 2, -5, -size / 2);
 
   // Draw the terrain using triangle strips, find some fun random colors for each face
-  for (int z = 0; z < num - 1 ; z++) {
+  for (int z = 0; z < num - 1; z++) {
     glBegin(GL_TRIANGLE_STRIP);
     for (int x = 0; x < num - 1; x++) {
       //glNormal3f(0, 1, 0);
-      glColor3ub(10 + rand() / (RAND_MAX / 20), 100 + rand() / (RAND_MAX / 30), 10 + rand() / (RAND_MAX / 20));
-      
-      glTexCoord2f(0.0f, 0.0f);
-      glVertex3f(x * step, terrain[z][x], z * step);
-      
-      glTexCoord2f(1.0f, 0.0f);
-      glVertex3f((x+1) * step, terrain[z][x+1], z * step);
-      
-      glTexCoord2f(0.0f, 1.0f);
-      glVertex3f(x * step, terrain[z+1][x], (z+1) * step);
-      
-      glTexCoord2f(1.0f, 1.0f);
-      glVertex3f((x+1) * step, terrain[z+1][x+1], (z+1) * step);
+
+
+      glColor3ub(tempTerrain[z][x].c.r, tempTerrain[z][x].c.g, tempTerrain[z][x].c.b);
+
+      //glTexCoord2f(0.0f, 0.0f);
+      glVertex3f(x * step, tempTerrain[z][x].y, z * step);
+
+      //glTexCoord2f(1.0f, 0.0f);
+      glVertex3f((x + 1) * step, tempTerrain[z][x + 1].y, z * step);
+
+      //glTexCoord2f(0.0f, 1.0f);
+      glVertex3f(x * step, tempTerrain[z + 1][x].y, (z + 1) * step);
+
+      //glTexCoord2f(1.0f, 1.0f);
+      glVertex3f((x + 1) * step, tempTerrain[z + 1][x + 1].y, (z + 1) * step);
     }
     glEnd();
   }
@@ -534,30 +589,39 @@ void TrainView::drawTerrain() {
   glPopMatrix();
 }
 
-void TrainView::drawTrees() {
-  srand(tw->seed->value());
-  // Find places to put the trees, since there are not too many trees this should work...
-  int failCount;
-  for (int i = 0; i < tw->numTrees->value(); i++) {
-    Pnt3f pos(-999, -999, -999);
-    failCount = 0;
-    while (!validPos(pos) && failCount < 50) {
-      pos = Pnt3f((float)rand() / (RAND_MAX / 250) - 125, (float)0, (float)rand() / (RAND_MAX / 250) - 125);
-      failCount++;
-    }
-
-    if (failCount < 50) {
-      glPushMatrix();
-      glTranslatef(pos.x, pos.y, pos.z);
-
-      // Generate a random size for the tree and make the geometry
-      float size = rand() / (RAND_MAX / 4) + 4;
-      trees_geom(size);
-
-      glPopMatrix();
+void TrainView::drawTrees(bool doingShadows) {
+  if (tw->dirty) {
+    srand(tw->seed->value());
+    trees.resize(0);
+    // Find places to put the trees, since there are not too many trees this should work...
+    // Just in case, this generation will eventually fail and give up if it cannot find random
+    // places for the trees.
+    int failCount = 0;
+    for (int i = 0; i < tw->numTrees->value(); i++) {
+      Pnt3f pos(-999, -999, -999);
+      failCount = 0;
+      while (!validPos(pos) && failCount < 50) {
+        pos = Pnt3f((float)rand() / (RAND_MAX / 250) - 125, (float)0, (float)rand() / (RAND_MAX / 250) - 125);
+        failCount++;
+      }
+      if (failCount < 50) {
+        tree temp;
+        temp.pos = pos;
+        temp.size = rand() / (RAND_MAX / 4) + 4;
+        temp.c.r = 10 + rand() / (RAND_MAX / 20);
+        temp.c.g = 100 + rand() / (RAND_MAX / 30);
+        temp.c.b = 10 + rand() / (RAND_MAX / 20);
+        trees.push_back(temp);
+      }
     }
   }
-  
+
+  for (int i = 0; i < trees.size(); i++) {
+    glPushMatrix();
+    glTranslatef(trees[i].pos.x, trees[i].pos.y, trees[i].pos.z);
+    trees_geom(doingShadows, trees[i]);
+    glPopMatrix();
+  }
 }
 
 Pnt3f TrainView::genPoint(int i, float t, int arc) {
@@ -639,9 +703,6 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
   float yDir = atan2(P2.x - P1.x, P2.z - P1.z) * (180.0 / M_PI);
   float zDir = atan2(P2.x - P1.x, P2.y - P1.y) * (180.0 / M_PI);
 
-  //printf("(%f, %f, %f), (%f, %f, %f)\n", P1.x, P1.y, P1.z, P2.x, P2.y, P2.z);
-  //printf("x: %f, y: %f, z: %f\n", xDir, yDir, zDir);
-
   return Pnt3f(xDir, yDir, zDir);
 }
 
@@ -653,13 +714,22 @@ bool TrainView::validPos(Pnt3f P1) {
     return false;
 
   // Loop through current points in the world to make sure that is is valid to place a tree
-  for (int i = 0; i < track.size(); i++) {
-    Pnt3f P2 = track[i];
-    float distance = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
+  // Do not look at the y values, at there could be an elevated track
+  for (int i = 0; i < trackPos.size(); i++) {
+    Pnt3f P2 = trackPos[i];
+    float distance = sqrt(pow((P1.x - P2.x), 2) + pow((P1.z - P2.z), 2));
     if (distance <= min)
       return false;
   }
-  track.push_back(P1);
+  
+  // Check that another tree is not occupying this space
+  for (int i = 0; i < trees.size(); i++) {
+    Pnt3f P2 = trees[i].pos;
+    float distance = sqrt(pow((P1.x - P2.x), 2) + pow((P1.z - P2.z), 2));
+    if (distance <= min + trees[i].size * 2)
+      return false;
+  }
+
   return true;
 }
 
@@ -851,24 +921,31 @@ void TrainView::track_geom(bool doingShadows, float length, float y) {
 
 }
 
-void TrainView::trees_geom(float size) {
+void TrainView::trees_geom(bool doingShadows, tree t) {
   
   glPushMatrix();
 
-  glTranslatef(0, size * 3, 0);
+  // Orient the tree correctly
+  glTranslatef(0, t.size * 3, 0);
   glRotatef(-90, 1.0, 0, 0);
 
   glPushMatrix();
 
   GLUquadricObj *top = gluNewQuadric();
-  glColor3ub(10 + rand() / (RAND_MAX / 20), 100 + rand() / (RAND_MAX / 30), 10 + rand() / (RAND_MAX / 20));
-  gluCylinder(top, size, 0, size * 2.5, 16, 3);
-  gluDisk(top, 0, size, 16, 1);
+  if (!doingShadows)
+    glColor3ub(t.c.r, t.c.g, t.c.b);
 
-  glTranslatef(0, 0, -size * 3);
+  // Draw top of tree
+  gluCylinder(top, t.size, 0, t.size * 2.5, 16, 3);
+  gluDisk(top, 0, t.size, 16, 1);
 
-  glColor3ub(80, 40, 10);
-  gluCylinder(top, size / 2, size / 2, size * 3, 16, 3);
+  glTranslatef(0, 0, -t.size * 3);
+
+  if (!doingShadows)
+    glColor3ub(80, 40, 10);
+
+  // Draw trunk of tree
+  gluCylinder(top, t.size / 2, t.size / 2, t.size * 3, 16, 3);
 
   glPopMatrix();
   glPopMatrix();

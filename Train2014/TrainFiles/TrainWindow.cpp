@@ -47,6 +47,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		rb->callback((Fl_Callback*)backCB,this);
 		
 		arcLength = new Fl_Button(730,pty,65,20,"ArcLength");
+    arcLength->callback((Fl_Callback*)dirtyCB, this);
 		togglify(arcLength,1);
   
 		pty+=25;
@@ -80,7 +81,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     trackSpace->value(0.4);
     trackSpace->align(FL_ALIGN_LEFT);
     trackSpace->type(FL_HORIZONTAL);
-    trackSpace->callback((Fl_Callback*)damageCB, this);
+    trackSpace->callback((Fl_Callback*)dirtyCB, this);
 
     pty += 30;
 
@@ -110,7 +111,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		// TODO: make sure these choices are the same as what the code supports
 		splineBrowser = new Fl_Browser(605,pty,120,55,"Spline Type");
 		splineBrowser->type(2);		// select
-		splineBrowser->callback((Fl_Callback*)damageCB,this);
+		splineBrowser->callback((Fl_Callback*)dirtyCB,this);
 		splineBrowser->add("Linear");
 		splineBrowser->add("Cardinal Cubic");
 		//splineBrowser->add("Cubic B-Spline");
@@ -121,7 +122,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     // browser to select track types
     trackType = new Fl_Browser(605, pty, 120, 70, "Track Type");
     trackType->type(2);		// select
-    trackType->callback((Fl_Callback*)damageCB, this);
+    trackType->callback((Fl_Callback*)dirtyCB, this);
     trackType->add("Simple Line");
     trackType->add("3d Rails");
     trackType->add("Rails + Stilts");
@@ -165,12 +166,12 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     // Widgets below are for custom terrain and environment settings
     
     // Toggle for drawing random trees
-    trees = new Fl_Button(600, pty, 80, 20, "Draw Trees");
-    togglify(trees, 1);
+    drawingTrees = new Fl_Button(600, pty, 80, 20, "Draw Trees");
+    togglify(drawingTrees, 1);
 
     // Toggle for random terrain generation
-    terrain = new Fl_Button(683, pty, 115, 20, "Random Terrain");
-    togglify(terrain, 1);
+    drawingTerrain = new Fl_Button(683, pty, 115, 20, "Random Terrain");
+    togglify(drawingTerrain, 1);
 
     pty += 35;
 
@@ -180,7 +181,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     seed->value(0);
     seed->align(FL_ALIGN_LEFT);
     seed->type(FL_HORIZONTAL);
-    seed->callback((Fl_Callback*)damageCB, this);
+    seed->callback((Fl_Callback*)dirtyCB, this);
 
     pty += 30;
 
@@ -190,7 +191,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     roughness->value(0.75);
     roughness->align(FL_ALIGN_LEFT);
     roughness->type(FL_HORIZONTAL);
-    roughness->callback((Fl_Callback*)damageCB, this);
+    roughness->callback((Fl_Callback*)dirtyCB, this);
 
     pty += 30;
 
@@ -200,17 +201,17 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     samples->value(30);
     samples->align(FL_ALIGN_LEFT);
     samples->type(FL_HORIZONTAL);
-    samples->callback((Fl_Callback*)damageCB, this);
+    samples->callback((Fl_Callback*)dirtyCB, this);
 
     pty += 30;
 
     // Number of trees to be generated
     numTrees = new Fl_Value_Slider(655, pty, 140, 20, "Trees");
-    numTrees->range(1, 25);
-    numTrees->value(10);
+    numTrees->range(1, 50);
+    numTrees->value(30);
     numTrees->align(FL_ALIGN_LEFT);
     numTrees->type(FL_HORIZONTAL);
-    numTrees->callback((Fl_Callback*)damageCB, this);
+    numTrees->callback((Fl_Callback*)dirtyCB, this);
 
 		// TODO: add widgets for all of your fancier features here
 #ifdef EXAMPLE_SOLUTION
@@ -235,7 +236,7 @@ void TrainWindow::togglify(Fl_Button* b, int val)
     b->type(FL_TOGGLE_BUTTON);		// toggle
     b->value(val);		// turned off
     b->selection_color((Fl_Color)3); // yellow when pressed	
-	b->callback((Fl_Callback*)damageCB,this);
+	  b->callback((Fl_Callback*)damageCB,this);
 }
 
 void TrainWindow::damageMe()
@@ -254,8 +255,6 @@ void TrainWindow::advanceTrain(float dir)
   float value = fmodf(train_pos->value() + dir * speed->value(), 1.0);
   if (value < 0)
     value += 1.0;
-
-  //printf("value: %f\n", value);
 
   train_pos->value ( (double) value );
 

@@ -16,6 +16,8 @@ class Fl_Widget;
 void resetCB(Fl_Widget*, TrainWindow* tw);
 void damageCB(Fl_Widget*, TrainWindow* tw);
 
+void dirtyCB(Fl_Widget*, TrainWindow* tw);
+
 // Callback that adds a new point to the spline
 // idea: add the point AFTER the selected point
 void addPointCB(Fl_Widget*, TrainWindow* tw);

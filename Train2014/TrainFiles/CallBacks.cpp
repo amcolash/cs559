@@ -28,14 +28,20 @@ void resetCB(Fl_Widget*, TrainWindow* tw)
 	tw->world.resetPoints();
 	tw->trainView->selectedCube = -1;
 	tw->world.trainU = 0;
-	tw->damageMe();
   tw->train_pos->value(0);
+  tw->dirty = true;
+  tw->damageMe();
 }
 
 // any time something changes, you need to force a redraw
 void damageCB(Fl_Widget*, TrainWindow* tw)
 {
 	tw->damageMe();
+}
+
+void dirtyCB(Fl_Widget*, TrainWindow* tw) {
+  tw->dirty = true;
+  tw->damageMe();
 }
 
 // Callback that adds a new point to the spline
@@ -60,6 +66,7 @@ void addPointCB(Fl_Widget*, TrainWindow* tw)
 		if (tw->world.trainU >= npts) tw->world.trainU -= npts;
 	}
 
+  tw->dirty = true;
 	tw->damageMe();
 }
 
@@ -72,6 +79,7 @@ void deletePointCB(Fl_Widget*, TrainWindow* tw)
 		} else
 			tw->world.points.pop_back();
 	}
+  tw->dirty = true;
 	tw->damageMe();
 }
 // Callbacks for advancing/pulling back train
@@ -112,6 +120,7 @@ void loadCB(Fl_Widget*, TrainWindow* tw)
 	const char* fname = fl_file_chooser("Pick a Track File","*.txt","TrackFiles/track.txt");
 	if (fname) {
 		tw->world.readPoints(fname);
+    tw->dirty = true;
 		tw->damageMe();
 	}
 }
@@ -133,6 +142,7 @@ void rollx(TrainWindow* tw, float dir)
 		tw->world.points[s].orient.y = co * old.y - si * old.z;
 		tw->world.points[s].orient.z = si * old.y + co * old.z;
 	}
+  tw->dirty = true;
 	tw->damageMe();
 } 
 

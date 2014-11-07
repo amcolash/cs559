@@ -76,14 +76,17 @@ public:
   Fl_Value_Slider* samples;
   Fl_Value_Slider* numTrees;
 
-  Fl_Button* terrain;
-  Fl_Button* trees;
+  Fl_Button* drawingTerrain;
+  Fl_Button* drawingTrees;
   Fl_Button* wheelRot;
 
   // Specify track type
   Fl_Browser* trackType;
 
 	Fl_Button* arcLength;		// do we use arc length for speed?
+
+  // Does the world need to be re-calculated?
+  bool dirty = true;
 
 	// call this method when things change
 	void damageMe();
