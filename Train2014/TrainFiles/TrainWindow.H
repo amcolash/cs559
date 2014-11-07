@@ -74,7 +74,7 @@ public:
   
 
   Fl_Value_Slider* seed;
-  Fl_Value_Slider* terrainHeight;
+  Fl_Value_Slider* roughness;
   Fl_Value_Slider* samples;
 
   // Specify track type

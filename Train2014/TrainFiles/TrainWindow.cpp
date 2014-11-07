@@ -95,18 +95,18 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
-    terrainHeight = new Fl_Value_Slider(655, pty, 140, 20, "Height");
-    terrainHeight->range(5, 40);
-    terrainHeight->value(5);
-    terrainHeight->align(FL_ALIGN_LEFT);
-    terrainHeight->type(FL_HORIZONTAL);
-    terrainHeight->callback((Fl_Callback*)damageCB, this);
+    roughness = new Fl_Value_Slider(655, pty, 140, 20, "Noise");
+    roughness->range(0, 1);
+    roughness->value(0.5);
+    roughness->align(FL_ALIGN_LEFT);
+    roughness->type(FL_HORIZONTAL);
+    roughness->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
 
     samples = new Fl_Value_Slider(655, pty, 140, 20, "Samples");
-    samples->range(5, 150);
-    samples->value(5);
+    samples->range(2, 70);
+    samples->value(30);
     samples->align(FL_ALIGN_LEFT);
     samples->type(FL_HORIZONTAL);
     samples->callback((Fl_Callback*)damageCB, this);
