@@ -69,15 +69,15 @@ public:
 	Fl_Value_Slider* speed;
   Fl_Value_Slider* train_pos;
 
-  Fl_Value_Slider* rotZ;
   Fl_Value_Slider* trackSpace;
-  
 
   Fl_Value_Slider* seed;
   Fl_Value_Slider* roughness;
   Fl_Value_Slider* samples;
+  Fl_Value_Slider* numTrees;
 
   Fl_Button* terrain;
+  Fl_Button* trees;
   Fl_Button* wheelRot;
 
   // Specify track type

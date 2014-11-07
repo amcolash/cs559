@@ -66,17 +66,15 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     train_pos->type(FL_HORIZONTAL);
     train_pos->callback((Fl_Callback*)damageCB, this);
 
-		pty += 30;
-
-    rotZ = new Fl_Value_Slider(655, pty, 140, 20, "Rot Z");
-    rotZ->range(-180, 180);
-    rotZ->value(10);
-    rotZ->align(FL_ALIGN_LEFT);
-    rotZ->type(FL_HORIZONTAL);
-    rotZ->callback((Fl_Callback*)damageCB, this);
-
     pty += 30;
 
+    // Toggle for rotation of wheels independent of train body
+    wheelRot = new Fl_Button(605, pty, 190, 20, "Independent Wheel Rotation");
+    togglify(wheelRot, 1);
+
+    pty += 25;
+
+    // Spacing for the track rails
     trackSpace = new Fl_Value_Slider(655, pty, 140, 20, "Spacing");
     trackSpace->range(0.1, 1);
     trackSpace->value(0.4);
@@ -138,6 +136,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		dp->callback((Fl_Callback*)deletePointCB,this);
 
 		pty += 25;
+
 		// reset the points
 		resetButton = new Fl_Button(735,pty,60,20,"Reset");
 		resetButton->callback((Fl_Callback*)resetCB,this);
@@ -146,7 +145,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		Fl_Button* saveb = new Fl_Button(670,pty,60,20,"Save");
 		saveb->callback((Fl_Callback*) saveCB, this);
 
-		pty += 45;
+		pty += 35;
 
     /*
 		// roll the points
@@ -162,14 +161,20 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		pty+=30;
     */
 
-    wheelRot = new Fl_Button(605, pty, 110, 20, "Wheel Rotation");
-    togglify(wheelRot, 1);
 
-    terrain = new Fl_Button(730, pty, 65, 20, "Terrain");
+    // Widgets below are for custom terrain and environment settings
+    
+    // Toggle for drawing random trees
+    trees = new Fl_Button(600, pty, 80, 20, "Draw Trees");
+    togglify(trees, 1);
+
+    // Toggle for random terrain generation
+    terrain = new Fl_Button(683, pty, 115, 20, "Random Terrain");
     togglify(terrain, 1);
 
-    pty += 25;
+    pty += 35;
 
+    // Seed for pseudo-randomness
     seed = new Fl_Value_Slider(655, pty, 140, 20, "Seed");
     seed->range(0, 1000);
     seed->value(0);
@@ -179,6 +184,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
+    // Amount of noise (randomness) for terrain generation
     roughness = new Fl_Value_Slider(655, pty, 140, 20, "Noise");
     roughness->range(0, 1);
     roughness->value(0.75);
@@ -188,6 +194,7 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
+    // Number of subdivisons when generating terrain
     samples = new Fl_Value_Slider(655, pty, 140, 20, "Samples");
     samples->range(2, 70);
     samples->value(30);
@@ -196,6 +203,14 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     samples->callback((Fl_Callback*)damageCB, this);
 
     pty += 30;
+
+    // Number of trees to be generated
+    numTrees = new Fl_Value_Slider(655, pty, 140, 20, "Trees");
+    numTrees->range(1, 25);
+    numTrees->value(10);
+    numTrees->align(FL_ALIGN_LEFT);
+    numTrees->type(FL_HORIZONTAL);
+    numTrees->callback((Fl_Callback*)damageCB, this);
 
 		// TODO: add widgets for all of your fancier features here
 #ifdef EXAMPLE_SOLUTION

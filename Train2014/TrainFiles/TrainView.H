@@ -77,25 +77,28 @@ public:
 	TrainWindow* tw;
 	World* world;
 
-  // my drawing functions
+  // main drawing functions
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
-  
-  void drawTrees(bool doingShadows);
   void drawTerrain();
-
-  void train_geom(bool doingShadows, float size, float length, float frontRot, float backRot);
-  void track_geom(bool doingShadows, float length);
+  void drawTrees();
   
+  // drawing of geometry for objects
+  void track_geom(bool doingShadows, float length, float y);
+  void train_geom(bool doingShadows, float size, float length, float frontRot, float backRot);
+  void trees_geom(float size);
+  
+  // helper functions
   Pnt3f genPoint(int i, float t, int arc);
   Pnt3f genDir(int i, float t, int arc);
+  bool validPos(Pnt3f pos);
 
-  // track points for arc length version
+  // track points for arc length and for tree placement
   std::vector<arcPoint> arcTable;
+  std::vector<Pnt3f> track;
 
   // length of track
   float trackLength;
-
 };
 
 

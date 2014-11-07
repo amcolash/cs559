@@ -231,6 +231,7 @@ void TrainView::setProjection()
     Pnt3f pos;
     Pnt3f dir;
 
+    // Find where to show the view based on if in parameterized space
     if (tw->arcLength->value()) {
       t = tw->train_pos->value();
       pos = genPoint(i, t, 1);
@@ -249,9 +250,9 @@ void TrainView::setProjection()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //glRotatef(tw->rotY->value(), 0, 1, 0);
-    //printf("%f\n", dir.z);
-    glRotatef(tw->rotZ->value(), 1.0, 0, 0);
+    // Rotate a bit down to see the track below
+    glRotatef(14, 1.0, 0, 0);
+    // Rotate in the current direction that the train is facing
     glRotatef(-dir.y + 180, 0, 1.0, 0);
 
     glTranslatef(-pos.x, -pos.y - 10, -pos.z);
@@ -301,7 +302,9 @@ void TrainView::drawStuff(bool doingShadows)
     drawTrain(this, doingShadows);
 #endif
 
-  drawTrees(doingShadows);
+  // Since I am randomly generating trees, I am skipping shadows for simplicity
+  if (!doingShadows && tw->trees->value())
+    drawTrees();
 }
 
 // this tries to see which control point is under the mouse
@@ -361,9 +364,8 @@ void TrainView::drawTrack(bool doingShadows) {
     glColor3ub(100, 50, 0);
   }
 
-  vector<Pnt3f> tracks;
-
   arcTable.resize(0);
+  track.resize(0);
   trackLength = 0;
 
   glLineWidth(8.0);
@@ -377,11 +379,14 @@ void TrainView::drawTrack(bool doingShadows) {
       Pnt3f P1 = genPoint(i, t, 0);
       Pnt3f P2 = genPoint(i, t + 0.01, 0);
       
-      if (tw->trackType->value() == 1)
+      if (tw->trackType->value() == 1) {
         glVertex3f(P1.x, P1.y, P1.z);
+        track.push_back(P1);
+      }
 
       float tempLength = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
-
+      
+      // Set up some variables for later when checking arc length and what points go where
       pointLength += tempLength;
       trackLength += tempLength;
       arcPoint temp;
@@ -395,13 +400,13 @@ void TrainView::drawTrack(bool doingShadows) {
   }
   glEnd();
   
+  // If using "fancy" tracks
   if (tw->trackType->value() == 2 || tw->trackType->value() == 3) {
 
     float trackSpace = 5 / trackLength * tw->trackSpace->value();
     float size = 6;
 
-    vector<Pnt3f> track;
-
+    // Generate tracks for all parts of the parameterized system
     for (float j = 0; j <= 1.0; j += trackSpace) {
 
       int i = j * world->points.size();
@@ -423,12 +428,13 @@ void TrainView::drawTrack(bool doingShadows) {
 
       track.push_back(pos);
 
+      // Train tracks ties
       glPushMatrix();
 
       glTranslatef(pos.x, pos.y, pos.z);
       glRotatef(dir.y, 0, 1.0, 0);
 
-      track_geom(doingShadows, size);
+      track_geom(doingShadows, size, pos.y);
 
       glPopMatrix();
     }
@@ -447,6 +453,7 @@ void TrainView::drawTrain(bool doingShadows) {
   float frontRot;
   float backRot;
 
+  // Calculate the position and rotation of the train
   if (tw->arcLength->value()) {
     t = tw->train_pos->value();
     pos = genPoint(i, t, 1);
@@ -463,9 +470,11 @@ void TrainView::drawTrain(bool doingShadows) {
     backRot = dir.y - genDir(i, t - 0.1, 0).y;
   }
 
+  // If not rotating wheels, just set these angles to 0
   if (!tw->wheelRot->value())
     frontRot = backRot = 0;
 
+  // Move and rotate the train, if necessary use arc-length parameterization
   glPushMatrix();
 
   glTranslatef(pos.x, pos.y + size * 2.3, pos.z);
@@ -489,6 +498,7 @@ void TrainView::drawTerrain() {
   
   srand(tw->seed->value());
 
+  // Generate some random z values for the terrain
   for (int z = 0; z < num; z++) {
     for (int x = 0; x < num; x++) {
       terrain[z][x] = rand() / (RAND_MAX / (10 * tw->roughness->value()));
@@ -499,8 +509,7 @@ void TrainView::drawTerrain() {
   
   glTranslatef(-size/2, -5, -size/2);
 
-  //glColor3ub(30, 130, 30);
-
+  // Draw the terrain using triangle strips, find some fun random colors for each face
   for (int z = 0; z < num - 1 ; z++) {
     glBegin(GL_TRIANGLE_STRIP);
     for (int x = 0; x < num - 1; x++) {
@@ -525,20 +534,43 @@ void TrainView::drawTerrain() {
   glPopMatrix();
 }
 
-void TrainView::drawTrees(bool doingShadows) {
+void TrainView::drawTrees() {
+  srand(tw->seed->value());
+  // Find places to put the trees, since there are not too many trees this should work...
+  int failCount;
+  for (int i = 0; i < tw->numTrees->value(); i++) {
+    Pnt3f pos(-999, -999, -999);
+    failCount = 0;
+    while (!validPos(pos) && failCount < 50) {
+      pos = Pnt3f((float)rand() / (RAND_MAX / 250) - 125, (float)0, (float)rand() / (RAND_MAX / 250) - 125);
+      failCount++;
+    }
 
+    if (failCount < 50) {
+      glPushMatrix();
+      glTranslatef(pos.x, pos.y, pos.z);
+
+      // Generate a random size for the tree and make the geometry
+      float size = rand() / (RAND_MAX / 4) + 4;
+      trees_geom(size);
+
+      glPopMatrix();
+    }
+  }
+  
 }
 
 Pnt3f TrainView::genPoint(int i, float t, int arc) {
   double x, y, z;
   
+  // If using arc length, look through the table of arc lengths to find which point and
+  // parameter value to use in the next section of the point generation
   if (tw->arcLength->value() && arc == 1) {
     float dist = t * trackLength;
 
     for (int j = 0; j < arcTable.size(); j++) {
       if (arcTable[j].lowDist >= dist) {
         int point = arcTable[j].point;
-        //printf("j: %d, found point (%d), dist: %f, current: %d\n", j, point, dist, i);
         
         float prevLength = 0;
         for (int k = 0; k < arcTable[j].point; k++) {
@@ -546,7 +578,6 @@ Pnt3f TrainView::genPoint(int i, float t, int arc) {
         }
 
         float u = (dist - prevLength) / world->points[point].length;
-        //printf("dist - prev / ptLength = u: %f - %f / %f = %f\n", dist, prevLength, world->points[point].length, u);
         t = u;
 
         if (u >= 0.99)
@@ -558,7 +589,8 @@ Pnt3f TrainView::genPoint(int i, float t, int arc) {
     }
 
   }
-
+  
+  // Generate using linear interpolation
   if (tw->splineBrowser->value() == 1) {
     Pnt3f P1 = world->points[(i) % (world->points.size())].pos;
     Pnt3f P2 = world->points[(i + 1) % (world->points.size())].pos;
@@ -566,7 +598,9 @@ Pnt3f TrainView::genPoint(int i, float t, int arc) {
     x = (1.0 - t) * P1.x + t * P2.x;
     y = (1.0 - t) * P1.y + t * P2.y;
     z = (1.0 - t) * P1.z + t * P2.z;
-  } else {
+  } else if (tw->splineBrowser->value() == 2) {
+    // Using cardinal cubics to generate point
+
     Pnt3f P1 = world->points[(i - 1) % (world->points.size())].pos;
     Pnt3f P2 = world->points[(i) % (world->points.size())].pos;
     Pnt3f P3 = world->points[(i + 1) % (world->points.size())].pos;
@@ -590,6 +624,8 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
   Pnt3f P1;
   Pnt3f P2;
 
+  // Find the direction that is being traveled for the given parameterized point
+
   if (arc == 1) {
     P1 = genPoint(i, t, 1);
     P2 = genPoint(i, t + 0.01, 1);
@@ -609,11 +645,30 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
   return Pnt3f(xDir, yDir, zDir);
 }
 
+bool TrainView::validPos(Pnt3f P1) {
+  float bounds = 120;
+  float min = 20;
+  // Check if point inside bounds of world
+  if (P1.x < -bounds || P1.x > bounds || P1.y < -bounds || P1.y > bounds || P1.z < -bounds || P1.z > bounds)
+    return false;
+
+  // Loop through current points in the world to make sure that is is valid to place a tree
+  for (int i = 0; i < track.size(); i++) {
+    Pnt3f P2 = track[i];
+    float distance = sqrt(pow((P1.x - P2.x), 2) + pow((P1.y - P2.y), 2) + pow((P1.z - P2.z), 2));
+    if (distance <= min)
+      return false;
+  }
+  track.push_back(P1);
+  return true;
+}
+
 void TrainView::train_geom(bool doingShadows, float size, float length, float frontRot, float backRot) {
   glBegin(GL_QUADS);
 
   float offset;
 
+  // Slightly differnt placement of the train if arc length parameterized...
   if (tw->arcLength->value()) {
     offset = 0.5 * length;
   } else {
@@ -727,23 +782,24 @@ void TrainView::train_geom(bool doingShadows, float size, float length, float fr
   glPopMatrix();
 }
 
-void TrainView::track_geom(bool doingShadows, float length) {
+void TrainView::track_geom(bool doingShadows, float length, float y) {
   float size = length / 6;
 
   if (!doingShadows)
     glColor3ub(255, 150, 0);
 
-  if (tw->trackType->value() == 3) {
+  // Drawng the stilts for the given track segment if close enough to ground
+  if (tw->trackType->value() == 3 && y < 25) {
     glLineWidth(8);
 
     glBegin(GL_LINES);
     glVertex3f(-length, size, size / 3);
-    glVertex3f(-length, -10, size / 3);
+    glVertex3f(-length, -y, size / 3);
     glEnd();
 
     glBegin(GL_LINES);
     glVertex3f(length, size, size / 3);
-    glVertex3f(length, -10, size / 3);
+    glVertex3f(length, -y, size / 3);
     glEnd();
   }
 
@@ -793,6 +849,29 @@ void TrainView::track_geom(bool doingShadows, float length) {
 
   glEnd();
 
+}
+
+void TrainView::trees_geom(float size) {
+  
+  glPushMatrix();
+
+  glTranslatef(0, size * 3, 0);
+  glRotatef(-90, 1.0, 0, 0);
+
+  glPushMatrix();
+
+  GLUquadricObj *top = gluNewQuadric();
+  glColor3ub(10 + rand() / (RAND_MAX / 20), 100 + rand() / (RAND_MAX / 30), 10 + rand() / (RAND_MAX / 20));
+  gluCylinder(top, size, 0, size * 2.5, 16, 3);
+  gluDisk(top, 0, size, 16, 1);
+
+  glTranslatef(0, 0, -size * 3);
+
+  glColor3ub(80, 40, 10);
+  gluCylinder(top, size / 2, size / 2, size * 3, 16, 3);
+
+  glPopMatrix();
+  glPopMatrix();
 }
 
 // CVS Header - if you don't know what this is, don't worry about it
