@@ -86,33 +86,6 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 30;
 
-    seed = new Fl_Value_Slider(655, pty, 140, 20, "Seed");
-    seed->range(0, 1000);
-    seed->value(0);
-    seed->align(FL_ALIGN_LEFT);
-    seed->type(FL_HORIZONTAL);
-    seed->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
-    roughness = new Fl_Value_Slider(655, pty, 140, 20, "Noise");
-    roughness->range(0, 1);
-    roughness->value(0.5);
-    roughness->align(FL_ALIGN_LEFT);
-    roughness->type(FL_HORIZONTAL);
-    roughness->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
-    samples = new Fl_Value_Slider(655, pty, 140, 20, "Samples");
-    samples->range(2, 70);
-    samples->value(30);
-    samples->align(FL_ALIGN_LEFT);
-    samples->type(FL_HORIZONTAL);
-    samples->callback((Fl_Callback*)damageCB, this);
-
-    pty += 30;
-
 		// camera buttons - in a radio button group
 		Fl_Group* camGroup = new Fl_Group(600,pty,195,20);
 		camGroup->begin();
@@ -147,17 +120,16 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 
     pty += 85;
     
-    // browser to select spline types
-    // TODO: make sure these choices are the same as what the code supports
-    trackType = new Fl_Browser(605, pty, 120, 55, "Track Type");
+    // browser to select track types
+    trackType = new Fl_Browser(605, pty, 120, 70, "Track Type");
     trackType->type(2);		// select
     trackType->callback((Fl_Callback*)damageCB, this);
     trackType->add("Simple Line");
-    trackType->add("3d Boxes");
-    //splineBrowser->add("Cubic B-Spline");
-    trackType->select(2);
+    trackType->add("3d Rails");
+    trackType->add("Rails + Stilts");
+    trackType->select(3);
 
-		pty += 85;
+		pty += 100;
 
 		// add and delete points
 		Fl_Button* ap = new Fl_Button(605,pty,80,20,"Add Point");
@@ -174,7 +146,9 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		Fl_Button* saveb = new Fl_Button(670,pty,60,20,"Save");
 		saveb->callback((Fl_Callback*) saveCB, this);
 
-		pty += 25;
+		pty += 45;
+
+    /*
 		// roll the points
 		Fl_Button* rx = new Fl_Button(605,pty,30,20,"R+X");
 		rx->callback((Fl_Callback*)rpxCB,this);
@@ -186,6 +160,42 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
 		rzp->callback((Fl_Callback*)rmzCB,this);
 
 		pty+=30;
+    */
+
+    wheelRot = new Fl_Button(605, pty, 110, 20, "Wheel Rotation");
+    togglify(wheelRot, 1);
+
+    terrain = new Fl_Button(730, pty, 65, 20, "Terrain");
+    togglify(terrain, 1);
+
+    pty += 25;
+
+    seed = new Fl_Value_Slider(655, pty, 140, 20, "Seed");
+    seed->range(0, 1000);
+    seed->value(0);
+    seed->align(FL_ALIGN_LEFT);
+    seed->type(FL_HORIZONTAL);
+    seed->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    roughness = new Fl_Value_Slider(655, pty, 140, 20, "Noise");
+    roughness->range(0, 1);
+    roughness->value(0.75);
+    roughness->align(FL_ALIGN_LEFT);
+    roughness->type(FL_HORIZONTAL);
+    roughness->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
+
+    samples = new Fl_Value_Slider(655, pty, 140, 20, "Samples");
+    samples->range(2, 70);
+    samples->value(30);
+    samples->align(FL_ALIGN_LEFT);
+    samples->type(FL_HORIZONTAL);
+    samples->callback((Fl_Callback*)damageCB, this);
+
+    pty += 30;
 
 		// TODO: add widgets for all of your fancier features here
 #ifdef EXAMPLE_SOLUTION

@@ -77,6 +77,9 @@ public:
   Fl_Value_Slider* roughness;
   Fl_Value_Slider* samples;
 
+  Fl_Button* terrain;
+  Fl_Button* wheelRot;
+
   // Specify track type
   Fl_Browser* trackType;
 

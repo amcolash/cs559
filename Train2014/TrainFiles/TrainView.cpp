@@ -174,8 +174,12 @@ void TrainView::draw()
   // now draw the ground plane
   setupFloor();
   glDisable(GL_LIGHTING);
-  //drawFloor(200, 10);
-  drawTerrain();
+  if (tw->terrain->value()) {
+    drawTerrain();
+  }
+  else {
+    drawFloor(200, 10);
+  }
   glEnable(GL_LIGHTING);
   setupObjects();
 
@@ -297,8 +301,7 @@ void TrainView::drawStuff(bool doingShadows)
     drawTrain(this, doingShadows);
 #endif
 
-  //if (!doingShadows)
-    //drawTerrain();
+  drawTrees(doingShadows);
 }
 
 // this tries to see which control point is under the mouse
@@ -363,7 +366,7 @@ void TrainView::drawTrack(bool doingShadows) {
   arcTable.resize(0);
   trackLength = 0;
 
-  glLineWidth(5.0);
+  glLineWidth(8.0);
   glBegin(GL_LINE_LOOP);
 
   // Loop through the points and calculate length of each segment
@@ -392,9 +395,12 @@ void TrainView::drawTrack(bool doingShadows) {
   }
   glEnd();
   
-  if (tw->trackType->value() == 2) {
+  if (tw->trackType->value() == 2 || tw->trackType->value() == 3) {
 
     float trackSpace = 5 / trackLength * tw->trackSpace->value();
+    float size = 6;
+
+    vector<Pnt3f> track;
 
     for (float j = 0; j <= 1.0; j += trackSpace) {
 
@@ -415,12 +421,14 @@ void TrainView::drawTrack(bool doingShadows) {
         dir = genDir(i, t, 0);
       }
 
+      track.push_back(pos);
+
       glPushMatrix();
 
       glTranslatef(pos.x, pos.y, pos.z);
       glRotatef(dir.y, 0, 1.0, 0);
 
-      track_geom(doingShadows, 6);
+      track_geom(doingShadows, size);
 
       glPopMatrix();
     }
@@ -443,6 +451,7 @@ void TrainView::drawTrain(bool doingShadows) {
     t = tw->train_pos->value();
     pos = genPoint(i, t, 1);
     dir = genDir(i, t - 0.03, 1);
+
     frontRot = dir.y - genDir(i, t + 0.025, 1).y;
     backRot = dir.y - genDir(i, t - 0.045, 1).y;
   } else {
@@ -452,45 +461,15 @@ void TrainView::drawTrain(bool doingShadows) {
     
     frontRot = dir.y - genDir(i, t + 0.025, 0).y;
     backRot = dir.y - genDir(i, t - 0.1, 0).y;
-    
-    /*
-    if (t - 0.1 < 0) {
-      float temp1 = genDir(i-1, t - 0.05, 0).y - genDir(i, t - 0.1, 0).y;
-      float temp2 = dir.y - genDir(i+1, t, 0).y;
-      backRot = (temp1 - temp2) / 2;
-      if (!doingShadows)
-        printf("i: %d, t: %f, (%f + %f) / 2 = %f\n", i, t, temp1, temp2, (temp1 + temp2) / 2);
-    }
-    else {
-      backRot = dir.y - genDir(i, t - 0.1, 0).y;
-    }
-    */
-    
-
-    // TODO: t - 0.1 < 0, then average i-- and i together
-    //backRot = dir.y - genDir(i, t - 0.1, 0).y;
   }
 
-  /*
-  glm::mat4 flip = glm::rotate((float) 90.0, glm::vec3(1.0, 0, 0));
-  glm::mat4 rotX = glm::rotate(dir.x, glm::vec3(1.0,   0, 0  ));
-  glm::mat4 rotY = glm::rotate(dir.y, glm::vec3(  0,   0, 1.0));
-  glm::mat4 rotZ = glm::rotate(dir.z, glm::vec3(  0,   0, 1.0));
+  if (!tw->wheelRot->value())
+    frontRot = backRot = 0;
 
-  glm::mat4 translate = glm::translate(glm::vec3(pos.x, pos.y, pos.z));
-  
-  glm::mat4 rotMatrix = rotY * flip * translate;
-  */
-  
   glPushMatrix();
 
-  //glLoadMatrixf((GLfloat*) &rotMatrix[0]);
   glTranslatef(pos.x, pos.y + size * 2.3, pos.z);
   glRotatef(dir.y, 0, 1.0, 0);
-
-  //glRotatef(dir.y, 0, 1.0, 0);
-  //glRotatef(dir.x, 0, 0, 1.0);
-  
 
   train_geom(doingShadows, size, length, frontRot, backRot);
 
@@ -544,6 +523,10 @@ void TrainView::drawTerrain() {
   }
 
   glPopMatrix();
+}
+
+void TrainView::drawTrees(bool doingShadows) {
+
 }
 
 Pnt3f TrainView::genPoint(int i, float t, int arc) {
@@ -746,11 +729,25 @@ void TrainView::train_geom(bool doingShadows, float size, float length, float fr
 
 void TrainView::track_geom(bool doingShadows, float length) {
   float size = length / 6;
-  
-  glBegin(GL_QUADS);
 
   if (!doingShadows)
     glColor3ub(255, 150, 0);
+
+  if (tw->trackType->value() == 3) {
+    glLineWidth(8);
+
+    glBegin(GL_LINES);
+    glVertex3f(-length, size, size / 3);
+    glVertex3f(-length, -10, size / 3);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex3f(length, size, size / 3);
+    glVertex3f(length, -10, size / 3);
+    glEnd();
+  }
+
+  glBegin(GL_QUADS);
 
   // Front
   glNormal3f(0, 0, 1);

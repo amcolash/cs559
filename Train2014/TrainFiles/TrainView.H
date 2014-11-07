@@ -81,9 +81,8 @@ public:
   void drawTrack(bool doingShadows);
   void drawTrain(bool doingShadows);
   
+  void drawTrees(bool doingShadows);
   void drawTerrain();
-  std::vector< std::vector<int> > terrain;
-  void DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
 
   void train_geom(bool doingShadows, float size, float length, float frontRot, float backRot);
   void track_geom(bool doingShadows, float length);
@@ -93,6 +92,7 @@ public:
 
   // track points for arc length version
   std::vector<arcPoint> arcTable;
+
   // length of track
   float trackLength;
 
