@@ -168,10 +168,12 @@ TrainWindow::TrainWindow(const int x, const int y) : Fl_Double_Window(x,y,800,60
     // Toggle for drawing random trees
     drawingTrees = new Fl_Button(600, pty, 80, 20, "Draw Trees");
     togglify(drawingTrees, 1);
+    drawingTrees->callback((Fl_Callback*)dirtyCB, this);
 
     // Toggle for random terrain generation
     drawingTerrain = new Fl_Button(683, pty, 115, 20, "Random Terrain");
     togglify(drawingTerrain, 1);
+    drawingTerrain->callback((Fl_Callback*)dirtyCB, this);
 
     pty += 35;
 

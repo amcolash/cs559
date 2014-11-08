@@ -79,7 +79,7 @@ of where to place objects.
 No real major changes were made to the starting code. I kept most of my functions
 inside of the TrainView.cpp file as I am not too familiar with OOP and c++.
 
-For the random terrain generation, I toggle the checkboard floor or terrain based
+For the random terrain generation, I toggle the checkboard floor or terrain base
 on the fltk widget.
 
 -------------------------------------------------------------------------------
@@ -93,3 +93,34 @@ were added as requirements (from the already used code).
 
 I have attached pictures to the submission showing different sections of the code
 and cool features that were added.
+
+-------------------------------------------------------------------------------
+
+6) Screenshot information
+
+Screenshot 1
+
+- What the program looks like when opened. This is the default view and settings.
+  You can see the rnadom terrain as well as the trees that are made.
+
+Screenshot 2
+
+- This screenshot shows the track that is generated as well as the stilts and the
+  train view projection.
+
+
+Screenshot 3
+
+- A better look at the geometry of the terrain.
+
+
+Screenshot 4
+
+- A top view of the world, you can see the trees as well as the terrain well in
+  this shot.
+
+
+Screenshot 5
+
+- A closer look at some of the tracks at sharp turns. Also, the terrain shown
+  shows the jagged edge at the edge of the map.

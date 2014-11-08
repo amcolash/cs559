@@ -211,15 +211,24 @@ void TrainView::setProjection()
     float wi, he;
     if (aspect >= 1) {
       wi = 110;
+      if (tw->drawingTerrain->value())
+        wi = 135;
+
       he = wi / aspect;
     }
     else {
       he = 110;
+      if (tw->drawingTerrain->value())
+        he = 135;
+
       wi = he*aspect;
     }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-wi, wi, -he, he, -200, 200);
+    if (!tw->drawingTerrain->value())
+      glOrtho(-wi, wi, -he, he, -200, 200);
+    if (tw->drawingTerrain->value())
+      glOrtho(-wi, wi, -he, he, -270, 270);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glRotatef(90, 1, 0, 0);
@@ -616,11 +625,13 @@ void TrainView::drawTrees(bool doingShadows) {
     }
   }
 
-  for (int i = 0; i < trees.size(); i++) {
-    glPushMatrix();
-    glTranslatef(trees[i].pos.x, trees[i].pos.y, trees[i].pos.z);
-    trees_geom(doingShadows, trees[i]);
-    glPopMatrix();
+  if (tw->drawingTrees->value()) {
+    for (int i = 0; i < trees.size(); i++) {
+      glPushMatrix();
+      glTranslatef(trees[i].pos.x, trees[i].pos.y, trees[i].pos.z);
+      trees_geom(doingShadows, trees[i]);
+      glPopMatrix();
+    }
   }
 }
 
@@ -707,7 +718,13 @@ Pnt3f TrainView::genDir(int i, float t, int arc) {
 }
 
 bool TrainView::validPos(Pnt3f P1) {
-  float bounds = 120;
+  float bounds;
+  if (tw->drawingTerrain->value()) {
+    bounds = 120;
+  } else {
+    bounds = 100;
+  }
+
   float min = 20;
   // Check if point inside bounds of world
   if (P1.x < -bounds || P1.x > bounds || P1.y < -bounds || P1.y > bounds || P1.z < -bounds || P1.z > bounds)
