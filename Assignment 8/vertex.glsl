@@ -11,10 +11,8 @@ void main()
   fNormal = normalize(normalMatrix * normal);
   vec4 pos = modelViewMatrix * vec4(position, 1.0);
 
-  pos.y =  -cos(pos.y) * 3.0 + 2.0;
+  pos.y =  -cos(pos.y) * 3.0 + 2.5;
   pos.x = 1.5 * pos.x;
   pos.z = 0.75 * pos.z;
   gl_Position = projectionMatrix * pos;
-
-
 }
