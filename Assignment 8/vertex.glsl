@@ -5,7 +5,6 @@ uniform mat3 normalMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 varying vec3 fNormal;
-varying float temp;
 
 void main()
 {
