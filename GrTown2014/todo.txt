@@ -1,0 +1,18 @@
+Andrew McOlash and Jason Bernstein
+
+Theme: Future City
+
+- Lane markers
+- Birds in the sky
+- New Houses
+- Spaceships instead of cars
+- A few cool buildings/skyscrapers (curved surfaces)
+- Stars, Clouds
+- Sun / Moon
+- Potentially implementing some particle systems
+- Police Spaceship
+- Tweaking UI and controls to allow movement when following
+- Cars stop at stopsigns
+- Hover Fountain
+
+Downloaded and ran the sample code, seemed to work fine.
