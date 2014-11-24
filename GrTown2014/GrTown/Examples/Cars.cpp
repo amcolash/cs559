@@ -64,13 +64,13 @@ float wc[9][2] = {
 };
 static void drawWheel(float r, float w)
 {
-  //Given half of the width (w) and length of back (r)
+  //Given half of the width (w) and height of ground (r)
   
   glBegin(GL_QUAD_STRIP);
-  glVertex3f(0, 0, 0);
-  glVertex3f(0, w / 2, 0);
-  glVertex3f(w * 4, 0, 0);
-  glVertex3f(w * 4, w / 2, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, w / 2 + 5, 0);
+    glVertex3f(w * 4, 0, 0);
+    glVertex3f(w * 4, w / 2 + 5, 0);
   glEnd();
   
   /*
@@ -99,12 +99,6 @@ void Car::draw(DrawingState* d)
   glPopMatrix();
   */
   
-  glColor3f(0.0f, 0.0f, .3f);
-  glPushMatrix();
-	  glTranslatef(w-.5f,h,f+r-h-1);
-	  drawWheel(h,1);
-  glPopMatrix();
-  
   /*
   glColor3f(0.0f, .3f, 0.0f);
   glPushMatrix();
@@ -116,9 +110,16 @@ void Car::draw(DrawingState* d)
 
   glColor3f(.3f, 0.0f, 0.0f);
   glPushMatrix();
-	  glTranslatef(-w+.5f,h,f+r-h-1);
-	  glRotatef(180,0,1,0);
+    glTranslatef(-2 * w, h, f + r - h - 1);
+	  //glRotatef(180,0,1,0);
 	  drawWheel(h,1);
+  glPopMatrix();
+
+  glColor3f(0.0f, 0.0f, .3f);
+  glPushMatrix();
+    glTranslatef(w, h, f + r - h - 1);
+    //glRotatef(180, 0, 1, 0);
+    drawWheel(h, 1);
   glPopMatrix();
 
 

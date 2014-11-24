@@ -169,6 +169,8 @@ int main(int /*argc*/, char** /*argv*/)
   FlyCamera* fc = new FlyCamera;
   Map* m = new Map;
 
+  fc->direction = -90.0 * (3.1415926535 / 180.0);
+
   add(fc);
   add(m);
 
