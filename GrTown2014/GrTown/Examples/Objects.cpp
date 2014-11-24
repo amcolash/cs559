@@ -84,4 +84,21 @@ void ShadedCube::draw(DrawingState*)
 	glUseProgram(0);
 }
 
+Bird::Bird(float x, float y, float z, float r, float g, float b)
+  : color(r,g,b)
+{
+	transMatrix(transform,x, y, z);
+}
+void Bird::draw(DrawingState*){
+	glPushMatrix();
+	glScaled(1, 1, 1.5);
+	glColor4fv(&color.r);
+	GLUquadricObj *quadric = gluNewQuadric();
+	gluCylinder(quadric, .4, .00000, 1, 100, 100);
+	gluQuadricDrawStyle(quadric, GLU_FILL);
+	gluSphere(quadric, 0.5, 36, 18);
+	gluDeleteQuadric(quadric);
+	glPopMatrix();
+}
+
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $
