@@ -53,11 +53,7 @@ void GraphicsTownUI::cb_Fly(Fl_Button* o, void* v) {
 }
 
 Fl_Double_Window* GraphicsTownUI::make_window() {
-<<<<<<< HEAD
-  { window = new Fl_Double_Window(923, 608, "CS 559 Graphics Town!");
-=======
   { window = new Fl_Double_Window(925, 601, "CS 559 Graphics Town!");
->>>>>>> 8779dc223f2f4afd09a13eb95bbb1a3501440abe
     window->labelsize(12);
     window->user_data((void*)(this));
     { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 605);

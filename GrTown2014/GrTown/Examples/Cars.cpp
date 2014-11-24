@@ -66,6 +66,7 @@ static void drawWing(float r, float w, int dir)
 {
   //Given half of the width (w), height of ground (r) and direction
   if (dir == 0) {
+    // Draw sides of wings
     glBegin(GL_QUADS);
       glVertex3f(0, 0, 0);
       glVertex3f(w * 4, 0, 0);
@@ -77,12 +78,41 @@ static void drawWing(float r, float w, int dir)
       glVertex3f(0, w, -w * 4);
       glVertex3f(w * 4, w, 0);
     glEnd();
+
+    // Draw top and bottom of wings
+    glBegin(GL_TRIANGLES);
+      glVertex3f(0, 0, -w * 4);
+      glVertex3f(w * 4, 0, 0);
+      glVertex3f(0, 0, 0);
+
+      glVertex3f(0, w, 0);
+      glVertex3f(w * 4, w, 0);
+      glVertex3f(0, w, -w * 4);
+    glEnd();
+    
   } else {
+    // Draw sides of wings
     glBegin(GL_QUADS);
       glVertex3f(0, 0, 0);
       glVertex3f(0, w, 0);
       glVertex3f(-w * 4, w, 0);
       glVertex3f(-w * 4, 0, 0);
+
+      glVertex3f(-w * 4, 0, 0);
+      glVertex3f(-w * 4, w, 0);
+      glVertex3f(0, w, -w * 4);
+      glVertex3f(0, 0, -w * 4);
+    glEnd();
+
+    // Draw top and bottom of wings
+    glBegin(GL_TRIANGLES);
+      glVertex3f(0, 0, 0);
+      glVertex3f(-w * 4, 0, 0);
+      glVertex3f(0, 0, -w * 4);
+    
+      glVertex3f(0, w, -w * 4);
+      glVertex3f(-w * 4, w, 0);
+      glVertex3f(0, w, 0);
     glEnd();
   }
   
@@ -105,7 +135,7 @@ static void drawWing(float r, float w, int dir)
 void Car::draw(DrawingState* d)
 {
 
-  glColor3fv(&color.r);
+  glColor3d(color.r * 0.75, color.g * 0.75, color.b * 0.75);
   
   glPushMatrix();
     glTranslatef(-w, h, f + r - h);
@@ -117,6 +147,7 @@ void Car::draw(DrawingState* d)
     drawWing(h, 1, 0);
   glPopMatrix();
 
+  glColor3fv(&color.r);
   drawBody(d);
 }
 
