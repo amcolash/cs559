@@ -1,31 +1,38 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0107 
+version 1.0302 
 do_not_include_H_from_C 
 header_name {.H} 
 code_name {.cxx}
-decl {// $Header: /p/course/cs559-gleicher/private/CVS/GrTown/GraphicsTownUI.fl,v 1.4 2008/11/14 19:53:30 gleicher Exp $} {} 
+decl {// $Header: /p/course/cs559-gleicher/private/CVS/GrTown/GraphicsTownUI.fl,v 1.4 2008/11/14 19:53:30 gleicher Exp $} {private local
+} 
 
 comment {Note: this user interface (.cxx and .h) was created
 automatically by running fluid on the ".fl" file
 you should not edit the .cxx or .h file!
 
-Use "fluid" to edit the UI interactively} {selected in_source in_header
+Use "fluid" to edit the UI interactively} {in_source in_header
 } 
 
-decl {// CS559 Graphics Town} {} 
-
-decl {\#include "GrTown_PCH.H"} {} 
-
-decl {\#include "GraphicsTownUI.H"} {} 
-
-decl {\#include "TownViewWidget.H"} {public
+decl {// CS559 Graphics Town} {private local
 } 
 
-decl {\#include "GrObject.H"} {} 
+decl {\#include "GrTown_PCH.H"} {private local
+} 
 
-decl {\#include "GrWorld.H"} {} 
+decl {\#include "GraphicsTownUI.H"} {private local
+} 
 
-decl {using std::vector;} {} 
+decl {\#include "TownViewWidget.H"} {public local
+} 
+
+decl {\#include "GrObject.H"} {private local
+} 
+
+decl {\#include "GrWorld.H"} {private local
+} 
+
+decl {using std::vector;} {private local
+} 
 
 class GraphicsTownUI {open
 } {
@@ -33,7 +40,7 @@ class GraphicsTownUI {open
   } {
     Fl_Window window {
       label {CS 559 Graphics Town!} open
-      xywh {265 155 931 616} type Double labelsize 12 resizable visible
+      xywh {177 202 925 601} type Double labelsize 12 resizable visible
     } {
       Fl_Box townView {
         xywh {5 5 760 605} align 2 resizable
@@ -51,8 +58,8 @@ class GraphicsTownUI {open
           code1 {if((*g)->ridable) o->add((*g)->name.c_str(),*g);}
         }
         Fl_Button cull {
-          label {Backface Cull}
-          xywh {770 580 75 25} type Toggle value 1 selection_color 11 labelsize 12
+          label {Backface Cull} selected
+          xywh {770 580 75 25} type Toggle selection_color 11 labelsize 12
         }
         Fl_Value_Slider time {
           label {Time of Day (24hr)}
@@ -78,13 +85,13 @@ class GraphicsTownUI {open
         }
         Fl_Value_Slider speedup {
           label speedup
-          xywh {840 550 85 25} type Horizontal align 4 maximum 3 step 0.2 value 1
+          xywh {840 550 85 25} type Horizontal align 4 maximum 3 step 0.2
         }
         Fl_Browser pickInteresting {
           label sights
           callback {pickCamera->deselect();
 follower->value(0);}
-          xywh {770 225 155 165} type Hold
+          xywh {770 235 155 165} type Hold
           code0 {for(vector<GrObject*>::iterator g=theObjects.begin(); g != theObjects.end(); ++g)}
           code1 {if((*g)->interesting) o->add((*g)->name.c_str(),*g);}
         }
