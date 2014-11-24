@@ -71,6 +71,11 @@ static void drawWing(float r, float w, int dir)
       glVertex3f(w * 4, 0, 0);
       glVertex3f(w * 4, w, 0);
       glVertex3f(0, w, 0);
+
+      glVertex3f(w * 4, 0, 0);
+      glVertex3f(0, 0, -w * 4);
+      glVertex3f(0, w, -w * 4);
+      glVertex3f(w * 4, w, 0);
     glEnd();
   } else {
     glBegin(GL_QUADS);
