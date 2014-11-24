@@ -3,9 +3,9 @@ Andrew McOlash and Jason Bernstein
 Theme: Future City
 
 - Lane markers
-- Birds in the sky
+- Birds in the sky - Jason
 - New Houses
-- Spaceships instead of cars
+X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
 - Stars, Clouds
 - Sun / Moon
