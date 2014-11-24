@@ -38,6 +38,13 @@ public:
   virtual void draw(DrawingState*);
 };
 
+class Bird : public GrObject {
+public:
+	Bird(float x, float y, float z, float r, float g, float b);
+	Color color;
+	virtual void draw(DrawingState*);
+};
+
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.H,v 1.3 2008/11/11 04:18:40 gleicher Exp $
 

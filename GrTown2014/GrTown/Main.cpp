@@ -143,7 +143,8 @@ int main(int /*argc*/, char** /*argv*/)
   new RandomDrive(c2,theRoads[8],.5,0,1);
 
 #endif
-
+  Bird* b = new Bird(0, 50, -30, 0, 0, .0);
+  add(b);
 
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
