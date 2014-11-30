@@ -45,6 +45,24 @@ public:
 	virtual void draw(DrawingState*);
 };
 
+class Surface : public GrObject {
+public:
+  Surface(float x, float y, float z, float r, float g, float b);
+  Color color;
+  virtual void draw(DrawingState*);
+};
+
+struct Point {
+public:
+  float x, y, z;
+  Point(){};
+
+  Point(float initx, float inity, float initz) {
+    x = initx;
+    y = inity;
+    z = initz;
+  }
+};
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.H,v 1.3 2008/11/11 04:18:40 gleicher Exp $
 

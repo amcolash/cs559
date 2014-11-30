@@ -143,8 +143,14 @@ int main(int /*argc*/, char** /*argv*/)
   new RandomDrive(c2,theRoads[8],.5,0,1);
 
 #endif
+
+  // add a bird
   Bird* b = new Bird(0, 50, -30, 0, 0, .0);
   add(b);
+
+  // add surface of revolution
+  Surface* s = new Surface(50, 6, 0, 0, 0, 0);
+  add(s);
 
 	// a race track
     Road* t = new RoundRoad(-250,250,100);

@@ -101,4 +101,54 @@ void Bird::draw(DrawingState*){
 	glPopMatrix();
 }
 
+Surface::Surface(float x, float y, float z, float r, float g, float b)
+  : color(r, g, b)
+{
+  transMatrix(transform, x, y, z);
+}
+void Surface::draw(DrawingState*){
+  glPushMatrix();
+  //glScaled(1, 1, 1.5);
+  glColor4fv(&color.r);
+  
+  //std::vector<Pt> points = { Pt(x, y, z); 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0 };
+  std::vector<Point> points = {
+    Point(0.0, 9.0, 0.0),
+    Point(0.25, 8.93, 0.0),
+    Point(0.5, 8.75, 0.0),
+    Point(0.75, 8.43, 0.0),
+    Point(1.0, 8.0, 0.0),
+    Point(1.25, 7.43, 0.0),
+    Point(1.5, 6.75, 0.0),
+    Point(1.75, 5.93, 0.0),
+    Point(2.0, 5.0, 0.0),
+    Point(2.25, 3.93, 0.0),
+    Point(2.5, 2.75, 0.0),
+    Point(2.75, 1.43, 0.0),
+    Point(3.0, 0.0, 0.0),
+    Point(0.0, 0.0, 0.0)
+  };
+
+  float height = 10.0;
+  int divs = 10;
+
+  float heightStep = height / points.size();
+  float divStep = 360.0 / divs;
+
+  for (float i = 0.0; i <= divs; i++) {
+    glRotatef(divStep, 0, 1, 0);
+    //glBegin(GL_TRIANGLE_FAN);
+    glBegin(GL_LINE_STRIP);
+    
+    for (int j = 0; j < points.size(); j++) {
+      glVertex2f(points[j].x, points[j].y);
+      //glVertex2f(points[j])
+    }
+    
+    glEnd();
+  }
+
+  glPopMatrix();
+}
+
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $

@@ -160,6 +160,10 @@
     <ClCompile Include="Roads\Roads.cpp" />
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ShadedCubeTest.frag" />
+    <None Include="Shaders\ShadedCubeTest.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

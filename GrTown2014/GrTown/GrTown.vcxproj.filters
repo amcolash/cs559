@@ -43,6 +43,9 @@
     <Filter Include="Utilities\Source">
       <UniqueIdentifier>{9b6a38e2-795c-4654-ab32-9639d4cf6ae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4598ca70-e6ff-4e6a-8f0e-3c38f7685799}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Examples\Cars.H">
@@ -161,5 +164,13 @@
     <ClCompile Include="Main.cpp">
       <Filter>Engine Core\Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ShadedCubeTest.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\ShadedCubeTest.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
