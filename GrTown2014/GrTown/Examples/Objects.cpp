@@ -132,15 +132,16 @@ void Surface::draw(DrawingState*){
 
     // Find current vertex when rotated and next one, (to build strip)
     for (int j = 0; j < points.size(); j++) {
-      glm::vec4 point(points[j].x, points[j].y, 0, 0);
-      point = rotateY1 * point;
-      glNormal3f(point[0], point[1], point[2]);
-      glVertex3f(point[0], point[1], point[2]);
+      glm::vec4 point1(points[j].x, points[j].y, 0, 0);
+      point1 = rotateY1 * point1;
+      glm::vec4 point2(points[j].x, points[j].y, 0, 0);
+      point2 = rotateY2 * point2;
       
-      point = glm::vec4(points[j].x, points[j].y, 0, 0);
-      point = rotateY2 * point;
-      glNormal3f(point[0], point[1], point[2]);
-      glVertex3f(point[0], point[1], point[2]);
+      glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
+      glNormal3f(normal[0], normal[1], normal[2]);
+
+      glVertex3f(point1[0], point1[1], point1[2]);
+      glVertex3f(point2[0], point2[1], point2[2]);
     }
     
     glEnd();
