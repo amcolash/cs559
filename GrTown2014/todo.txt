@@ -14,5 +14,4 @@ X Spaceships instead of cars - Andrew
 - Tweaking UI and controls to allow movement when following
 - Cars stop at stopsigns
 - Hover Fountain
-
-Downloaded and ran the sample code, seemed to work fine.
+X Surfaces of revolution - Andrew
