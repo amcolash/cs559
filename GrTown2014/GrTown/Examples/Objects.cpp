@@ -12,6 +12,9 @@
 
 #include "Utilities/ShaderTools.H"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 // some very basic classes of objects...
 // mainly for debugging
 Cube::Cube(float x, float y, float z, float s, 
@@ -101,48 +104,40 @@ void Bird::draw(DrawingState*){
 	glPopMatrix();
 }
 
-Surface::Surface(float x, float y, float z, float r, float g, float b)
-  : color(r, g, b)
+Surface::Surface(float x, float y, float z, float r, float g, float b, std::vector<Point> points, int divs)
+  : color(r, g, b), points(points), divs(divs)
 {
   transMatrix(transform, x, y, z);
 }
+
 void Surface::draw(DrawingState*){
   glPushMatrix();
-  //glScaled(1, 1, 1.5);
   glColor4fv(&color.r);
-  
-  //std::vector<Pt> points = { Pt(x, y, z); 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0 };
-  std::vector<Point> points = {
-    Point(0.0, 9.0, 0.0),
-    Point(0.25, 8.93, 0.0),
-    Point(0.5, 8.75, 0.0),
-    Point(0.75, 8.43, 0.0),
-    Point(1.0, 8.0, 0.0),
-    Point(1.25, 7.43, 0.0),
-    Point(1.5, 6.75, 0.0),
-    Point(1.75, 5.93, 0.0),
-    Point(2.0, 5.0, 0.0),
-    Point(2.25, 3.93, 0.0),
-    Point(2.5, 2.75, 0.0),
-    Point(2.75, 1.43, 0.0),
-    Point(3.0, 0.0, 0.0),
-    Point(0.0, 0.0, 0.0)
-  };
 
-  float height = 10.0;
-  int divs = 10;
-
-  float heightStep = height / points.size();
   float divStep = 360.0 / divs;
 
-  for (float i = 0.0; i <= divs; i++) {
-    glRotatef(divStep, 0, 1, 0);
-    //glBegin(GL_TRIANGLE_FAN);
-    glBegin(GL_LINE_STRIP);
+  
+  for (int i = 0; i <= divs - 1; i++) {
     
+    glBegin(GL_TRIANGLE_STRIP);
+
+    glm::mat4 rotateY1 = glm::rotate(
+      glm::mat4(1.0f), i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    glm::mat4 rotateY2 = glm::rotate(
+      glm::mat4(1.0f), (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    // Find current vertex when rotated and next one, (to build strip)
     for (int j = 0; j < points.size(); j++) {
-      glVertex2f(points[j].x, points[j].y);
-      //glVertex2f(points[j])
+      glm::vec4 point(points[j].x, points[j].y, 0, 0);
+      point = rotateY1 * point;
+      glVertex3f(point[0], point[1], point[2]);
+      
+      point = glm::vec4(points[j].x, points[j].y, 0, 0);
+      point = rotateY2 * point;
+      glVertex3f(point[0], point[1], point[2]);
     }
     
     glEnd();

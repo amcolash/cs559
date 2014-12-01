@@ -24,6 +24,8 @@
 #include "Roads/Roads.H"
 #include "Roads/Drive.H"
 
+#include "Examples/Objects.H"
+
 
 // define this to get 2 cars that always turn
 // #define TESTCARS
@@ -149,7 +151,24 @@ int main(int /*argc*/, char** /*argv*/)
   add(b);
 
   // add surface of revolution
-  Surface* s = new Surface(50, 6, 0, 0, 0, 0);
+  std::vector<Point> points = {
+    Point(0.0, 9.0, 0.0),
+    Point(0.25, 8.93, 0.0),
+    Point(0.5, 8.75, 0.0),
+    Point(0.75, 8.43, 0.0),
+    Point(1.0, 8.0, 0.0),
+    Point(1.25, 7.43, 0.0),
+    Point(1.5, 6.75, 0.0),
+    Point(1.75, 5.93, 0.0),
+    Point(2.0, 5.0, 0.0),
+    Point(2.25, 3.93, 0.0),
+    Point(2.5, 2.75, 0.0),
+    Point(2.75, 1.43, 0.0),
+    Point(3.0, 0.0, 0.0),
+    Point(0.0, 0.0, 0.0)
+  };
+
+  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 8);
   add(s);
 
 	// a race track
