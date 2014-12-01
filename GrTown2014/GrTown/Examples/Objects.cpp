@@ -112,11 +112,12 @@ Surface::Surface(float x, float y, float z, float r, float g, float b, std::vect
 
 void Surface::draw(DrawingState*){
   glPushMatrix();
-  glColor4fv(&color.r);
+  //glColor4fv(&color.r);
 
   float divStep = 360.0 / divs;
 
-  
+  glUseProgram(shadedCubeShader);
+
   for (int i = 0; i <= divs - 1; i++) {
     
     glBegin(GL_TRIANGLE_STRIP);
@@ -133,15 +134,19 @@ void Surface::draw(DrawingState*){
     for (int j = 0; j < points.size(); j++) {
       glm::vec4 point(points[j].x, points[j].y, 0, 0);
       point = rotateY1 * point;
+      glNormal3f(point[0], point[1], point[2]);
       glVertex3f(point[0], point[1], point[2]);
       
       point = glm::vec4(points[j].x, points[j].y, 0, 0);
       point = rotateY2 * point;
+      glNormal3f(point[0], point[1], point[2]);
       glVertex3f(point[0], point[1], point[2]);
     }
     
     glEnd();
   }
+
+  glUseProgram(0);
 
   glPopMatrix();
 }

@@ -167,8 +167,8 @@ int main(int /*argc*/, char** /*argv*/)
     Point(3.0, 0.0, 0.0),
     Point(0.0, 0.0, 0.0)
   };
-
-  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 8);
+  // using a shader so may not need color??
+  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 10);
   add(s);
 
 	// a race track
