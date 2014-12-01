@@ -104,44 +104,61 @@ void Bird::draw(DrawingState*){
 	glPopMatrix();
 }
 
-Surface::Surface(float x, float y, float z, float r, float g, float b, std::vector<Point> points, int divs)
-  : color(r, g, b), points(points), divs(divs)
+Surface::Surface(float x, float y, float z, float r, float g, float b, std::vector<glm::vec3> tmpPts, int divs)
+  : color(r, g, b), divs(divs), points(points), normals(normals)
 {
   transMatrix(transform, x, y, z);
+
+  // generate points and normals only once
+
+  float divStep = 360.0 / divs;
+
+  for (int i = 0; i <= divs - 1; i++) {
+    // Current rotation
+    glm::mat4 rotateY1 = glm::rotate(
+      glm::mat4(1.0f), i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    // Rotation for next vertex (step + 1)
+    glm::mat4 rotateY2 = glm::rotate(
+      glm::mat4(1.0f), (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    glm::vec4 point1, point2;
+    // Find current vertex when rotated and next one, compute normal too (to build strip)
+    for (int j = 0; j < tmpPts.size(); j++) {
+      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
+      point1 = rotateY1 * point1;
+      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
+      point2 = rotateY2 * point2;
+
+      glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
+
+      points.push_back(glm::vec3(point1[0], point1[1], point1[2]));
+      normals.push_back(glm::vec3(normal[0], normal[1], normal[2]));
+    }
+  }
 }
 
 void Surface::draw(DrawingState*){
   glPushMatrix();
+
+  // Using shader for now, instead of specific color
+  glUseProgram(shadedCubeShader);
   //glColor4fv(&color.r);
 
-  float divStep = 360.0 / divs;
-
-  glUseProgram(shadedCubeShader);
+  int perDiv = points.size() / divs;
+  int total = points.size();
 
   for (int i = 0; i <= divs - 1; i++) {
     
     glBegin(GL_TRIANGLE_STRIP);
 
-    glm::mat4 rotateY1 = glm::rotate(
-      glm::mat4(1.0f), i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-    );
-
-    glm::mat4 rotateY2 = glm::rotate(
-      glm::mat4(1.0f), (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-    );
-
-    // Find current vertex when rotated and next one, (to build strip)
-    for (int j = 0; j < points.size(); j++) {
-      glm::vec4 point1(points[j].x, points[j].y, 0, 0);
-      point1 = rotateY1 * point1;
-      glm::vec4 point2(points[j].x, points[j].y, 0, 0);
-      point2 = rotateY2 * point2;
-      
-      glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
-      glNormal3f(normal[0], normal[1], normal[2]);
-
-      glVertex3f(point1[0], point1[1], point1[2]);
-      glVertex3f(point2[0], point2[1], point2[2]);
+    // Build triangle strip from computed verticies and use computed normals
+    for (int j = i * perDiv; j < (i + 1) * perDiv && j < total - 1; j++) {
+      glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
+      glVertex3f(points[j][0], points[j][1], points[j][2]);
+      glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
     }
     
     glEnd();

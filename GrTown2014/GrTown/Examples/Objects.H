@@ -12,6 +12,7 @@
 
 #include "../GrObject.H"
 #include "../DrawingState.H"
+#include <glm/glm.hpp>
 
 // mainly for debugging
 class Cube : public GrObject {
@@ -45,23 +46,12 @@ public:
 	virtual void draw(DrawingState*);
 };
 
-struct Point {
-public:
-  float x, y, z;
-  Point(){};
-
-  Point(float initx, float inity, float initz) {
-    x = initx;
-    y = inity;
-    z = initz;
-  }
-};
-
 class Surface : public GrObject {
 public:
-  Surface(float x, float y, float z, float r, float g, float b, std::vector<Point> points, int divs);
+  Surface(float x, float y, float z, float r, float g, float b, std::vector<glm::vec3> points, int divs);
   Color color;
-  std::vector<Point> points;
+  std::vector<glm::vec3> points;
+  std::vector<glm::vec3> normals;
   int divs;
   virtual void draw(DrawingState*);
 };
