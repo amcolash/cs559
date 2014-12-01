@@ -147,6 +147,8 @@ void Surface::draw(DrawingState*){
   glUseProgram(shadedCubeShader);
   //glColor4fv(&color.r);
 
+  glScalef(0.75, 1.25, 0.75);
+
   int perDiv = points.size() / divs;
   int total = points.size();
 
@@ -155,7 +157,7 @@ void Surface::draw(DrawingState*){
     glBegin(GL_TRIANGLE_STRIP);
 
     // Build triangle strip from computed verticies and use computed normals
-    for (int j = i * perDiv; j < (i + 1) * perDiv && j < total - 1; j++) {
+    for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
       glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
       glVertex3f(points[j][0], points[j][1], points[j][2]);
       glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);

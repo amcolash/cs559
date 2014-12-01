@@ -149,7 +149,8 @@ int main(int /*argc*/, char** /*argv*/)
   // add a bird
   Bird* b = new Bird(0, 50, -30, 0, 0, .0);
   add(b);
-
+  
+  /*
   // add surface of revolution
   std::vector<glm::vec3> points = {
     glm::vec3(0.0, 9.0, 0.0),
@@ -167,8 +168,56 @@ int main(int /*argc*/, char** /*argv*/)
     glm::vec3(3.0, 0.0, 0.0),
     glm::vec3(0.0, 0.0, 0.0)
   };
+  */
+
+  // add surface of revolution
+  /*
+  std::vector<glm::vec3> points = {
+    // x^2
+    glm::vec3(2.0, 4.0, 0.0),
+    glm::vec3(1.5, 2.25, 0.0),
+    glm::vec3(1.0, 1.0, 0.0),
+    glm::vec3(0.5, 0.25, 0.0),
+    glm::vec3(0.0, 0.0, 0.0),
+    
+    // x^2 + 3
+    glm::vec3(0.0, 3.0, 0.0),
+    glm::vec3(0.5, 3.25, 0.0),
+    glm::vec3(1.0, 4.0, 0.0),
+    glm::vec3(1.5, 5.25, 0.0),
+    glm::vec3(2.0, 7.0, 0.0),
+    
+    // (x-4)^2 - kinda
+    glm::vec3(1.0, 5.0, 0.0),
+    glm::vec3(2.0, 4.0, 0.0),
+    glm::vec3(2.5, 2.25, 0.0),
+    glm::vec3(3.0, 1.5, 0.0)
+  };
+  */
+
+  std::vector<glm::vec3> points = {
+    glm::vec3(0.0, 43.0, 0.0),
+    glm::vec3(1.0, 35.0, 0.0),
+    glm::vec3(2.0, 34.0, 0.0),
+    glm::vec3(3.0, 34.0, 0.0),
+    glm::vec3(5.0, 35.0, 0.0),
+    glm::vec3(4.0, 32.0, 0.0),
+    glm::vec3(3.0, 31.0, 0.0),
+    glm::vec3(3.0, 27.0, 0.0),
+    glm::vec3(5.0, 26.0, 0.0),
+    glm::vec3(5.0, 22.0, 0.0),
+    glm::vec3(6.0, 21.0, 0.0),
+    glm::vec3(6.0, 15.0, 0.0),
+    glm::vec3(7.0, 14.0, 0.0),
+    glm::vec3(7.0, 9.0, 0.0),
+    glm::vec3(8.0, 5.0, 0.0),
+    glm::vec3(9.0, 2.0, 0.0),
+    glm::vec3(9.5, 1.0, 0.0),
+    glm::vec3(10.0, 0.0, 0.0)
+  };
+
   // using a shader so may not need color??
-  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 20);
+  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 32);
   add(s);
 
 	// a race track
