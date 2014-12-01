@@ -48,7 +48,7 @@ public:
 
 class Surface : public GrObject {
 public:
-  Surface(float x, float y, float z, float r, float g, float b, std::vector<glm::vec3> points, int divs);
+  Surface(float x, float y, float z, float sx, float sy, float sz, std::vector<glm::vec3> points, int divs);
   Color color;
   std::vector<glm::vec3> points;
   std::vector<glm::vec3> normals;

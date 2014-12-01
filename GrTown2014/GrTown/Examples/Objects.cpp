@@ -104,10 +104,12 @@ void Bird::draw(DrawingState*){
 	glPopMatrix();
 }
 
-Surface::Surface(float x, float y, float z, float r, float g, float b, std::vector<glm::vec3> tmpPts, int divs)
-  : color(r, g, b), divs(divs), points(points), normals(normals)
+Surface::Surface(float x, float y, float z, float sx, float sy, float sz, std::vector<glm::vec3> tmpPts, int divs)
+  : divs(divs), points(points), normals(normals)
 {
   transMatrix(transform, x, y, z);
+
+  glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(sx, sy, sz));
 
   // generate points and normals only once
 
@@ -116,12 +118,12 @@ Surface::Surface(float x, float y, float z, float r, float g, float b, std::vect
   for (int i = 0; i <= divs - 1; i++) {
     // Current rotation
     glm::mat4 rotateY1 = glm::rotate(
-      glm::mat4(1.0f), i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+      scale, i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
     // Rotation for next vertex (step + 1)
     glm::mat4 rotateY2 = glm::rotate(
-      glm::mat4(1.0f), (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+      scale, (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
     glm::vec4 point1, point2;
@@ -147,7 +149,7 @@ void Surface::draw(DrawingState*){
   glUseProgram(shadedCubeShader);
   //glColor4fv(&color.r);
 
-  glScalef(0.75, 1.25, 0.75);
+  //glScalef(0.75, 1.25, 0.75);
 
   int perDiv = points.size() / divs;
   int total = points.size();
@@ -159,8 +161,9 @@ void Surface::draw(DrawingState*){
     // Build triangle strip from computed verticies and use computed normals
     for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
       glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
-      glVertex3f(points[j][0], points[j][1], points[j][2]);
+      
       glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
+      glVertex3f(points[j][0], points[j][1], points[j][2]);
     }
     
     glEnd();
