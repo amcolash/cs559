@@ -150,7 +150,7 @@ int main(int /*argc*/, char** /*argv*/)
   Bird* b = new Bird(0, 50, -30, 0, 0, .0);
   add(b);
   
-  /*
+  /* Parabola
   // add surface of revolution
   std::vector<glm::vec3> points = {
     glm::vec3(0.0, 9.0, 0.0),
@@ -171,7 +171,7 @@ int main(int /*argc*/, char** /*argv*/)
   */
 
   // add surface of revolution
-  /*
+  /* Bell Like Structure
   std::vector<glm::vec3> points = {
     // x^2
     glm::vec3(2.0, 4.0, 0.0),
@@ -195,6 +195,7 @@ int main(int /*argc*/, char** /*argv*/)
   };
   */
 
+  /* Building */
   std::vector<glm::vec3> points = {
     glm::vec3(0.0, 43.0, 0.0),
     glm::vec3(1.0, 35.0, 0.0),
@@ -216,8 +217,27 @@ int main(int /*argc*/, char** /*argv*/)
     glm::vec3(10.0, 0.0, 0.0)
   };
 
+  /* Space ship - need to use > 32 segs (64) to look nice
+  std::vector<glm::vec3> points = {
+    glm::vec3(0.0, 17.0, 0.0),
+    glm::vec3(1.0, 17.0, 0.0),
+    glm::vec3(1.0, 12.0, 0.0),
+    glm::vec3(5.0, 12.0, 0.0),
+    glm::vec3(9.0, 11.5, 0.0),
+    glm::vec3(14.0, 10.25, 0.0),
+    glm::vec3(18.0, 8.25, 0.0),
+    glm::vec3(21.0, 6.0, 0.0),
+    glm::vec3(22.5, 4.0, 0.0),
+    glm::vec3(23.5, 2.0, 0.0),
+    glm::vec3(24.0, 0.0, 0.0),
+    glm::vec3(20.0, 0.0, 0.0),
+    glm::vec3(13.0, 2.0, 0.0),
+    glm::vec3(0.0, 2.0, 0.0)
+  };
+  */
+
   // using a shader so may not need color??
-  Surface* s = new Surface(50, 6, 0, 0.2, 0.7, 0.3, points, 32);
+  Surface* s = new Surface(50, 0, 0, 0.2, 0.7, 0.3, points, 48);
   add(s);
 
 	// a race track
