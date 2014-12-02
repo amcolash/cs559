@@ -105,6 +105,9 @@
     <ClInclude Include="..\Utilities\Texture.H">
       <Filter>Utilities\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Examples\Particle.h">
+      <Filter>Examples Objects and Behaviors\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Examples\Particle.cpp">
+      <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

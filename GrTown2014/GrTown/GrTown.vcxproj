@@ -127,6 +127,7 @@
     <ClInclude Include="DrawUtils.H" />
     <ClInclude Include="Examples\Cars.H" />
     <ClInclude Include="Examples\Objects.H" />
+    <ClInclude Include="Examples\Particle.h" />
     <ClInclude Include="Examples\SimpleBehaviors.H" />
     <ClInclude Include="Examples\Suburbs.H" />
     <ClInclude Include="FlyCamera.H" />
@@ -148,6 +149,7 @@
     <ClCompile Include="DrawUtils.cpp" />
     <ClCompile Include="Examples\Cars.cpp" />
     <ClCompile Include="Examples\Objects.cpp" />
+    <ClCompile Include="Examples\Particle.cpp" />
     <ClCompile Include="Examples\SimpleBehaviors.cpp" />
     <ClCompile Include="Examples\Suburbs.cpp" />
     <ClCompile Include="FlyCamera.cpp" />

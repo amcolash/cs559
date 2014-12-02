@@ -25,6 +25,7 @@
 #include "Roads/Drive.H"
 
 #include "Examples/Objects.H"
+#include "Examples/Particle.h"
 
 
 // define this to get 2 cars that always turn
@@ -240,6 +241,9 @@ int main(int /*argc*/, char** /*argv*/)
   // using a shader so may not need color?? using scale for now
   Surface* s = new Surface(50, 0, 0, 0.75, 1.0, 0.75, points, 64);
   add(s);
+
+  Particle* p = new Particle(50, 0, 0, 100);
+  add(p);
 
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
