@@ -12,6 +12,9 @@ public:
   std::vector<glm::vec3> normals;
   int divs;
   int shader;
+  bool triedShader = false;
+  char* frag;
+  char* vert;
   virtual void draw(DrawingState*);
 };
 

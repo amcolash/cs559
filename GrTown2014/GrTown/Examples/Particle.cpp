@@ -3,6 +3,7 @@
 #include "../DrawUtils.H"
 #include "Utilities/Texture.H"
 #include "Utilities/ShaderTools.H"
+#include <FL/fl_ask.h>
 
 Particle::Particle(float x, float y, float z, int num)
   : num(num), particleList()
@@ -37,9 +38,20 @@ void Particle::init(Part *p) {
 }
 
 void Particle::draw(DrawingState*){
+  
+  /*
+  if (!triedShader) {
+    triedShader = true;
+    char* error;
+    if (!(shader = loadShader("fountain.vert", "fountain.frag", error))) {
+      std::string s = "Can't Load Surface Shader:";
+      s += error;
+      fl_alert(s.c_str());
+    }
+  }
 
-  // Using shader for now, instead of specific color
-  //glUseProgram(shadedCubeShader);
+  //glUseProgram(shader);
+  */
 
   // Enable blending
   glEnable(GL_BLEND);

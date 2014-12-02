@@ -12,7 +12,7 @@
 
 
 Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag)
-  : divs(divs), points(points), normals(normals), shader(shader)
+  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert)
 {
   transMatrix(transform, t[0], t[1], t[2]);
   glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
@@ -46,26 +46,25 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
       normals.push_back(glm::vec3(normal[0], normal[1], normal[2]));
     }
   }
-
-  // Attempt to load the shaders specified
-  /*
-  printf("loading now\n");
-  char* error;
-  if (!(shader = loadShader(vert, frag, error))) {
-    std::string s = "Can't Load Surface Shader:";
-    s += error;
-    fl_alert(s.c_str());
-  }
-  printf("done loading\n");
-  */
   
 }
 
 void Surface::draw(DrawingState*){
+  
+  if (!triedShader) {
+    triedShader = true;
+    char* error;
+    if (!(shader = loadShader(vert, frag, error))) {
+      std::string s = "Can't Load Surface Shader:";
+      s += error;
+      fl_alert(s.c_str());
+    }
+  }
+  
   glPushMatrix();
 
   glColor4fv(&color.r);
-  glUseProgram(1);
+  glUseProgram(shader);
   
   int perDiv = points.size() / divs;
   int total = points.size();

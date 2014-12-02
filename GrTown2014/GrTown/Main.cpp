@@ -169,6 +169,10 @@ int main(int /*argc*/, char** /*argv*/)
   Particle* p = new Particle(50.0, 8.0, 0.0, 200);
   add(p);
 
+  Surface* b1 = new Surface(glm::vec3(150, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
+  add(b1);
+
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
 	add(t);

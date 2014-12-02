@@ -18,6 +18,8 @@ public:
   Particle(float x, float y, float z, int num);
   int num;
   std::vector<Part> particleList;
+  int shader;
+  bool triedShader = false;
   void init(Part *p);
   virtual void draw(DrawingState*);
 };
