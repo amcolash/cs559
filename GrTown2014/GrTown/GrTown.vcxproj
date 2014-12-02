@@ -130,6 +130,7 @@
     <ClInclude Include="Examples\Particle.h" />
     <ClInclude Include="Examples\SimpleBehaviors.H" />
     <ClInclude Include="Examples\Suburbs.H" />
+    <ClInclude Include="Examples\Surface.h" />
     <ClInclude Include="FlyCamera.H" />
     <ClInclude Include="GraphicsTownUI.H" />
     <ClInclude Include="GrObject.H" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Examples\Particle.cpp" />
     <ClCompile Include="Examples\SimpleBehaviors.cpp" />
     <ClCompile Include="Examples\Suburbs.cpp" />
+    <ClCompile Include="Examples\Surface.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="GraphicsTownUI.cxx" />
     <ClCompile Include="GrObject.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Fountain.frag" />
+    <None Include="Shaders\Fountain.vert" />
     <None Include="Shaders\ShadedCubeTest.frag" />
     <None Include="Shaders\ShadedCubeTest.vert" />
   </ItemGroup>

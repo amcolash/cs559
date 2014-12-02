@@ -108,6 +108,9 @@
     <ClInclude Include="Examples\Particle.h">
       <Filter>Examples Objects and Behaviors\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Examples\Surface.h">
+      <Filter>Examples Objects and Behaviors\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -170,12 +173,21 @@
     <ClCompile Include="Examples\Particle.cpp">
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Examples\Surface.cpp">
+      <Filter>Examples Objects and Behaviors\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShadedCubeTest.frag">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\ShadedCubeTest.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Fountain.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Fountain.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

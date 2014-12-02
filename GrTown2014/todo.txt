@@ -9,9 +9,24 @@ X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
 - Stars, Clouds
 - Sun / Moon
-- Potentially implementing some particle systems
+X Potentially implementing some particle systems, very rough - Andrew
 - Police Spaceship
 - Tweaking UI and controls to allow movement when following
 - Cars stop at stopsigns
-- Hover Fountain
+X Hover Fountain - Kinda, Andrew
 X Surfaces of revolution - Andrew
+
+Andrew
+--------------------
+Fully Created Objects:
+- Building
+- Fountain
+- UFO
+
+Shaders:
+
+Jason
+--------------------
+Fully Created Objects:
+
+Shaders:

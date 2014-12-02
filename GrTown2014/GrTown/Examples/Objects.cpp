@@ -75,7 +75,7 @@ void ShadedCube::draw(DrawingState*)
 		triedCubeShader = true;
 		char* error;
 		if (!(shadedCubeShader=loadShader("ShadedCubeTest.vert","ShadedCubeTest.frag",error))) {
-			std::string s = "Can't Load Cube Shader:";
+      std::string s = "Can't Load Cube Shader:";
 			s += error;
 			fl_alert(s.c_str());
 		}
@@ -102,76 +102,6 @@ void Bird::draw(DrawingState*){
 	gluSphere(quadric, 0.5, 36, 18);
 	gluDeleteQuadric(quadric);
 	glPopMatrix();
-}
-
-Surface::Surface(float x, float y, float z, float sx, float sy, float sz, std::vector<glm::vec3> tmpPts, int divs)
-  : divs(divs), points(points), normals(normals)
-{
-  transMatrix(transform, x, y, z);
-
-  glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(sx, sy, sz));
-
-  // generate points and normals only once
-
-  float divStep = 360.0 / divs;
-
-  for (int i = 0; i <= divs - 1; i++) {
-    // Current rotation
-    glm::mat4 rotateY1 = glm::rotate(
-      scale, i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-    );
-
-    // Rotation for next vertex (step + 1)
-    glm::mat4 rotateY2 = glm::rotate(
-      scale, (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-    );
-
-    glm::vec4 point1, point2;
-    // Find current vertex when rotated and next one, compute normal too (to build strip)
-    for (int j = 0; j < tmpPts.size(); j++) {
-      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
-      point1 = rotateY1 * point1;
-      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
-      point2 = rotateY2 * point2;
-
-      glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
-
-      points.push_back(glm::vec3(point1[0], point1[1], point1[2]));
-      normals.push_back(glm::vec3(normal[0], normal[1], normal[2]));
-    }
-  }
-}
-
-void Surface::draw(DrawingState*){
-  glPushMatrix();
-
-  // Using shader for now, instead of specific color
-  glUseProgram(shadedCubeShader);
-  //glColor4fv(&color.r);
-
-  //glScalef(0.75, 1.25, 0.75);
-
-  int perDiv = points.size() / divs;
-  int total = points.size();
-
-  for (int i = 0; i <= divs - 1; i++) {
-    
-    glBegin(GL_TRIANGLE_STRIP);
-
-    // Build triangle strip from computed verticies and use computed normals
-    for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
-      glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
-      
-      glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
-      glVertex3f(points[j][0], points[j][1], points[j][2]);
-    }
-    
-    glEnd();
-  }
-
-  glUseProgram(0);
-
-  glPopMatrix();
 }
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $
