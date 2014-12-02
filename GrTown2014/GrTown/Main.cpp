@@ -246,7 +246,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Seed rng and add fountain particles
   srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(50, 8.0, 0, 200);
+  Particle* p = new Particle(50.0, 8.0, 0.0, 200);
   add(p);
 
 	// a race track

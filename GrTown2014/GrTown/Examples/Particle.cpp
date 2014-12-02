@@ -29,18 +29,22 @@ void Particle::init(Part *p) {
   p->vX = randFloat(vMin, vMax);
   p->vY = randFloat(vMax, 2 * vMax);
   p->vZ = randFloat(vMin, vMax);
-  p->size = randFloat(5.0, 7.0);
+  p->size = randFloat(7.0, 10.0);
+  //p->size = 0.75;
   p->age = 0;
   p->active = true;
   p->maxAge = randInt(10, 30);
-  p->c = Color(randFloat(0.0, 0.5), randFloat(0.3, 0.7), randFloat(0.3, 1.0), randFloat(0.0, 1.0));
+  p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
 }
 
 void Particle::draw(DrawingState*){
-  glPushMatrix();
 
   // Using shader for now, instead of specific color
   //glUseProgram(shadedCubeShader);
+
+  // Enable blending
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_COLOR, GL_ONE);
 
   for (int i = 0; i < num; i++) {
     Part *p = &particleList[i];
@@ -52,18 +56,17 @@ void Particle::draw(DrawingState*){
     p->z += p->vZ;
     p->vY -= 0.05;
     p->age++;
+    p->c.a -= 0.025;
 
+    glColor4f(p->c.r, p->c.g, p->c.b, p->c.a);
     glPointSize(p->size);
+
     glBegin(GL_POINTS);
-      glColor4f(p->c.r, p->c.g, p->c.b, p->c.a);
       glVertex3f(p->x, p->y, p->z);
     glEnd();
+
   }
-  
-
   //glUseProgram(0);
-
-  glPopMatrix();
 }
 
 float randFloat(float min, float max) {
