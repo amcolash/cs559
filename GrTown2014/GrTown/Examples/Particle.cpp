@@ -4,17 +4,36 @@
 #include "Utilities/Texture.H"
 #include "Utilities/ShaderTools.H"
 
-#include <time.h>
-
 Particle::Particle(float x, float y, float z, int num)
   : num(num), particleList()
 {
   transMatrix(transform, x, y, z);
 
   for (int i = 0; i < num; i++) {
-    particleList.push_back(Part(0.0, 0.0, 0.0, 0.0, -0.1, 0.0));
+    particleList.push_back(Part());
+    init(&particleList[i]);
   }
 
+}
+
+void Particle::init(Part *p) {
+  float pMax = 1.0;
+  float pMin = -pMax;
+
+  float vMax = 0.2;
+  float vMin = -vMax;
+
+  p->x = randFloat(pMin, pMax);
+  p->y = randFloat(pMin, pMax);
+  p->z = randFloat(pMin, pMax);
+  p->vX = randFloat(vMin, vMax);
+  p->vY = randFloat(vMax, 2 * vMax);
+  p->vZ = randFloat(vMin, vMax);
+  p->size = randFloat(5.0, 7.0);
+  p->age = 0;
+  p->active = true;
+  p->maxAge = randInt(10, 30);
+  p->c = Color(randFloat(0.0, 0.5), randFloat(0.3, 0.7), randFloat(0.3, 1.0), randFloat(0.0, 1.0));
 }
 
 void Particle::draw(DrawingState*){
@@ -23,14 +42,34 @@ void Particle::draw(DrawingState*){
   // Using shader for now, instead of specific color
   //glUseProgram(shadedCubeShader);
 
-  glPointSize(40.0);
+  for (int i = 0; i < num; i++) {
+    Part *p = &particleList[i];
+    if (p->age > p->maxAge)
+      init(p);
 
-  glBegin(GL_POINTS);
-    glColor3f(1.0, 1.0, 1.0);
-    glVertex3f(0.0, 10.0, 0.0);
-  glEnd();
+    p->x += p->vX;
+    p->y += p->vY;
+    p->z += p->vZ;
+    p->vY -= 0.05;
+    p->age++;
+
+    glPointSize(p->size);
+    glBegin(GL_POINTS);
+      glColor4f(p->c.r, p->c.g, p->c.b, p->c.a);
+      glVertex3f(p->x, p->y, p->z);
+    glEnd();
+  }
+  
 
   //glUseProgram(0);
 
   glPopMatrix();
+}
+
+float randFloat(float min, float max) {
+  return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+}
+
+int randInt(int min, int max) {
+  return min + rand() % (max - min + 1);
 }

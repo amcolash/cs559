@@ -27,6 +27,8 @@
 #include "Examples/Objects.H"
 #include "Examples/Particle.h"
 
+#include <time.h>
+
 
 // define this to get 2 cars that always turn
 // #define TESTCARS
@@ -242,7 +244,9 @@ int main(int /*argc*/, char** /*argv*/)
   Surface* s = new Surface(50, 0, 0, 0.75, 1.0, 0.75, points, 64);
   add(s);
 
-  Particle* p = new Particle(50, 0, 0, 100);
+  // Seed rng and add fountain particles
+  srand(static_cast <unsigned> (time(0)));
+  Particle* p = new Particle(50, 8.0, 0, 200);
   add(p);
 
 	// a race track

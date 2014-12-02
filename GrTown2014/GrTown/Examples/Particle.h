@@ -7,22 +7,10 @@ struct Part {
 public:
   float x, y, z;
   float vX, vY, vZ;
+  float size;
   Color c;
   bool active;
-  int age;
-
-  Part(float initx, float inity, float initz, float initvX, float initvY, float initvZ) {
-    x = initx;
-    y = inity;
-    z = initz;
-    vX = initvX;
-    vY = initvY;
-    vZ = initvZ;
-
-    c = Color(1.0, 1.0, 1.0);
-    active = false;
-    age = 0;
-  }
+  int age, maxAge;
 };
 
 class Particle : public GrObject {
@@ -30,5 +18,9 @@ public:
   Particle(float x, float y, float z, int num);
   int num;
   std::vector<Part> particleList;
+  void init(Part *p);
   virtual void draw(DrawingState*);
 };
+
+float randFloat(float min, float max);
+int randInt(int min, int max);
