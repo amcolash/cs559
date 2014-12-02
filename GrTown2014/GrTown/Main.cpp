@@ -154,24 +154,28 @@ int main(int /*argc*/, char** /*argv*/)
   Bird* b = new Bird(0, 50, -30, 0, 0, .0);
   add(b);
 
-  // using a shader so may not need color?? using scale for now
-  Surface* s = new Surface(glm::vec3(50, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64, 
+  // interesting surface
+  Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64, 
     "Fountain.vert", "Fountain.frag");
   add(s);
 
-  s->name = "Surface of Revolution";
+  s->name = "Particle Fountain";
   s->interesting = true;
   s->laX = 50; s->laY = -10; s->laZ = -50;
   s->lfX = -50; s->lfY = 30; s->lfZ = 50;
 
   // Seed rng and add fountain particles
   srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(50.0, 8.0, 0.0, 200);
+  Particle* p = new Particle(40, 8, 0, 200);
   add(p);
 
-  Surface* b1 = new Surface(glm::vec3(150, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
+  Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag");
   add(b1);
+
+  Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
+  add(ufo);
 
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
