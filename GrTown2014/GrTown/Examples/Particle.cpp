@@ -13,7 +13,6 @@ Particle::Particle(float x, float y, float z, int num)
     particleList.push_back(Part());
     init(&particleList[i]);
   }
-
 }
 
 void Particle::init(Part *p) {
@@ -66,6 +65,8 @@ void Particle::draw(DrawingState*){
     glEnd();
 
   }
+
+  glDisable(GL_BLEND);
   //glUseProgram(0);
 }
 

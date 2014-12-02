@@ -155,9 +155,14 @@ int main(int /*argc*/, char** /*argv*/)
   add(b);
 
   // using a shader so may not need color?? using scale for now
-  Surface s = Building1(glm::vec3(50, 0, 0), glm::vec3(0.75, 1.0, 0.75), 64, 
+  Surface* s = new Surface(glm::vec3(50, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64, 
     "Fountain.vert", "Fountain.frag");
-  add(&s);
+  add(s);
+
+  s->name = "Surface of Revolution";
+  s->interesting = true;
+  s->laX = 50; s->laY = -10; s->laZ = -50;
+  s->lfX = -50; s->lfY = 30; s->lfZ = 50;
 
   // Seed rng and add fountain particles
   srand(static_cast <unsigned> (time(0)));
