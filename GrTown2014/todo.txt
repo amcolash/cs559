@@ -7,7 +7,8 @@ Theme: Future City
 - New Houses
 X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
-- Stars, Clouds
+- Stars, Clouds - Skybox
+- Billboards
 - Sun / Moon
 X Potentially implementing some particle systems, very rough - Andrew
 - Police Spaceship

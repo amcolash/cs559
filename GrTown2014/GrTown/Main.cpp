@@ -12,7 +12,7 @@
 #include "Examples/Objects.H"
 #include "Examples/SimpleBehaviors.H"
 #include "Examples/Cars.H"
-#include "Bird.h"
+
 
 // for setting up shader paths and textures
 #include "Utilities/ShaderTools.H"
@@ -28,6 +28,7 @@
 #include "Examples/Objects.H"
 #include "Examples/Surface.h"
 #include "Examples/Particle.h"
+#include "Examples/Bird.h"
 
 #include <time.h>
 
@@ -151,39 +152,6 @@ int main(int /*argc*/, char** /*argv*/)
 
 #endif
 
-  // add a bird
-  Bird* b = new Bird(0, 50, -30, 0, 0, .0);
-  add(b);
-
-  b->interesting = true;
-  b->name = "Bird";
-  b->laX = 0;
-  b->laY = 50;
-  b->laZ = -30;
-  b->lfX = -20; b->lfY = 20; b->lfZ = -35;
-  // interesting surface
-  Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64, 
-    "Fountain.vert", "Fountain.frag");
-  add(s);
-
-  s->name = "Particle Fountain";
-  s->interesting = true;
-  s->laX = 50; s->laY = -10; s->laZ = -50;
-  s->lfX = -50; s->lfY = 30; s->lfZ = 50;
-
-  // Seed rng and add fountain particles
-  srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(40, 8, 0, 200);
-  add(p);
-
-  Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
-  add(b1);
-
-  Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
-  add(ufo);
-
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
 	add(t);
@@ -201,6 +169,48 @@ int main(int /*argc*/, char** /*argv*/)
 	add(h);
 	Drive* d = new SimpleDrive(h,t,0,1);
 	d->speed *= 2;
+
+  /* Our new items for the world*/
+
+  // add a bird
+  Bird* b = new Bird(0, 50, -30, 0, 0, .0);
+  add(b);
+
+  b->interesting = true;
+  b->name = "Bird";
+  b->laX = 0;
+  b->laY = 50;
+  b->laZ = -30;
+  b->lfX = -20; b->lfY = 20; b->lfZ = -35;
+  // interesting surface
+  Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64,
+    "Fountain.vert", "Fountain.frag");
+  add(s);
+
+  s->name = "Particle Fountain";
+  s->interesting = true;
+  s->laX = 50; s->laY = -10; s->laZ = -50;
+  s->lfX = -50; s->lfY = 30; s->lfZ = 50;
+
+  Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
+  add(b1);
+
+  Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag");
+  add(ufo);
+
+  // Seed rng and add fountain particles
+  srand(static_cast <unsigned> (time(0)));
+  Particle* p = new Particle(40, 8, 0, 200);
+  add(p);
+
+  /*
+  Skybox* skbox = new Skybox();
+  add(skbox);
+  */
+
+  /* End our new items for the world */
 
 
   // *****************************************************************

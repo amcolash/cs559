@@ -7,10 +7,10 @@ struct Part {
 public:
   float x, y, z;
   float vX, vY, vZ;
-  float size;
+  float size, age;
   Color c;
   bool active;
-  int age, maxAge;
+  int maxAge;
 };
 
 class Particle : public GrObject {

@@ -21,7 +21,7 @@ void Particle::init(Part *p) {
   float pMax = 1.0;
   float pMin = -pMax;
 
-  float vMax = 0.2;
+  float vMax = 0.23;
   float vMin = -vMax;
 
   p->x = randFloat(pMin, pMax);
@@ -38,8 +38,7 @@ void Particle::init(Part *p) {
   p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
 }
 
-void Particle::draw(DrawingState*){
-  
+void Particle::draw(DrawingState* st){
   /*
   if (!triedShader) {
     triedShader = true;
@@ -64,12 +63,14 @@ void Particle::draw(DrawingState*){
       init(p);
 	
 	
-    p->x += p->vX;
-    p->y += p->vY;
-    p->z += p->vZ;
-    p->vY -= 0.05;
-    p->age++;
-    p->c.a -= 0.025;
+    if (st->speedup > 0) {
+      p->x += p->vX * st->speedup / 3.0;
+      p->y += p->vY  * st->speedup / 3.0;
+      p->z += p->vZ  * st->speedup / 3.0;
+      p->vY -= 0.05  * st->speedup / 3.0;
+      p->age += 1.0 * st->speedup / 3.0;
+      p->c.a -= 0.025  * st->speedup / 3.0;
+    }
 
     glColor4f(p->c.r, p->c.g, p->c.b, p->c.a);
     glPointSize(p->size);
