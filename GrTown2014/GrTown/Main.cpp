@@ -179,9 +179,9 @@ int main(int /*argc*/, char** /*argv*/)
   b->interesting = true;
   b->name = "Bird";
   b->laX = 0;
-  b->laY = 50;
+  b->laY = 0;
   b->laZ = -30;
-  b->lfX = -20; b->lfY = 20; b->lfZ = -35;
+  b->lfX = 0; b->lfY = 15; b->lfZ = 25;
   // interesting surface
   Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64,
     "Fountain.vert", "Fountain.frag");
