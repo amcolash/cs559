@@ -4,6 +4,7 @@
 #include "Utilities/Texture.H"
 #include "Utilities/ShaderTools.H"
 #include <FL/fl_ask.h>
+#include "../GraphicsTownUI.H"
 
 Particle::Particle(float x, float y, float z, int num)
   : num(num), particleList()
@@ -61,7 +62,8 @@ void Particle::draw(DrawingState*){
     Part *p = &particleList[i];
     if (p->age > p->maxAge)
       init(p);
-
+	
+	
     p->x += p->vX;
     p->y += p->vY;
     p->z += p->vZ;

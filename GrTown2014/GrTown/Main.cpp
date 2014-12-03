@@ -12,6 +12,7 @@
 #include "Examples/Objects.H"
 #include "Examples/SimpleBehaviors.H"
 #include "Examples/Cars.H"
+#include "Bird.h"
 
 // for setting up shader paths and textures
 #include "Utilities/ShaderTools.H"
@@ -154,6 +155,12 @@ int main(int /*argc*/, char** /*argv*/)
   Bird* b = new Bird(0, 50, -30, 0, 0, .0);
   add(b);
 
+  b->interesting = true;
+  b->name = "Bird";
+  b->laX = 0;
+  b->laY = 50;
+  b->laZ = -30;
+  b->lfX = -20; b->lfY = 20; b->lfZ = -35;
   // interesting surface
   Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64, 
     "Fountain.vert", "Fountain.frag");
