@@ -40,7 +40,7 @@ const int numCars = 100;
 const int nGrids = 5;
 
 int main(int /*argc*/, char** /*argv*/)
-{ 
+{
 
   // put in some texture paths - look all over the place
 	texturePaths.push_back(".");
@@ -70,7 +70,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // cubes are particularly easy since they set their own position
   // we need to raise the cube since we're giving the position of the
-  // center 
+  // center
   GrObject* cube1 = new ShadedCube(-50,5,-50,10,   .7f, .6f, .3f);
   add(cube1);
   cube1->name = "Cube1";
@@ -178,10 +178,9 @@ int main(int /*argc*/, char** /*argv*/)
 
   b->interesting = true;
   b->name = "Bird";
-  b->laX = 0;
-  b->laY = 0;
-  b->laZ = -30;
+  b->laX = 0; b->laY = 0; b->laZ = -30;
   b->lfX = 0; b->lfY = 15; b->lfZ = 25;
+
   // interesting surface
   Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64,
     "Fountain.vert", "Fountain.frag");
@@ -192,10 +191,12 @@ int main(int /*argc*/, char** /*argv*/)
   s->laX = 50; s->laY = -10; s->laZ = -50;
   s->lfX = -50; s->lfY = 30; s->lfZ = 50;
 
+  // Add building
   Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 64,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag");
   add(b1);
 
+  // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag");
   add(ufo);
@@ -205,10 +206,9 @@ int main(int /*argc*/, char** /*argv*/)
   Particle* p = new Particle(40, 8, 0, 200);
   add(p);
 
-  /*
+  // Add skybox
   Skybox* skbox = new Skybox();
   add(skbox);
-  */
 
   /* End our new items for the world */
 

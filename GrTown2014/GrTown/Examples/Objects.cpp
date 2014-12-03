@@ -17,7 +17,7 @@
 
 // some very basic classes of objects...
 // mainly for debugging
-Cube::Cube(float x, float y, float z, float s, 
+Cube::Cube(float x, float y, float z, float s,
 		   float r, float g, float b)
   : color(r,g,b), size(s)
 {
@@ -56,7 +56,7 @@ void TestCubes::draw(DrawingState*)
 
 // some very basic classes of objects...
 // mainly for debugging
-ShadedCube::ShadedCube(float x, float y, float z, float s, 
+ShadedCube::ShadedCube(float x, float y, float z, float s,
 					   float r, float g, float b)
   : color(r,g,b), size(s)
 {
@@ -87,6 +87,15 @@ void ShadedCube::draw(DrawingState*)
 	glUseProgram(0);
 }
 
+Skybox::Skybox()
+{
+	transMatrix(transform, x, y, z);
+}
 
+void Skybox::draw(DrawingState*){
+	glPushMatrix();
+
+	glPopMatrix();
+}
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $
