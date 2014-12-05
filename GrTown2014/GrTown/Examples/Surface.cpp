@@ -74,7 +74,7 @@ void Surface::draw(DrawingState* ds){
   if (shader != 0) {
     glUseProgram(shader);
     GLint myUniformLocation = glGetUniformLocation(shader, "timeOfDay");
-    glUniform1f(myUniformLocation, ds->timeOfDay / 24.0);
+    glUniform1i(myUniformLocation, ds->timeOfDay);
   }
 
   int perDiv = points.size() / divs;

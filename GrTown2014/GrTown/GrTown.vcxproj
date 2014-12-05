@@ -172,6 +172,8 @@
     <None Include="Shaders\Fountain.vert" />
     <None Include="Shaders\ShadedCubeTest.frag" />
     <None Include="Shaders\ShadedCubeTest.vert" />
+    <None Include="Shaders\UFO.frag" />
+    <None Include="Shaders\UFO.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

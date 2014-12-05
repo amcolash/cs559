@@ -204,7 +204,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", true);
+    "UFO.vert", "UFO.frag", true);
   add(ufo);
 
   // Seed rng and add fountain particles
