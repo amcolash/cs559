@@ -53,7 +53,7 @@ void GraphicsTownUI::cb_Fly(Fl_Button* o, void* v) {
 }
 
 Fl_Double_Window* GraphicsTownUI::make_window() {
-  { window = new Fl_Double_Window(925, 601, "CS 559 Graphics Town!");
+  { window = new Fl_Double_Window(928, 607, "CS 559 Graphics Town!");
     window->labelsize(12);
     window->user_data((void*)(this));
     { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 605);
@@ -79,6 +79,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       } // Fl_Browser* pickCamera
       { cull = new Fl_Button(770, 580, 75, 25, "Backface Cull");
         cull->type(1);
+        cull->value(1);
         cull->selection_color((Fl_Color)11);
         cull->labelsize(12);
       } // Fl_Button* cull
@@ -114,7 +115,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       { speedup = new Fl_Value_Slider(840, 550, 85, 25, "speedup");
         speedup->type(1);
         speedup->maximum(3);
-        speedup->step(0.2);
+        speedup->step(0.1);
         speedup->align(Fl_Align(FL_ALIGN_LEFT));
       } // Fl_Value_Slider* speedup
       { Fl_Browser* o = pickInteresting = new Fl_Browser(770, 235, 155, 165, "sights");

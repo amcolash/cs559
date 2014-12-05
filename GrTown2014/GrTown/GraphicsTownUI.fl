@@ -40,7 +40,7 @@ class GraphicsTownUI {open
   } {
     Fl_Window window {
       label {CS 559 Graphics Town!} open
-      xywh {177 202 925 601} type Double labelsize 12 resizable visible
+      xywh {189 214 928 607} type Double labelsize 12 resizable visible
     } {
       Fl_Box townView {
         xywh {5 5 760 605} align 2 resizable
@@ -58,8 +58,8 @@ class GraphicsTownUI {open
           code1 {if((*g)->ridable) o->add((*g)->name.c_str(),*g);}
         }
         Fl_Button cull {
-          label {Backface Cull} selected
-          xywh {770 580 75 25} type Toggle selection_color 11 labelsize 12
+          label {Backface Cull}
+          xywh {770 580 75 25} type Toggle value 1 selection_color 11 labelsize 12
         }
         Fl_Value_Slider time {
           label {Time of Day (24hr)}
@@ -84,8 +84,8 @@ class GraphicsTownUI {open
           xywh {875 520 50 25} maximum 100 step 0.1
         }
         Fl_Value_Slider speedup {
-          label speedup
-          xywh {840 550 85 25} type Horizontal align 4 maximum 3 step 0.2
+          label speedup selected
+          xywh {840 550 85 25} type Horizontal align 4 maximum 3 step 0.1
         }
         Fl_Browser pickInteresting {
           label sights

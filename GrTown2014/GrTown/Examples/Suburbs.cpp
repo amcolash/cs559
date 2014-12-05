@@ -283,6 +283,20 @@ void StreetLight::draw(DrawingState*)
   glVertex3d( 0,21, 0);
   glVertex3d( 0,21, poleZ);
 	glEnd();
+
+  // Close the pole
+  glBegin(GL_TRIANGLES);
+  glVertex3d(0, 21, 0);
+  glVertex3d(-1, 20, 0);
+  glVertex3d(1, 20, 0);
+  glVertex3d(1, 20, poleZ);
+  glVertex3d(-1, 20, poleZ);
+  glVertex3d(0, 21, poleZ);
+  glVertex3d(0, 20, poleZ - 1);
+  glVertex3d(-1, 20, poleZ);
+  glVertex3d(1, 20, poleZ);
+  
+  glEnd();
 }
 
 void StreetLight::drawAfter(DrawingState* d)

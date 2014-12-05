@@ -203,7 +203,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Seed rng and add fountain particles
   srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(40, 8, 0, 200);
+  Particle* p = new Particle(40, 8, 0, 500);
   add(p);
 
   // Add skybox

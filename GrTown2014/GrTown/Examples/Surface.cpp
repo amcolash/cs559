@@ -10,6 +10,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+float rotation = 0;
+
 
 Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag)
   : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert)
@@ -49,7 +51,7 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
   
 }
 
-void Surface::draw(DrawingState*){
+void Surface::draw(DrawingState* ds){
   
   if (!triedShader) {
     triedShader = true;
@@ -62,6 +64,8 @@ void Surface::draw(DrawingState*){
   }
   
   glPushMatrix();
+  rotation += 1.5 * ds->speedup;
+  glRotatef(rotation, 0, 1, 0);
 
   glColor4fv(&color.r);
   glUseProgram(shader);
