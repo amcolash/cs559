@@ -89,13 +89,22 @@ void ShadedCube::draw(DrawingState*)
 
 Skybox::Skybox()
 {
-	transMatrix(transform, x, y, z);
 }
 
-void Skybox::draw(DrawingState*){
+void Skybox::draw(DrawingState* ds){
 	glPushMatrix();
+  glTranslatef(20.0, 7.0, 0);
 
-	glPopMatrix();
+  /*
+  glBegin(GL_QUADS);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 2, 0);
+  glVertex3f(0, 2, 2);
+  glVertex3f(0, 0, 2);
+  glEnd();
+  */
+
+  glPopMatrix();
 }
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $
