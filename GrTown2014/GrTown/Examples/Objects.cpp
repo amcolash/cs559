@@ -87,15 +87,15 @@ void ShadedCube::draw(DrawingState*)
 	glUseProgram(0);
 }
 
-Skybox::Skybox()
-{
-	transMatrix(transform, x, y, z);
-}
+//Skybox::Skybox()
+//{
+//	transMatrix(transform, x, y, z);
+//}
 
-void Skybox::draw(DrawingState*){
-	glPushMatrix();
+//void Skybox::draw(DrawingState*){
+//	glPushMatrix();
 
-	glPopMatrix();
-}
+//	glPopMatrix();
+//}
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $
