@@ -10,11 +10,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-float rotation = 0;
 
-
-Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag)
-  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert)
+Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag, bool spin)
+  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert), spin(spin)
 {
   transMatrix(transform, t[0], t[1], t[2]);
   glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
@@ -48,7 +46,8 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
       normals.push_back(glm::vec3(normal[0], normal[1], normal[2]));
     }
   }
-  
+
+  rotation = 0;
 }
 
 void Surface::draw(DrawingState* ds){
@@ -64,12 +63,20 @@ void Surface::draw(DrawingState* ds){
   }
   
   glPushMatrix();
-  rotation += 1.5 * ds->speedup;
-  glRotatef(rotation, 0, 1, 0);
+  
+  if (spin) {
+    rotation = fmod((rotation + (2.0 * ds->speedup)), 360);
+    glRotatef(rotation, 0, 1, 0);
+  }
 
   glColor4fv(&color.r);
-  glUseProgram(shader);
-  
+
+  if (shader != 0) {
+    glUseProgram(shader);
+    GLint myUniformLocation = glGetUniformLocation(shader, "timeOfDay");
+    glUniform1f(myUniformLocation, ds->timeOfDay / 24.0);
+  }
+
   int perDiv = points.size() / divs;
   int total = points.size();
 

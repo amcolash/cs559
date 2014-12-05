@@ -6,7 +6,7 @@
 
 class Surface : public GrObject {
 public:
-  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert, char* frag);
+  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert, char* frag, bool spin);
   Color color;
   std::vector<glm::vec3> points;
   std::vector<glm::vec3> normals;
@@ -15,6 +15,8 @@ public:
   bool triedShader = false;
   char* frag;
   char* vert;
+  bool spin;
+  float rotation;
   virtual void draw(DrawingState*);
 };
 
@@ -45,6 +47,7 @@ const std::vector<glm::vec3> S_BUILDING = {
 // A fountain
 const std::vector<glm::vec3> S_FOUNTAIN = {
   glm::vec3(0.0, .70, 0.0),
+  glm::vec3(0.0, 7.0, 0.0),
   glm::vec3(1.0, 7.0, 0.0),
   glm::vec3(1.0, 3.0, 0.0),
   glm::vec3(2.0, 3.0, 0.0),
@@ -57,6 +60,13 @@ const std::vector<glm::vec3> S_FOUNTAIN = {
   glm::vec3(15.0, 1.0, 0.0),
   glm::vec3(14.0, 0.0, 0.0),
   glm::vec3(0.0, 0.0, 0.0)
+};
+
+// A pool of water for fountain
+// A fountain
+const std::vector<glm::vec3> S_WATER = {
+  glm::vec3(0.0, 2.0, 0.0),
+  glm::vec3(14, 2.25, 0.0)
 };
 
 // A UFO

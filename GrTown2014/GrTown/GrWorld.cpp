@@ -28,7 +28,7 @@ void drawSky(DrawingState* st)
   else if (st->timeOfDay < 19) st->sky(.2f,.2f,.8f);
   else st->sky(0,0,.2f);
 
-  //glClearColor(st->sky.r,st->sky.g,st->sky.b,st->sky.a);
+  glClearColor(st->sky.r,st->sky.g,st->sky.b,st->sky.a);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT /*| GL_STENCIL_BUFFER_BIT*/);
 }
 
