@@ -173,7 +173,7 @@ int main(int /*argc*/, char** /*argv*/)
   /* Our new items for the world*/
 
   // add a bird
-  Bird* b = new Bird(0, 50, -30, 0, 0, .0);
+  Bird* b = new Bird(0, 0, 0, 0, 0, .0);
   add(b);
 
   b->interesting = true;
