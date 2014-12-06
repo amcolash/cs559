@@ -4,7 +4,7 @@
 // updated Fall, 2006
 //
 #include "GrTown_PCH.H"
-
+#include <glm/glm.hpp>
 #include "GrObject.H"
 #include "FlyCamera.H"
 #include "Behavior.H"
@@ -12,6 +12,7 @@
 #include "DrawingState.H"
 
 using std::vector;
+glm::vec3 position;
 
 int noNameCtr=1;
 GrObject::GrObject(char* nb, int& nn, char* xn) :

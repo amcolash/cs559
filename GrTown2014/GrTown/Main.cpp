@@ -25,10 +25,12 @@
 #include "Roads/Roads.H"
 #include "Roads/Drive.H"
 
+
 #include "Examples/Objects.H"
 #include "Examples/Surface.h"
 #include "Examples/Particle.h"
 #include "Examples/Bird.h"
+#include "BirdFly.h"
 
 #include <time.h>
 
@@ -172,14 +174,132 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our new items for the world*/
 
-  // add a bird
-  Bird* b = new Bird(0, 0, 0, 0, 0, .0);
-  add(b);
-
-  b->interesting = true;
-  b->name = "Bird";
-  b->laX = 0; b->laY = 0; b->laZ = -30;
-  b->lfX = 0; b->lfY = 15; b->lfZ = 25;
+  // add 40 birds
+  Bird* bird1 = new Bird(0, 0, 0, 0, 0, .0);
+  add(bird1);
+  Bird* bird2 = new Bird(0, 0, 0, 0, 0, 0 );
+  add(bird2);
+  Bird* bird3 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird3);
+  Bird* bird4 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird4);
+  Bird* bird5 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird5);
+  Bird* bird6 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird6);
+  Bird* bird7 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird7);
+  Bird* bird8 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird9 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird10 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird11 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird12 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird13 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird14 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird15 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird16 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird17 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird18 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird19 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird20 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird21 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird22 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird23 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird24 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird25 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird26 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird27 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird28 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird29 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird30 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird31 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird32 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird33 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird34 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird35 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird36 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird37 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird38 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird39 = new Bird(0, 0, 0, 0, 0, 0);
+  Bird* bird40 = new Bird(0, 0, 0, 0, 0, 0);
+  add(bird8);
+  add(bird9);
+  add(bird10);
+  add(bird11);
+  add(bird12);
+  add(bird13);
+  add(bird14);
+  add(bird15);
+  add(bird16);
+  add(bird17);
+  add(bird18);
+  add(bird19);
+  add(bird20);
+  add(bird21);
+  add(bird22);
+  add(bird23);
+  add(bird24);
+  add(bird25);
+  add(bird26);
+  add(bird27);
+  add(bird28);
+  add(bird29);
+  add(bird30);
+  add(bird31);
+  add(bird32);
+  add(bird33);
+  add(bird34);
+  add(bird35);
+  add(bird36);
+  add(bird37);
+  add(bird38);
+  add(bird39);
+  add(bird40);
+  new BirdFly(bird1, false);
+  new BirdFly(bird2, false);
+  new BirdFly(bird3, false);
+  new BirdFly(bird4, false);
+  new BirdFly(bird5, false);
+  new BirdFly(bird6, false);
+  new BirdFly(bird7, false);
+  new BirdFly(bird8, false);
+  new BirdFly(bird9, false);
+  new BirdFly(bird10, false);
+  new BirdFly(bird11, false);
+  new BirdFly(bird12, false);
+  new BirdFly(bird13, false);
+  new BirdFly(bird14, false);
+  new BirdFly(bird15, false);
+  new BirdFly(bird16, false);
+  new BirdFly(bird17, false);
+  new BirdFly(bird18, false);
+  new BirdFly(bird19, false);
+  new BirdFly(bird20, false);
+  new BirdFly(bird21, false);
+  new BirdFly(bird22, false);
+  new BirdFly(bird23, false);
+  new BirdFly(bird24, false);
+  new BirdFly(bird25, false);
+  new BirdFly(bird26, false);
+  new BirdFly(bird27, false);
+  new BirdFly(bird28, false);
+  new BirdFly(bird29, false);
+  new BirdFly(bird30, false);
+  new BirdFly(bird31, false);
+  new BirdFly(bird32, false);
+  new BirdFly(bird33, false);
+  new BirdFly(bird34, false);
+  new BirdFly(bird35, false);
+  new BirdFly(bird36, false);
+  new BirdFly(bird37, false);
+  new BirdFly(bird38, false);
+  new BirdFly(bird39, false);
+  new BirdFly(bird40, true);
+  //b2->interesting = true;
+  //b1->interesting = true;
+  //b1->name = "Bird";
+  //b1->laX = 0; b1->laY = 0; 1b->laZ = -30;
+  //b1->lfX = 0; b1->lfY = 15; b1->lfZ = 25;
 
 
   // Add a fountain

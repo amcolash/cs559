@@ -2,6 +2,7 @@
 #include "Utilities/Texture.H"
 #include <glm/gtc/matrix_transform.hpp>
 #include <math.h>
+#include <glm/glm.hpp>
 
 
 Bird::Bird(float x, float y, float z, float r, float g, float b)
@@ -9,9 +10,14 @@ Bird::Bird(float x, float y, float z, float r, float g, float b)
 {
 	count = 0;
 	transMatrix(transform, x, y, z);
+	for (int i = 0; i < 3; i++){
+		rotations.push_back(0);
+	}
 }
+
 void Bird::draw(DrawingState* state){
-	
+	glPushMatrix();
+	//glRotated(0, 0, 1, 0);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);
 	glColor4fv(&color.r);
@@ -121,6 +127,7 @@ void Bird::draw(DrawingState* state){
 	glVertex3f(-1.3, -.05, 1);
 	glVertex3f(-1.3, 0, 1);
 	glEnd();
+	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
 
