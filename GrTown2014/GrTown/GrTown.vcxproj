@@ -138,6 +138,7 @@
     <ClInclude Include="GrObject.H" />
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
+    <ClInclude Include="BirdFly.h" />
     <ClInclude Include="MMatrix.H" />
     <ClInclude Include="Roads\Drive.H" />
     <ClInclude Include="Roads\Roads.H" />
@@ -148,6 +149,7 @@
     <ClCompile Include="..\Utilities\ShaderTools.cpp" />
     <ClCompile Include="..\Utilities\Texture.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="BirdFly.cpp" />
     <ClCompile Include="DrawingState.cpp" />
     <ClCompile Include="DrawUtils.cpp" />
     <ClCompile Include="Examples\Bird.cpp" />
