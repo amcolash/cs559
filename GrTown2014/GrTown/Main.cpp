@@ -213,8 +213,8 @@ int main(int /*argc*/, char** /*argv*/)
   add(p);
 
   // Add skybox
-//  Skybox* skbox = new Skybox();
-  //add(skbox);
+  Skybox* skbox = new Skybox();
+  add(skbox);
 
   /* End our new items for the world */
 

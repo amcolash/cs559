@@ -63,18 +63,20 @@ void Surface::draw(DrawingState* ds){
   }
   
   glPushMatrix();
-  
-  if (spin) {
-    rotation = fmod((rotation + (2.0 * ds->speedup)), 360);
-    glRotatef(rotation, 0, 1, 0);
-  }
 
   glColor4fv(&color.r);
 
   if (shader != 0) {
     glUseProgram(shader);
-    GLint myUniformLocation = glGetUniformLocation(shader, "timeOfDay");
-    glUniform1i(myUniformLocation, ds->timeOfDay);
+    GLint timeUniformLocation = glGetUniformLocation(shader, "timeOfDay");
+    glUniform1i(timeUniformLocation, ds->timeOfDay);
+    GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
+    glUniform1f(speedupUniformLocation, ds->speedup);
+    if (spin) {
+      rotation = fmod((rotation + (2.0 * ds->speedup)), 360);
+      GLint rotationUniformLocation = glGetUniformLocation(shader, "rotation");
+      glUniform1f(speedupUniformLocation, rotation);
+    }
   }
 
   int perDiv = points.size() / divs;

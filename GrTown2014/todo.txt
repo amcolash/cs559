@@ -25,9 +25,22 @@ Fully Created Objects:
 - UFO
 
 Shaders:
+X Responds to time of day
+- Responds to global lighting
+
+Behaviors:
+
+Textures:
+
 
 Jason
 --------------------
 Fully Created Objects:
+X Birds
 
 Shaders:
+- Maps textures to verticies
+
+Behaviors:
+
+Textures:

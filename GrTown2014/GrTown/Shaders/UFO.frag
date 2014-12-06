@@ -1,5 +1,7 @@
 varying vec3 normal;
 uniform int timeOfDay;
+uniform float speedup;
+uniform float rotation;
 
 void main() {
   float alpha = 0.0;
@@ -8,6 +10,7 @@ void main() {
     alpha = 1.0;
   }
 
-  vec3 mycolor = normal * 0.5 + vec3(.5, .5, .5);
+  //vec3 mycolor = normal * 0.5 + vec3(.5, .5, .5);
+  vec3 mycolor = rotation * 0.5 + vec3(.5, .5, .5);
   gl_FragColor = vec4(mycolor.x, mycolor.y, mycolor.z, alpha);
 }

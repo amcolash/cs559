@@ -42,7 +42,7 @@ public:
 class Skybox : public GrObject {
 public:
   Skybox();
-  virtual void draw(DrawingState*);
+  virtual void draw(DrawingState* ds);
 };
 
 

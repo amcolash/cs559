@@ -92,16 +92,36 @@ Skybox::Skybox()
 }
 
 void Skybox::draw(DrawingState* ds) {
-	/*
+  /*
   glPushMatrix();
-  glTranslatef(20.0, 7.0, 0);
+  
+  Matrix cam;
+  Matrix translate;
+  Matrix final;
 
-  glBegin(GL_QUADS);
-  glVertex3f(0, 0, 0);
-  glVertex3f(0, 2, 0);
-  glVertex3f(0, 2, 2);
-  glVertex3f(0, 0, 2);
-  glEnd();
+  ds->camera->getCamera(cam);
+  //invertMatrix(cam);
+  
+  cam[0][3] = 1;
+  cam[1][3] = 1;
+  cam[2][3] = 1;
+  cam[3][0] = 1;
+  cam[3][1] = 1;
+  cam[3][2] = 1;
+
+  
+  transMatrix(translate, 20.0, 7.0, 0);
+
+  multMatrix(cam, translate, final);
+
+  glLoadMatrixf(final[0]);
+
+  printMatrix(final);
+  printf("\n");
+
+  glColor3f(0.5, 0.5, 0.5);
+
+  cube(0, 0, 0, 1);
   
   glPopMatrix();
   */
