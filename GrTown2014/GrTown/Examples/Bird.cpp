@@ -17,7 +17,10 @@ Bird::Bird(float x, float y, float z, float r, float g, float b)
 
 void Bird::draw(DrawingState* state){
 	glPushMatrix();
-	//glRotated(0, 0, 1, 0);
+	glBegin(GL_QUADS);
+	glVertex3f(0, 0, 100);
+	glPushMatrix();
+	//glRotated(-45, 0, 1, 0);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);
 	glColor4fv(&color.r);

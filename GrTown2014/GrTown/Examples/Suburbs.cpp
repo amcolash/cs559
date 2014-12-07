@@ -309,7 +309,30 @@ void StreetLight::drawAfter(DrawingState* d)
 	daytime = false;
 
   if (!daytime) {
-
+	  glEnable(GL_BLEND);
+	  glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+	  glEnable(GL_LIGHT0);
+	  GLfloat ambient[] = { 1, 1, 1, 1 };
+	  glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	  
+	  /*
+	  glEnable(GL_LIGHT0);
+	  glShadeModel(GL_SMOOTH); // or GL_FLAT
+	  glEnable(GL_NORMALIZE); //or not
+	  glEnable(GL_LIGHTING);
+	  GLfloat light_ambient[] = { .5, 0, 0, 1 };
+	  GLfloat light_diffuse[] = { 1, 0, 0, 1 };
+	  GLfloat light_specular[] = { 1, 1, 1, 1 };
+	  GLfloat light_position[] = { 1, 1, 1, 1 };
+	  GLfloat spot_direction[] = { -1, -1, 0 };
+	  glLightfv(GL_LIGHTING, GL_SPOT_DIRECTION, spot_direction);
+	  glLightf(GL_LIGHTING, GL_SPOT_CUTOFF, 20.0);
+	  glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	  glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	  glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	  glDisable(GL_LIGHTING);
+	  glDisable(GL_LIGHT0);*/
 	// glEnable(GL_BLEND);
 	// glBlendFunc(GL_SRC_ALPHA,GL_DST_ALPHA);
 	float cone_length = 20;
@@ -336,15 +359,15 @@ void StreetLight::drawAfter(DrawingState* d)
 	  norm[0] /= sum; norm[1] /= sum; norm[2] /= sum;				
 	  glNormal3f( norm[0],norm[1],norm[2]);
 	
-	  glVertex3f( x, cone_length/6, z );
+	  glVertex3f( x, cone_length/6-4, z );
 	}  
 			
 	glEnd();
 
 			
 	glPopMatrix();
-
-	//glDisable(GL_BLEND);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_BLEND);
 	glClearColor(1,1,1,1);
 
   }

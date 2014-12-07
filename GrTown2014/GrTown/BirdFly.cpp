@@ -24,7 +24,9 @@ void BirdFly::Fly(GrObject* bird, bool last)
 	
 	float totalXTrans=0, totalYTrans=0, totalZTrans=0;
 	std::vector<float> pos;
-
+	glm::vec3 avgPos;
+	if (lastV)
+		printf("HELLO\n");
 	float transX, transY, transZ;
 	if (!lastV){
 
@@ -32,7 +34,7 @@ void BirdFly::Fly(GrObject* bird, bool last)
 		los[cnt] = bird;
 
 		transX = rand() % 2500;
-		transY = rand() % 50 + 50;
+		transY = rand() % 100 + 50;
 		transZ = rand() % 1000;
 		pos.push_back(transX);
 		pos.push_back(transY);
@@ -43,7 +45,7 @@ void BirdFly::Fly(GrObject* bird, bool last)
 
 		
 
-		transMatrix(owner->transform, transX, transY, transZ);
+		//transMatrix(owner->transform, transX, transY, transZ);
 		positions.push_back(pos);
 
 		if (last){
@@ -55,17 +57,26 @@ void BirdFly::Fly(GrObject* bird, bool last)
 				for (int j = 0; j < positions.size(); j++)
 					totalZTrans += positions[j][2];
 				printf("Average position: (%f, %f, %f)\n", totalXTrans / 40, totalYTrans / 40, totalZTrans / 40);
-				glm::vec3 avgPos = glm::vec3(totalXTrans / 40, totalYTrans / 40, totalZTrans / 40);
+				avgPos = glm::vec3(totalXTrans / 40, totalYTrans / 40, totalZTrans / 40);
 				
 				for (int i = 0; i < 40; i++)
 					RotateToFace(los[i], test[i], avgPos, glm::vec3(0, 1, 0));
+				lastV += 1;
 		}
-
+		cnt++;
 	}
-	cnt++;
+	else{
+		for (int i = 0; i < 40; i++){
+			los[i]->transform[3][0] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).x);
+			los[i]->transform[3][1] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).y);
+			los[i]->transform[3][2] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).z);
+		}
+	}
+	
 }
 void BirdFly::RotateToFace(GrObject* b, glm::vec3 objPos, glm::vec3 lookAt, glm::vec3 U){
 	glm::vec3 D = glm::vec3(objPos.x - lookAt.x, objPos.y - lookAt.y, objPos.z - lookAt.z);
+	glm::vec3 dNorm = glm::normalize(D);
 	glm::vec3 Right = glm::cross(U, D);
 	Right = glm::normalize(Right);
 	glm::vec3 Backwards = glm::cross(Right, U);

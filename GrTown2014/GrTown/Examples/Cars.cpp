@@ -157,6 +157,11 @@ static void drawBeam()
 	const float cone_length = 20;
 	int c;
 	const float radius = 3;
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+	glEnable(GL_LIGHT0);
+	GLfloat ambient[] = { 1, 1, 1, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glBegin(GL_TRIANGLE_FAN);
 	glColor4d(1,1,0,.8);
 	glVertex3d(0,0,0);
@@ -172,6 +177,8 @@ static void drawBeam()
 	  glVertex3f( wc[c][0]*radius, -cone_length, wc[c][1]*radius );
 	}  		
 	glEnd();
+	glDisable(GL_BLEND);
+	glDisable(GL_LIGHT0);
 }
 // draw headlights at night
 void Car::drawAfter(DrawingState* s)
