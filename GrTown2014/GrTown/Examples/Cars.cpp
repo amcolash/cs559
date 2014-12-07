@@ -134,7 +134,8 @@ static void drawWing(float r, float w, int dir)
 
 void Car::draw(DrawingState* d)
 {
-
+	glPushMatrix();
+	glTranslated(0, 5, 0);
   glColor3d(color.r * 0.75, color.g * 0.75, color.b * 0.75);
   
   glPushMatrix();
@@ -149,14 +150,16 @@ void Car::draw(DrawingState* d)
 
   glColor3fv(&color.r);
   drawBody(d);
+  glPopMatrix();
 }
 
   
 static void drawBeam()
 {
-	const float cone_length = 20;
+
+	const float cone_length = 50;
 	int c;
-	const float radius = 3;
+	const float radius = 10;
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
 	glEnable(GL_LIGHT0);
@@ -165,7 +168,7 @@ static void drawBeam()
 	glBegin(GL_TRIANGLE_FAN);
 	glColor4d(1,1,0,.8);
 	glVertex3d(0,0,0);
-    glColor4d(1,1,0,.2);
+	glColor4d(1, 1, 0, .2);
 	for ( c=8; c>=0; c--) {
 	  glNormal3f( wc[c][0], 0, wc[c][1]);
 	  glVertex3f( wc[c][0]*radius, -cone_length, wc[c][1]*radius );
@@ -192,14 +195,14 @@ void Car::drawAfter(DrawingState* s)
 	
   if (!daytime) {
 	// Beam One
-	glPushMatrix();			
-	glTranslatef(-w*.7f,h+m/2,2);
+	glPushMatrix();		
+	glTranslatef(-w*.7f,h+m/2+5,0);
 	glRotated(90,1,0,0);
 	drawBeam();
 	glPopMatrix();
 		// Beam 2
-	glPushMatrix();			
-	glTranslatef(w*.7f,h+m/2,2);
+	glPushMatrix();		
+	glTranslatef(w*.7f,h+m/2+5,0);
 	glRotated(90,1,0,0);
 	drawBeam();
 	glPopMatrix();
