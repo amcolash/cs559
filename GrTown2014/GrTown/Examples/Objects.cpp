@@ -87,4 +87,117 @@ void ShadedCube::draw(DrawingState*)
 	glUseProgram(0);
 }
 
+Skybox::Skybox()
+{
+}
+
+void Skybox::draw(DrawingState* ds) {
+  glPushMatrix();
+
+  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  //glDisable(GL_DEPTH_TEST);
+  //glDisable(GL_BLEND);
+  //glDisable(GL_ALPHA_TEST);
+  //glDisable(GL_TEXTURE_GEN_S);
+  //glDisable(GL_TEXTURE_GEN_T);
+  //glDisable(GL_DEPTH_TEST | GL_BLEND | GL_ALPHA_TEST |
+	//  GL_TEXTURE_GEN_S | GL_TEXTURE_GEN_T);
+  //glDepthMask(GL_FALSE);
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  fetchTexture("left2.jpg");
+  glBegin(GL_QUADS);
+  glTexCoord2i(0, 0);
+  glVertex3f(-4000, -500, -4000);
+  glTexCoord2i(1, 0);
+  glVertex3f(5000, -500, -4000);
+  glTexCoord2i(1, 1);
+  glVertex3f(5000, 4000, -4000);
+  glTexCoord2i(0, 1);
+  glVertex3f(-4000, 4000, -4000);
+  glEnd();
+
+  fetchTexture("right.jpg");
+  glBegin(GL_QUADS);
+  glTexCoord2i(0, 1);
+  glVertex3f(-4000, 4000, 4000);
+  glTexCoord2i(1, 1);
+  glVertex3f(5000, 4000, 4000);
+  glTexCoord2i(1, 0);
+  glVertex3f(5000, -500, 4000);
+  glTexCoord2i(0, 0);
+  glVertex3f(-4000, -500, 4000);
+
+  glEnd();
+
+  fetchTexture("Up.jpg");
+  glBegin(GL_QUADS);
+  glTexCoord2i(1, 0);
+  glVertex3f(5000, 4000, 4000);
+  glTexCoord2i(0, 0);
+  glVertex3f(-4000, 4000, 4000);
+  glTexCoord2i(1, 0);
+  glVertex3f(-4000, 4000, -4000);
+  glTexCoord2i(1, 1);
+  glVertex3f(5000, 4000, -4000);
+  glEnd();
+
+  fetchTexture("front.jpg");
+  glBegin(GL_QUADS);
+  glTexCoord2i(1, 1);
+  glVertex3f(5000, 4000, -4000);
+  glTexCoord2i(1, 0);
+  glVertex3f(5000, -500, -4000);
+  glTexCoord2i(0, 0);
+  glVertex3f(5000, -500, 4000);
+  glTexCoord2i(0, 1);
+  glVertex3f(5000, 4000, 4000);
+  glEnd();
+
+  fetchTexture("back.jpg");
+  glBegin(GL_QUADS);
+  glTexCoord2i(0, 1);
+  glVertex3f(-4000, 4000, 4000);
+  glTexCoord2i(0, 0);
+  glVertex3f(-4000, -500, 4000);
+  glTexCoord2i(1, 0);
+  glVertex3f(-4000, -500, -4000);
+  glTexCoord2i(1, 1);
+  glVertex3f(-4000, 4000, -4000);
+
+
+
+  glEnd();
+
+  Matrix cam;
+  Matrix translate;
+  Matrix final;
+
+  ds->camera->getCamera(cam);
+  //invertMatrix(cam);
+  
+  cam[0][3] = 1;
+  cam[1][3] = 1;
+  cam[2][3] = 1;
+  cam[3][0] = 1;
+  cam[3][1] = 1;
+  cam[3][2] = 1;
+
+  
+  transMatrix(translate, 20.0, 7.0, 0);
+
+  multMatrix(cam, translate, final);
+
+  glLoadMatrixf(final[0]);
+
+  printMatrix(final);
+  printf("\n");
+
+
+  glPopMatrix();
+  
+ 
+}
+
+
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $

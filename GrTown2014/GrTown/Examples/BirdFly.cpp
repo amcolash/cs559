@@ -21,12 +21,12 @@ Behavior(bird)
 void BirdFly::Fly(GrObject* bird, bool last)
 {
 	
+	float totalXTrans = 0, totalYTrans = 0, totalZTrans = 0; 
 	
-	float totalXTrans=0, totalYTrans=0, totalZTrans=0;
+	//probably won't use this vector
 	std::vector<float> pos;
 	glm::vec3 avgPos;
-	if (lastV)
-		printf("HELLO\n");
+
 	float transX, transY, transZ;
 	if (!lastV){
 
@@ -36,6 +36,8 @@ void BirdFly::Fly(GrObject* bird, bool last)
 		transX = rand() % 2500;
 		transY = rand() % 100 + 50;
 		transZ = rand() % 1000;
+
+		//probably won't use this vector
 		pos.push_back(transX);
 		pos.push_back(transY);
 		pos.push_back(transZ);
@@ -65,13 +67,13 @@ void BirdFly::Fly(GrObject* bird, bool last)
 		}
 		cnt++;
 	}
-	else{
+	/*else{
 		for (int i = 0; i < 40; i++){
 			los[i]->transform[3][0] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).x);
 			los[i]->transform[3][1] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).y);
 			los[i]->transform[3][2] += glm::normalize(glm::vec3(test[i].x - avgPos.x, test[i].y - avgPos.y, test[i].z - avgPos.z).z);
 		}
-	}
+	}*/
 	
 }
 void BirdFly::RotateToFace(GrObject* b, glm::vec3 objPos, glm::vec3 lookAt, glm::vec3 U){
