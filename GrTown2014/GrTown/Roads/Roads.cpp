@@ -67,9 +67,9 @@ StraightRoad::StraightRoad(float ax, float az, float bx, float bz,
 void StraightRoad::roadDraw()
 {
   glBegin(GL_POLYGON);
-  glTexCoord2f(0,2);
+  glTexCoord2f(0,1);
   glVertex3f(ax - roadWidth*uz, 0, az + roadWidth*ux);
-  glTexCoord2f(length/roadWidth,2);
+  glTexCoord2f(length/roadWidth,1);
   glVertex3f(bx - roadWidth*uz, 0, bz + roadWidth*ux);
   glTexCoord2f(length/roadWidth,0);
   glVertex3f(bx + roadWidth*uz, 0, bz - roadWidth*ux);
