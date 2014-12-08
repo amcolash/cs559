@@ -77,6 +77,10 @@ void Surface::draw(DrawingState* ds){
       GLint rotationUniformLocation = glGetUniformLocation(shader, "rotation");
       glUniform1f(speedupUniformLocation, rotation);
     }
+    GLint ambientUniformLocation = glGetUniformLocation(shader, "ambient");
+    glUniform1f(ambientUniformLocation, ds->ambient);
+    GLint lightUniformLocation = glGetUniformLocation(shader, "light");
+    glUniform4fv(lightUniformLocation, 1, ds->lightPos);
   }
 
   int perDiv = points.size() / divs;

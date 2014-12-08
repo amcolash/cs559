@@ -23,6 +23,8 @@ public:
 
   // time of day - military time (0 = midnight, 12=noon)
   int timeOfDay;
+  float ambient;
+  float lightPos[4];
 
   // some state
   // draw sky/ground sets these based on time of day

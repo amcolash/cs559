@@ -87,44 +87,4 @@ void ShadedCube::draw(DrawingState*)
 	glUseProgram(0);
 }
 
-Skybox::Skybox()
-{
-}
-
-void Skybox::draw(DrawingState* ds) {
-  /*
-  glPushMatrix();
-  
-  Matrix cam;
-  Matrix translate;
-  Matrix final;
-
-  ds->camera->getCamera(cam);
-  //invertMatrix(cam);
-  
-  cam[0][3] = 1;
-  cam[1][3] = 1;
-  cam[2][3] = 1;
-  cam[3][0] = 1;
-  cam[3][1] = 1;
-  cam[3][2] = 1;
-
-  
-  transMatrix(translate, 20.0, 7.0, 0);
-
-  multMatrix(cam, translate, final);
-
-  glLoadMatrixf(final[0]);
-
-  printMatrix(final);
-  printf("\n");
-
-  glColor3f(0.5, 0.5, 0.5);
-
-  cube(0, 0, 0, 1);
-  
-  glPopMatrix();
-  */
-}
-
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.cpp,v 1.6 2009/11/10 22:40:03 gleicher Exp $

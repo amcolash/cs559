@@ -62,9 +62,11 @@ void setupLights(DrawingState* dr)
   if ((dr->timeOfDay >= 5) && (dr->timeOfDay <=19)) {
 	float a0[] = {.4f,.4f,.4f,.4f};
 	glLightfv(GL_LIGHT0, GL_AMBIENT, a0);
+  dr->ambient = 0.4;
   } else {
 	float a1[] = {.2f,.2f,.2f,.2f};
 	glLightfv(GL_LIGHT0, GL_AMBIENT, a1);
+  dr->ambient = 0.2;
   }
   // directional, if its on, depends on what hour it is
   float pos[4] = {0,0,0,0};
@@ -76,6 +78,11 @@ void setupLights(DrawingState* dr)
   else {
 	  pos[1] = -1;
   }
+  dr->lightPos[0] = pos[0];
+  dr->lightPos[1] = pos[1];
+  dr->lightPos[2] = pos[2];
+  dr->lightPos[3] = pos[3];
+
   glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
   glEnable(GL_LIGHTING);

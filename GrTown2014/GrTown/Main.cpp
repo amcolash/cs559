@@ -309,18 +309,14 @@ int main(int /*argc*/, char** /*argv*/)
   //b1->lfX = 0; b1->lfY = 15; b1->lfZ = 25;
 
   // Add building
-  Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
+  Surface* b1 = new Surface(glm::vec3(80, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
+    "Building.vert", "Building.frag", false);
   add(b1);
 
   // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
     "UFO.vert", "UFO.frag", true);
   add(ufo);
-
-  // Add skybox
-  //Skybox* skbox = new Skybox();
-  //add(skbox);
 
   Park* p = new Park();
   add(p, 1615, 0, 500);
