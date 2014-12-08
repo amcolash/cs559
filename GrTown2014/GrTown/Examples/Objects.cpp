@@ -139,7 +139,7 @@ void Skybox::draw(DrawingState* ds) {
   glVertex3f(10000, 4000, 10000);
   glTexCoord2i(0, 0);
   glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 0);
+  glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, -10000);
   glTexCoord2i(1, 1);
   glVertex3f(10000, 4000, -10000);
@@ -168,14 +168,9 @@ void Skybox::draw(DrawingState* ds) {
   glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, -10000);
 
-
-
   glEnd();
 
-
-  glPopMatrix();
-  
- 
+  glPopMatrix(); 
 }
 
 
