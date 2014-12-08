@@ -96,7 +96,7 @@ void Skybox::draw(DrawingState* ds) {
 
   //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  //glDisable(GL_DEPTH_TEST);
+  glDisable(GL_DEPTH_TEST);
   //glDisable(GL_BLEND);
   //glDisable(GL_ALPHA_TEST);
   //glDisable(GL_TEXTURE_GEN_S);
@@ -111,25 +111,25 @@ void Skybox::draw(DrawingState* ds) {
   fetchTexture("left2.jpg");
   glBegin(GL_QUADS);
   glTexCoord2i(1, 0);
-  glVertex3f(-10000, -1000, -10000);
+  glVertex3f(-10000, -5, -10000);
   glTexCoord2i(0, 0);
-  glVertex3f(10000, -1000, -10000);
+  glVertex3f(10000, -5, -10000);
   glTexCoord2i(0, 1);
   glVertex3f(10000, 4000, -10000);
   glTexCoord2i(1, 1);
   glVertex3f(-10000, 4000, -10000);
   glEnd();
 
-  fetchTexture("right.jpg");
+  fetchTexture("right4.jpg");
   glBegin(GL_QUADS);
   glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, 10000);
   glTexCoord2i(1, 1);
   glVertex3f(10000, 4000, 10000);
   glTexCoord2i(1, 0);
-  glVertex3f(10000, -1000, 10000);
+  glVertex3f(10000, -5, 10000);
   glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, 10000);
+  glVertex3f(-10000, -5, 10000);
 
   glEnd();
   
@@ -139,39 +139,52 @@ void Skybox::draw(DrawingState* ds) {
   glVertex3f(10000, 4000, 10000);
   glTexCoord2i(0, 0);
   glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 0);
+  glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, -10000);
   glTexCoord2i(1, 1);
   glVertex3f(10000, 4000, -10000);
   glEnd();
 
-  fetchTexture("front.jpg");
+  fetchTexture("front3.jpg");
   glBegin(GL_QUADS);
   glTexCoord2i(1, 1);
   glVertex3f(10000, 4000, -10000);
   glTexCoord2i(1, 0);
-  glVertex3f(10000, -1000, -10000);
+  glVertex3f(10000, -5, -10000);
   glTexCoord2i(0, 0);
-  glVertex3f(10000, -1000, 10000);
+  glVertex3f(10000, -5, 10000);
   glTexCoord2i(0, 1);
   glVertex3f(10000, 4000, 10000);
   glEnd();
 
   fetchTexture("back.jpg");
+
   glBegin(GL_QUADS);
   glTexCoord2i(1, 1);
   glVertex3f(-10000, 4000, 10000);
   glTexCoord2i(1, 0);
-  glVertex3f(-10000, -1000, 10000);
+  glVertex3f(-10000, -5, 10000);
   glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, -10000);
+  glVertex3f(-10000, -5, -10000);
   glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, -10000);
 
-
-
   glEnd();
-
+  /*
+  fetchTexture("down2.jpg");
+  
+  glBegin(GL_QUADS);
+  glTexCoord2i(1, 0);
+  glVertex3f(10000, -5, -10000);
+  glTexCoord2i(0, 0);
+  glVertex3f(-10000, -5, -10000);
+  glTexCoord2i(0, 1);
+  glVertex3f(-10000, -5, 10000);
+  glTexCoord2i(1, 1);
+  glVertex3f(10000, -5, 10000);
+  glEnd();
+  */
+  glEnable(GL_DEPTH_TEST);
 
   glPopMatrix();
   
