@@ -184,8 +184,8 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add 40 birds (simpler)
   int numBirds = 40;
-  for (int i = 0; i < numBirds+1; i++) {
-    Bird* b = new Bird(0, 0, 0, 0, 0, 0);
+  for (int i = 1; i < numBirds+1; i++) {
+    Bird* b = new Bird(0, 0, 0, 255, 255, 255);
     add(b);
     if (i < numBirds)
       new BirdFly(b, false);

@@ -17,6 +17,8 @@ Bird::Bird(float x, float y, float z, float r, float g, float b)
 
 void Bird::draw(DrawingState* state){
 	glPushMatrix();
+	glScaled(10, 10, 10);
+	glPushMatrix();
 	glScaled(1, 1, 1.5);
 	glColor4fv(&color.r);
 	GLUquadricObj *quadric = gluNewQuadric();
