@@ -105,6 +105,9 @@ void Skybox::draw(DrawingState* ds) {
 	//  GL_TEXTURE_GEN_S | GL_TEXTURE_GEN_T);
   //glDepthMask(GL_FALSE);
   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+  glColor3f(1.0, 1.0, 1.0);
+
   fetchTexture("left2.jpg");
   glBegin(GL_QUADS);
   glTexCoord2i(0, 0);
@@ -168,30 +171,6 @@ void Skybox::draw(DrawingState* ds) {
 
 
   glEnd();
-
-  Matrix cam;
-  Matrix translate;
-  Matrix final;
-
-  ds->camera->getCamera(cam);
-  //invertMatrix(cam);
-  
-  cam[0][3] = 1;
-  cam[1][3] = 1;
-  cam[2][3] = 1;
-  cam[3][0] = 1;
-  cam[3][1] = 1;
-  cam[3][2] = 1;
-
-  
-  transMatrix(translate, 20.0, 7.0, 0);
-
-  multMatrix(cam, translate, final);
-
-  glLoadMatrixf(final[0]);
-
-  printMatrix(final);
-  printf("\n");
 
 
   glPopMatrix();

@@ -221,6 +221,9 @@ int main(int /*argc*/, char** /*argv*/)
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
 
+  Skybox* sky = new Skybox();
+  add(sky);
+
   /* End our new items for the world */
 
 
