@@ -52,8 +52,15 @@ void GraphicsTownUI::cb_Fly(Fl_Button* o, void* v) {
   ((GraphicsTownUI*)(o->parent()->parent()->user_data()))->cb_Fly_i(o,v);
 }
 
+void GraphicsTownUI::cb_particles_i(Fl_Value_Slider*, void*) {
+  townView->damage(1);
+}
+void GraphicsTownUI::cb_particles(Fl_Value_Slider* o, void* v) {
+  ((GraphicsTownUI*)(o->parent()->parent()->user_data()))->cb_particles_i(o,v);
+}
+
 Fl_Double_Window* GraphicsTownUI::make_window() {
-  { window = new Fl_Double_Window(928, 607, "CS 559 Graphics Town!");
+  { window = new Fl_Double_Window(930, 620, "CS 559 Graphics Town!");
     window->labelsize(12);
     window->user_data((void*)(this));
     { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 605);
@@ -69,7 +76,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       Fl_Group::current()->resizable(townView);
       o->ui = this;
     } // TownViewWidget* townView
-    { Fl_Group* o = new Fl_Group(770, 5, 155, 600);
+    { Fl_Group* o = new Fl_Group(770, 5, 155, 644);
       { Fl_Browser* o = pickCamera = new Fl_Browser(770, 5, 155, 165, "view");
         pickCamera->type(2);
         pickCamera->callback((Fl_Callback*)cb_pickCamera);
@@ -77,13 +84,13 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         for(vector<GrObject*>::iterator g=theObjects.begin(); g != theObjects.end(); ++g)
         if((*g)->ridable) o->add((*g)->name.c_str(),*g);
       } // Fl_Browser* pickCamera
-      { cull = new Fl_Button(770, 580, 75, 25, "Backface Cull");
+      { cull = new Fl_Button(770, 588, 75, 25, "Backface Cull");
         cull->type(1);
         cull->value(1);
         cull->selection_color((Fl_Color)11);
         cull->labelsize(12);
       } // Fl_Button* cull
-      { time = new Fl_Value_Slider(780, 470, 115, 20, "Time of Day (24hr)");
+      { time = new Fl_Value_Slider(780, 431, 115, 20, "Time of Day (24hr)");
         time->type(5);
         time->maximum(24);
         time->step(1);
@@ -97,7 +104,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         fov->value(45);
         fov->callback((Fl_Callback*)cb_fov);
       } // Fl_Value_Slider* fov
-      { lgTex = new Fl_Button(850, 580, 75, 25, "textured ground");
+      { lgTex = new Fl_Button(850, 588, 75, 25, "textured ground");
         lgTex->type(1);
         lgTex->value(1);
         lgTex->selection_color((Fl_Color)11);
@@ -108,11 +115,11 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         follower->color(FL_DARK1);
         follower->selection_color((Fl_Color)11);
       } // Fl_Button* follower
-      { rate = new Fl_Value_Output(875, 520, 50, 25, "frame rate");
+      { rate = new Fl_Value_Output(875, 528, 50, 25, "frame rate");
         rate->maximum(100);
         rate->step(0.1);
       } // Fl_Value_Output* rate
-      { speedup = new Fl_Value_Slider(840, 550, 85, 25, "speedup");
+      { speedup = new Fl_Value_Slider(840, 558, 85, 25, "speedup");
         speedup->type(1);
         speedup->maximum(3);
         speedup->step(0.1);
@@ -127,6 +134,14 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       { Fl_Button* o = new Fl_Button(850, 190, 70, 25, "Fly");
         o->callback((Fl_Callback*)cb_Fly);
       } // Fl_Button* o
+      { particles = new Fl_Value_Slider(780, 476, 115, 20, "Num of Particles");
+        particles->type(5);
+        particles->minimum(100);
+        particles->maximum(5000);
+        particles->step(50);
+        particles->value(150);
+        particles->callback((Fl_Callback*)cb_particles);
+      } // Fl_Value_Slider* particles
       o->end();
     } // Fl_Group* o
     window->end();

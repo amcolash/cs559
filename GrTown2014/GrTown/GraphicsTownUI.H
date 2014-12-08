@@ -47,5 +47,10 @@ private:
   static void cb_pickInteresting(Fl_Browser*, void*);
   inline void cb_Fly_i(Fl_Button*, void*);
   static void cb_Fly(Fl_Button*, void*);
+public:
+  Fl_Value_Slider *particles;
+private:
+  inline void cb_particles_i(Fl_Value_Slider*, void*);
+  static void cb_particles(Fl_Value_Slider*, void*);
 };
 #endif

@@ -15,12 +15,14 @@ public:
 
 class Particle : public GrObject {
 public:
-  Particle(float x, float y, float z, int num);
+  Particle(float x, float y, float z, float scale);
   int num;
+  float scale;
   std::vector<Part> particleList;
   int shader;
   bool triedShader = false;
-  void init(Part *p);
+  void initList(int oldNum, int newNum);
+  void initParticle(Part *p);
   virtual void draw(DrawingState*);
 };
 

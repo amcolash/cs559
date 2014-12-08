@@ -40,7 +40,7 @@ class GraphicsTownUI {open
   } {
     Fl_Window window {
       label {CS 559 Graphics Town!} open
-      xywh {189 214 928 607} type Double labelsize 12 resizable visible
+      xywh {263 296 930 620} type Double labelsize 12 resizable visible
     } {
       Fl_Box townView {
         xywh {5 5 760 605} align 2 resizable
@@ -48,7 +48,7 @@ class GraphicsTownUI {open
         class TownViewWidget
       }
       Fl_Group {} {open
-        xywh {770 5 155 600}
+        xywh {770 5 155 644}
       } {
         Fl_Browser pickCamera {
           label view
@@ -59,12 +59,12 @@ class GraphicsTownUI {open
         }
         Fl_Button cull {
           label {Backface Cull}
-          xywh {770 580 75 25} type Toggle value 1 selection_color 11 labelsize 12
+          xywh {770 588 75 25} type Toggle value 1 selection_color 11 labelsize 12
         }
         Fl_Value_Slider time {
           label {Time of Day (24hr)}
           callback {townView->damage(1);}
-          xywh {780 470 115 20} type {Horz Knob} maximum 24 step 1 value 9
+          xywh {780 431 115 20} type {Horz Knob} maximum 24 step 1 value 9
         }
         Fl_Value_Slider fov {
           label FoV
@@ -73,7 +73,7 @@ class GraphicsTownUI {open
         }
         Fl_Button lgTex {
           label {textured ground}
-          xywh {850 580 75 25} type Toggle value 1 selection_color 11 labelsize 10
+          xywh {850 588 75 25} type Toggle value 1 selection_color 11 labelsize 10
         }
         Fl_Button follower {
           label Follow
@@ -81,11 +81,11 @@ class GraphicsTownUI {open
         }
         Fl_Value_Output rate {
           label {frame rate}
-          xywh {875 520 50 25} maximum 100 step 0.1
+          xywh {875 528 50 25} maximum 100 step 0.1
         }
         Fl_Value_Slider speedup {
-          label speedup selected
-          xywh {840 550 85 25} type Horizontal align 4 maximum 3 step 0.1
+          label speedup
+          xywh {840 558 85 25} type Horizontal align 4 maximum 3 step 0.1
         }
         Fl_Browser pickInteresting {
           label sights
@@ -102,6 +102,11 @@ pickCamera->deselect();
 pickInteresting->deselect();
 townView->damage(1);}
           xywh {850 190 70 25}
+        }
+        Fl_Value_Slider particles {
+          label {Num of Particles}
+          callback {townView->damage(1);} selected
+          xywh {780 476 115 20} type {Horz Knob} minimum 100 maximum 5000 step 50 value 150
         }
       }
     }

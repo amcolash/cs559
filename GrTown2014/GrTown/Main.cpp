@@ -184,10 +184,10 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add 40 birds (simpler)
   int numBirds = 40;
-  for (int i = 1; i < numBirds+1; i++) {
+  for (int i = 0; i < numBirds; i++) {
     Bird* b = new Bird(0, 0, 0, 255, 255, 255);
     add(b);
-    if (i < numBirds)
+    if (i < numBirds - 1)
       new BirdFly(b, false);
     else
       new BirdFly(b, true);
@@ -204,8 +204,8 @@ int main(int /*argc*/, char** /*argv*/)
     "Building.vert", "Building.frag", false);
   add(b1);
 
-  Surface* ring = new Surface(glm::vec3(30, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
-    "Building.vert", "Building.frag", false);
+  Surface* ring = new Surface(glm::vec3(80, 0, -20), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
   add(ring);
 
   // Add UFO
@@ -214,7 +214,6 @@ int main(int /*argc*/, char** /*argv*/)
   add(ufo);
 
   Park* p = new Park();
-  //add(p, 1615, 0, 500);
   add(p, 1590, 0, 460);
   p->name = "Park";
   p->interesting = true;

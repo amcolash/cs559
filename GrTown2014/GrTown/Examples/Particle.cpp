@@ -6,22 +6,28 @@
 #include <FL/fl_ask.h>
 #include "../GraphicsTownUI.H"
 
-Particle::Particle(float x, float y, float z, int num)
-  : num(num), particleList()
+Particle::Particle(float x, float y, float z, float scale)
+  : particleList(), scale(scale)
 {
   transMatrix(transform, x, y, z);
+  num = 0;
+}
 
-  for (int i = 0; i < num; i++) {
-    particleList.push_back(Part());
-    init(&particleList[i]);
+void Particle::initList(int oldNum, int newNum) {
+  particleList.resize(num);
+  if (oldNum < newNum) {
+    for (int i = oldNum; i < newNum; i++) {
+      particleList.push_back(Part());
+      initParticle(&particleList[i]);
+    }
   }
 }
 
-void Particle::init(Part *p) {
-  float pMax = 1.0;
+void Particle::initParticle(Part *p) {
+  float pMax = 1.0 * scale;
   float pMin = -pMax;
 
-  float vMax = 0.23;
+  float vMax = 0.23 * scale;
   float vMin = -vMax;
 
   p->x = randFloat(pMin, pMax);
@@ -31,10 +37,9 @@ void Particle::init(Part *p) {
   p->vY = randFloat(vMax, 2 * vMax);
   p->vZ = randFloat(vMin, vMax);
   p->size = randFloat(7.0, 10.0);
-  //p->size = 0.75;
   p->age = 0;
   p->active = true;
-  p->maxAge = randInt(10, 30);
+  p->maxAge = randInt(10 * scale, 30 * scale);
   p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
 }
 
@@ -53,6 +58,13 @@ void Particle::draw(DrawingState* st) {
   //glUseProgram(shader);
   */
 
+  
+  if (num != st->particles) {
+    printf("changing size\n");
+    initList(num, st->particles);
+    num = st->particles;
+  }
+
   // Enable blending
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_COLOR, GL_ONE);
@@ -60,14 +72,15 @@ void Particle::draw(DrawingState* st) {
   for (int i = 0; i < num; i++) {
     Part *p = &particleList[i];
     if (p->age > p->maxAge)
-      init(p);
+      initParticle(p);
 	
 	
     if (st->speedup > 0) {
       p->x += p->vX * st->speedup / 3.0;
       p->y += p->vY  * st->speedup / 3.0;
       p->z += p->vZ  * st->speedup / 3.0;
-      p->vY -= 0.05  * st->speedup / 3.0;
+
+      p->vY -= 0.05  * st->speedup / (1 / scale * 3.0);
       p->age += 1.0 * st->speedup / 3.0;
       p->c.a -= 0.025  * st->speedup / 3.0;
     }

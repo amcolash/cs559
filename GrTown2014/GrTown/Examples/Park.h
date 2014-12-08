@@ -2,6 +2,7 @@
 
 #include "../GrObject.H"
 #include "../DrawingState.H"
+#include <glm/glm.hpp>
 
 const int numParticles = 250;
 const int divs = 48;
@@ -9,7 +10,7 @@ const int divs = 48;
 // Fountain
 class Fountain : public GrObject {
 public:
-  Fountain();
+  Fountain(glm::vec3 scale);
 };
 
 class Ground : public GrObject {
