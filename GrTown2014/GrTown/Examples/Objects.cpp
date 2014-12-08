@@ -110,13 +110,13 @@ void Skybox::draw(DrawingState* ds) {
 
   fetchTexture("left2.jpg");
   glBegin(GL_QUADS);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, -10000);
   glTexCoord2i(1, 0);
+  glVertex3f(-10000, -1000, -10000);
+  glTexCoord2i(0, 0);
   glVertex3f(10000, -1000, -10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, -10000);
   glTexCoord2i(0, 1);
+  glVertex3f(10000, 4000, -10000);
+  glTexCoord2i(1, 1);
   glVertex3f(-10000, 4000, -10000);
   glEnd();
 
@@ -159,13 +159,13 @@ void Skybox::draw(DrawingState* ds) {
 
   fetchTexture("back.jpg");
   glBegin(GL_QUADS);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, 10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(-10000, -1000, -10000);
   glTexCoord2i(1, 1);
+  glVertex3f(-10000, 4000, 10000);
+  glTexCoord2i(1, 0);
+  glVertex3f(-10000, -1000, 10000);
+  glTexCoord2i(0, 0);
+  glVertex3f(-10000, -1000, -10000);
+  glTexCoord2i(0, 1);
   glVertex3f(-10000, 4000, -10000);
 
 
