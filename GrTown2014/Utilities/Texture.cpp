@@ -425,6 +425,8 @@ Texture* fetchTexture(char* name, bool wrapS, bool wrapT)
 		t->height   = h;
 		theTextures.push_back(t);
 	
+    GLint GL_CLAMP_TO_EDGE = 0x812F;
+
 		// Generate a unique ID inside opengl
 		glGenTextures(1,&t->texName);
 		
@@ -436,10 +438,10 @@ Texture* fetchTexture(char* name, bool wrapS, bool wrapT)
 	
 		// Set up the texture clamping information in s direction
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, 
-										wrapS ? GL_REPEAT : GL_CLAMP);
+      wrapS ? GL_REPEAT : GL_CLAMP_TO_EDGE);
 		// Set up the texture clamping information in t direction
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, 
-										wrapT ? GL_REPEAT : GL_CLAMP);
+      wrapT ? GL_REPEAT : GL_CLAMP_TO_EDGE);
 		// Set up the alignment inside the texture
 		glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 

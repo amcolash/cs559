@@ -6,7 +6,7 @@
 
 class Surface : public GrObject {
 public:
-  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert, char* frag, bool spin);
+  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert, char* frag, bool special);
   Color color;
   std::vector<glm::vec3> points;
   std::vector<glm::vec3> normals;
@@ -15,8 +15,8 @@ public:
   bool triedShader = false;
   char* frag;
   char* vert;
-  bool spin;
-  float rotation;
+  bool special;
+  float counter;
   virtual void draw(DrawingState*);
 };
 

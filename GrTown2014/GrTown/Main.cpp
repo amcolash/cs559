@@ -182,6 +182,9 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our new items for the world*/
 
+  Skybox* sky = new Skybox();
+  add(sky);
+
   // Add 40 birds (simpler)
   int numBirds = 40;
   for (int i = 0; i < numBirds; i++) {
@@ -219,9 +222,6 @@ int main(int /*argc*/, char** /*argv*/)
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
-
-  Skybox* sky = new Skybox();
-  add(sky);
 
   /* End our new items for the world */
 

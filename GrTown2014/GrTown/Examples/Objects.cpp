@@ -92,85 +92,88 @@ Skybox::Skybox()
 }
 
 void Skybox::draw(DrawingState* ds) {
-  glPushMatrix();
+  if (ds->skybox) {
 
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glPushMatrix();
 
-  //glDisable(GL_DEPTH_TEST);
-  //glDisable(GL_BLEND);
-  //glDisable(GL_ALPHA_TEST);
-  //glDisable(GL_TEXTURE_GEN_S);
-  //glDisable(GL_TEXTURE_GEN_T);
-  //glDisable(GL_DEPTH_TEST | GL_BLEND | GL_ALPHA_TEST |
-	//  GL_TEXTURE_GEN_S | GL_TEXTURE_GEN_T);
-  //glDepthMask(GL_FALSE);
-  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glColor3f(1.0, 1.0, 1.0);
+    //glDisable(GL_DEPTH_TEST);
+    //glDisable(GL_BLEND);
+    //glDisable(GL_ALPHA_TEST);
+    //glDisable(GL_TEXTURE_GEN_S);
+    //glDisable(GL_TEXTURE_GEN_T);
+    //glDisable(GL_DEPTH_TEST | GL_BLEND | GL_ALPHA_TEST |
+    //  GL_TEXTURE_GEN_S | GL_TEXTURE_GEN_T);
+    //glDepthMask(GL_FALSE);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-  fetchTexture("left2.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 0);
-  glVertex3f(-10000, -1000, -10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(10000, -1000, -10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(10000, 4000, -10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(-10000, 4000, -10000);
-  glEnd();
+    glColor3f(1.0, 1.0, 1.0);
 
-  fetchTexture("right.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, 10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, -1000, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, 10000);
+    fetchTexture("left2.jpg");
+    glBegin(GL_QUADS);
+    glTexCoord2i(1, 0);
+    glVertex3f(-10000, -1000, -10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(10000, -1000, -10000);
+    glTexCoord2i(0, 1);
+    glVertex3f(10000, 4000, -10000);
+    glTexCoord2i(1, 1);
+    glVertex3f(-10000, 4000, -10000);
+    glEnd();
 
-  glEnd();
-  
-  fetchTexture("Up.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, 4000, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, -10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, -10000);
-  glEnd();
+    fetchTexture("right.jpg");
+    glBegin(GL_QUADS);
+    glTexCoord2i(0, 1);
+    glVertex3f(-10000, 4000, 10000);
+    glTexCoord2i(1, 1);
+    glVertex3f(10000, 4000, 10000);
+    glTexCoord2i(1, 0);
+    glVertex3f(10000, -1000, 10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(-10000, -1000, 10000);
 
-  fetchTexture("front.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, -10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, -1000, -10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(10000, -1000, 10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(10000, 4000, 10000);
-  glEnd();
+    glEnd();
 
-  fetchTexture("back.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 1);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(-10000, -1000, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -1000, -10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, -10000);
+    fetchTexture("Up.jpg");
+    glBegin(GL_QUADS);
+    glTexCoord2i(1, 0);
+    glVertex3f(10000, 4000, 10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(-10000, 4000, 10000);
+    glTexCoord2i(0, 1);
+    glVertex3f(-10000, 4000, -10000);
+    glTexCoord2i(1, 1);
+    glVertex3f(10000, 4000, -10000);
+    glEnd();
 
-  glEnd();
+    fetchTexture("front.jpg");
+    glBegin(GL_QUADS);
+    glTexCoord2i(1, 1);
+    glVertex3f(10000, 4000, -10000);
+    glTexCoord2i(1, 0);
+    glVertex3f(10000, -1000, -10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(10000, -1000, 10000);
+    glTexCoord2i(0, 1);
+    glVertex3f(10000, 4000, 10000);
+    glEnd();
 
-  glPopMatrix(); 
+    fetchTexture("back.jpg");
+    glBegin(GL_QUADS);
+    glTexCoord2i(1, 1);
+    glVertex3f(-10000, 4000, 10000);
+    glTexCoord2i(1, 0);
+    glVertex3f(-10000, -1000, 10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(-10000, -1000, -10000);
+    glTexCoord2i(0, 1);
+    glVertex3f(-10000, 4000, -10000);
+
+    glEnd();
+
+    glPopMatrix();
+  }
 }
 
 

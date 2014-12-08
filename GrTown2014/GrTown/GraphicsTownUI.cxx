@@ -60,10 +60,10 @@ void GraphicsTownUI::cb_particles(Fl_Value_Slider* o, void* v) {
 }
 
 Fl_Double_Window* GraphicsTownUI::make_window() {
-  { window = new Fl_Double_Window(930, 620, "CS 559 Graphics Town!");
+  { window = new Fl_Double_Window(930, 646, "CS 559 Graphics Town!");
     window->labelsize(12);
     window->user_data((void*)(this));
-    { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 605);
+    { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 635);
       townView->box(FL_NO_BOX);
       townView->color(FL_BACKGROUND_COLOR);
       townView->selection_color(FL_BACKGROUND_COLOR);
@@ -142,6 +142,12 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         particles->value(150);
         particles->callback((Fl_Callback*)cb_particles);
       } // Fl_Value_Slider* particles
+      { skybox = new Fl_Button(770, 617, 75, 25, "SkyBox");
+        skybox->type(1);
+        skybox->value(1);
+        skybox->selection_color((Fl_Color)11);
+        skybox->labelsize(12);
+      } // Fl_Button* skybox
       o->end();
     } // Fl_Group* o
     window->end();

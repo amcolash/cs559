@@ -11,8 +11,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag, bool spin)
-  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert), spin(spin)
+Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag, bool special)
+  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert), special(special)
 {
   transMatrix(transform, t[0], t[1], t[2]);
   glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
@@ -25,12 +25,12 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     // Current rotation
     glm::mat4 rotateY1 = glm::rotate(
       scale, i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-      );
+    );
 
     // Rotation for next vertex (step + 1)
     glm::mat4 rotateY2 = glm::rotate(
       scale, (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
-      );
+    );
 
     glm::vec4 point1, point2;
     // Find current vertex when rotated and next one, compute normal too (to build strip)
@@ -47,7 +47,7 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     }
   }
 
-  rotation = 0;
+  counter = 0;
 }
 
 void Surface::draw(DrawingState* ds){
@@ -68,19 +68,21 @@ void Surface::draw(DrawingState* ds){
 
   if (shader != 0) {
     glUseProgram(shader);
+    /* Lighting */
     GLint timeUniformLocation = glGetUniformLocation(shader, "timeOfDay");
     glUniform1i(timeUniformLocation, ds->timeOfDay);
-    GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
-    glUniform1f(speedupUniformLocation, ds->speedup);
-    if (spin) {
-      rotation = fmod((rotation + (2.0 * ds->speedup)), 360);
-      GLint rotationUniformLocation = glGetUniformLocation(shader, "rotation");
-      glUniform1f(speedupUniformLocation, rotation);
-    }
     GLint ambientUniformLocation = glGetUniformLocation(shader, "ambient");
     glUniform1f(ambientUniformLocation, ds->ambient);
     GLint lightUniformLocation = glGetUniformLocation(shader, "light");
     glUniform4fv(lightUniformLocation, 1, ds->lightPos);
+    /* Other Vars */
+    GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
+    glUniform1f(speedupUniformLocation, ds->speedup);
+    if (special) {
+      counter = fmod((counter + (0.049087 * ds->speedup)), 3.14159);
+      GLint rotationUniformLocation = glGetUniformLocation(shader, "counter");
+      glUniform1f(speedupUniformLocation, counter);
+    }
   }
 
   int perDiv = points.size() / divs;

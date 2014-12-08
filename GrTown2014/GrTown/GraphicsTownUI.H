@@ -52,5 +52,7 @@ public:
 private:
   inline void cb_particles_i(Fl_Value_Slider*, void*);
   static void cb_particles(Fl_Value_Slider*, void*);
+public:
+  Fl_Button *skybox;
 };
 #endif
