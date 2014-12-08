@@ -204,7 +204,7 @@ int main(int /*argc*/, char** /*argv*/)
     "Building.vert", "Building.frag", false);
   add(b1);
 
-  Surface* ring = new Surface(glm::vec3(30, 0, 0), glm::vec3(2.0, 1.0, 2.0), S_RING, 8,
+  Surface* ring = new Surface(glm::vec3(30, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
     "Building.vert", "Building.frag", false);
   add(ring);
 
