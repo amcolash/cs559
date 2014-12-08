@@ -127,6 +127,7 @@
     <ClInclude Include="DrawingState.H" />
     <ClInclude Include="DrawUtils.H" />
     <ClInclude Include="Examples\Bird.h" />
+    <ClInclude Include="Examples\BirdFly.h" />
     <ClInclude Include="Examples\Cars.H" />
     <ClInclude Include="Examples\Objects.H" />
     <ClInclude Include="Examples\Park.h" />
@@ -139,7 +140,6 @@
     <ClInclude Include="GrObject.H" />
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
-    <ClInclude Include="BirdFly.h" />
     <ClInclude Include="MMatrix.H" />
     <ClInclude Include="Roads\Drive.H" />
     <ClInclude Include="Roads\Roads.H" />
@@ -150,10 +150,10 @@
     <ClCompile Include="..\Utilities\ShaderTools.cpp" />
     <ClCompile Include="..\Utilities\Texture.cpp" />
     <ClCompile Include="Behavior.cpp" />
-    <ClCompile Include="BirdFly.cpp" />
     <ClCompile Include="DrawingState.cpp" />
     <ClCompile Include="DrawUtils.cpp" />
     <ClCompile Include="Examples\Bird.cpp" />
+    <ClCompile Include="Examples\BirdFly.cpp" />
     <ClCompile Include="Examples\Cars.cpp" />
     <ClCompile Include="Examples\Objects.cpp" />
     <ClCompile Include="Examples\Park.cpp" />
@@ -172,6 +172,8 @@
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Building.frag" />
+    <None Include="Shaders\Building.vert" />
     <None Include="Shaders\Fountain.frag" />
     <None Include="Shaders\Fountain.vert" />
     <None Include="Shaders\ShadedCubeTest.frag" />

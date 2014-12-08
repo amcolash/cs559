@@ -31,7 +31,7 @@
 #include "Examples/Particle.h"
 #include "Examples/Bird.h"
 #include "Examples/Park.h"
-#include "BirdFly.h"
+#include "Examples/BirdFly.h"
 
 #include <time.h>
 

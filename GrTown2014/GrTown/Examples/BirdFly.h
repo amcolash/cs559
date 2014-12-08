@@ -1,6 +1,6 @@
-#include "GrObject.H"
-#include "Behavior.H"
-#include "GrObject.H"
+#include "../GrObject.H"
+#include "../Behavior.H"
+#include "../GrObject.H"
 #include <glm/glm.hpp>
 
 class BirdFly : public Behavior

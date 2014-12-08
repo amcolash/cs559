@@ -1,7 +1,7 @@
 #include "BirdFly.h"
 #include <glm/glm.hpp>
-#include "GrTown_PCH.H"
-#include "MMatrix.H"
+#include "../GrTown_PCH.H"
+#include "../MMatrix.H"
 #include <cstdlib>
 #include <vector>
 
