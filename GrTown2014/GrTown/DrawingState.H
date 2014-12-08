@@ -38,6 +38,10 @@ public:
 
   float speedup;
 
+  float particles;
+
+  int skybox;
+
   // these are really bools, but since bools generate too many warnings...
   int backCull;
   int drGrTex;		// draw ground textures

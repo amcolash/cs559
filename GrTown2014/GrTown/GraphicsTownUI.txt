@@ -10,3 +10,5 @@ frame rate
 speedup
 sights
 Fly
+Num of Particles
+SkyBox

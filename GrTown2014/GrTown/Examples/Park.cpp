@@ -11,20 +11,20 @@
 #include "Particle.h"
 #include <time.h>
 
-Fountain::Fountain() {
+Fountain::Fountain(glm::vec3 scale) {
   // Add a fountain
-  Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, divs,
+  Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_FOUNTAIN, divs,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
   add(s);
 
   // Add water to fountain
-  Surface* w = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_WATER, divs,
+  Surface* w = new Surface(glm::vec3(0, 10, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_WATER, divs,
     "Fountain.vert", "Fountain.frag", false);
   add(w);
 
   // Seed rng and add fountain particles
   srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(0, 8, 0, numParticles);
+  Particle* p = new Particle(0, 8 * scale[1], 0, scale[0]);
   add(p);
 }
 
@@ -55,10 +55,5 @@ void Ground::draw(DrawingState* ds) {
 Park::Park() {
   add(new Ground(), 0, 0, 0);
 
-  add(new Fountain(), 25, 0, 40);
-  add(new Fountain(), 475, 0, 40);
-  add(new Fountain(), 475, 0, 190);
-  add(new Fountain(), 25, 0, 190);
-  add(new Fountain(), 250, 0, 115);
-  
+  add(new Fountain(glm::vec3(5.0, 5.0, 5.0)), 250, 0, 115);  
 }

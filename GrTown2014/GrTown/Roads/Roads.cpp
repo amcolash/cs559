@@ -216,12 +216,18 @@ void Intersection::roadDraw()
 {
   glPushMatrix();
   glTranslatef(ax,0,az);
+  
+  fetchTexture("intersection.png", true, true);
+  
   glBegin(GL_POLYGON);
-  glVertex3f(-roadWidth,0, roadWidth);
-  glVertex3f( roadWidth,0, roadWidth);
-  glVertex3f( roadWidth,0,-roadWidth);
-  glVertex3f(-roadWidth,0,-roadWidth);
+  glTexCoord2f(0, 1);     glVertex3f(-roadWidth, 0, roadWidth);
+  glTexCoord2f(1, 1);     glVertex3f(roadWidth, 0, roadWidth);
+  glTexCoord2f(1, 0);     glVertex3f(roadWidth, 0, -roadWidth);
+  glTexCoord2f(0, 0);     glVertex3f(-roadWidth, 0, -roadWidth);
   glEnd();
+
+  glBindTexture(GL_TEXTURE_2D, 0);
+
   glPopMatrix();
 }
 

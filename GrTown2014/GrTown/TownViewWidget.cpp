@@ -136,6 +136,8 @@ void TownViewWidget::getStateFromUI(DrawingState* st)
 	st->backCull = ui->cull->value();
 	st->drGrTex = ui->lgTex->value();
   st->speedup = ui->speedup->value();
+  st->particles = ui->particles->value();
+  st->skybox = ui->skybox->value();
 }
 
 GrObject* TownViewWidget::getCamera()
