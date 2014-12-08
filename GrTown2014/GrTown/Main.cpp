@@ -204,6 +204,10 @@ int main(int /*argc*/, char** /*argv*/)
     "Building.vert", "Building.frag", false);
   add(b1);
 
+  Surface* ring = new Surface(glm::vec3(30, 0, 0), glm::vec3(2.0, 1.0, 2.0), S_RING, 8,
+    "Building.vert", "Building.frag", false);
+  add(ring);
+
   // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
     "UFO.vert", "UFO.frag", true);

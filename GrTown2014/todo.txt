@@ -32,6 +32,7 @@ Behaviors:
 
 Textures:
 X Lane markers
+X Brushed Metal
 
 
 Jason

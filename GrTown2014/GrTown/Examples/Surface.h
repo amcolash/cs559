@@ -87,3 +87,14 @@ const std::vector<glm::vec3> S_UFO = {
   glm::vec3(6.0, 2.0, 0.0),
   glm::vec3(0.0, 2.0, 0.0)
 };
+
+// Simple ring
+const std::vector<glm::vec3> S_RING = {
+  glm::vec3(0.0, 0.0, 0.0),
+  glm::vec3(0.0, 12.0, 0.0),
+  glm::vec3(4.0, 12.0, 0.0),
+  glm::vec3(8.0, 8.0, 0.0),
+  glm::vec3(8.0, 4.0, 0.0),
+  glm::vec3(4.0, 0.0, 0.0),
+  glm::vec3(0.0, 0.0, 0.0)
+};
