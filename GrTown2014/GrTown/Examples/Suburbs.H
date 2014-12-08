@@ -116,7 +116,7 @@ class SimpleLot : public GrObject {
 // streetlights, some stop signs, ...
 class SimpleSubdivision : public GrObject {
  public:
-  SimpleSubdivision(int nHouses);
+  SimpleSubdivision(int nHouses, int topBottom);
 };
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Suburbs.H,v 1.2 2007/11/01 21:25:59 gleicher Exp $

@@ -30,6 +30,7 @@
 #include "Examples/Surface.h"
 #include "Examples/Particle.h"
 #include "Examples/Bird.h"
+#include "Examples/Park.h"
 #include "BirdFly.h"
 
 #include <time.h>
@@ -102,8 +103,15 @@ int main(int /*argc*/, char** /*argv*/)
   int r, c;
   // make a 5x5 grid of town blocks - 5 houses per
   for (r = 0; r < 5; r++) {
-    for (c = 0; c < 5; c++) {
-      add(new SimpleSubdivision(5), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
+    for (c = 0; c < 5; c++) {  
+      if (r == 3 && c == 2) {
+        add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
+      } else if (r == 3 && c == 3) {
+        add(new SimpleSubdivision(5, 1), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
+      } else {
+        add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
+        add(new SimpleSubdivision(5, 1), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
+      }
       add(new StraightRoad(static_cast<float>(r * 530), static_cast<float>(c * 230), static_cast<float>(r * 530 + 500), static_cast<float>(c * 230)));
     }
   }
@@ -301,22 +309,6 @@ int main(int /*argc*/, char** /*argv*/)
   //b1->laX = 0; b1->laY = 0; 1b->laZ = -30;
   //b1->lfX = 0; b1->lfY = 15; b1->lfZ = 25;
 
-
-  // Add a fountain
-  Surface* s = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_FOUNTAIN, 64,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
-  add(s);
-
-  s->name = "Particle Fountain";
-  s->interesting = true;
-  s->laX = 50; s->laY = -10; s->laZ = -50;
-  s->lfX = -50; s->lfY = 30; s->lfZ = 50;
-
-  // Add water to fountain
-  Surface* w = new Surface(glm::vec3(40, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_WATER, 64,
-    "Fountain.vert", "Fountain.frag", false);
-  add(w);
-
   // Add building
   Surface* b1 = new Surface(glm::vec3(120, 0, -25), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
@@ -327,14 +319,16 @@ int main(int /*argc*/, char** /*argv*/)
     "UFO.vert", "UFO.frag", true);
   add(ufo);
 
-  // Seed rng and add fountain particles
-  srand(static_cast <unsigned> (time(0)));
-  Particle* p = new Particle(40, 8, 0, 500);
-  add(p);
-
   // Add skybox
-  Skybox* skbox = new Skybox();
-  add(skbox);
+  //Skybox* skbox = new Skybox();
+  //add(skbox);
+
+  Park* p = new Park();
+  add(p, 1615, 0, 500);
+  p->name = "Park";
+  p->interesting = true;
+  p->laX = 350; p->laY = -100; p->laZ = 250;
+  p->lfX = -150; p->lfY = 200; p->lfZ = -200;
 
   /* End our new items for the world */
 

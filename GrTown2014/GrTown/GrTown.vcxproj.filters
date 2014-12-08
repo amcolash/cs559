@@ -117,6 +117,9 @@
     <ClInclude Include="BirdFly.h">
       <Filter>Examples Objects and Behaviors\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Examples\Park.h">
+      <Filter>Examples Objects and Behaviors\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -186,6 +189,9 @@
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
     <ClCompile Include="BirdFly.cpp">
+      <Filter>Examples Objects and Behaviors\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Examples\Park.cpp">
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -495,25 +495,36 @@ SimpleLot::SimpleLot(int ht, int hc)
 /***********************************************************************/
 // a set of houses going down the street
 // the street is along the X axis from (0,0) to ( (nh+1)*100, 0)
-SimpleSubdivision::SimpleSubdivision(int nh) 
+// modified to only draw one side of the street normally
+
+SimpleSubdivision::SimpleSubdivision(int nh, int topBottom)
 {
-	// street lights in front of every other house
-	// alternate sides of the street
-	for(int sl=0; sl<nh; sl ++) {
-		add(new StreetLight(sl%2 ? 9 : -9), static_cast<float>(sl*100 + 25), 0, (float)((sl%2) ? 8 : -9));
-	}
-	
-    // add houses - one on each side of the street
-	for (int hc=0; hc<nh; hc++) {
-		GrObject* g1 = new SimpleLot(rand(), rand());
-		GrObject* g2 = new SimpleLot(rand(), rand());
+  // street lights in front of every other house
+  // alternate sides of the street
+  int sl = 0;
+  
+  if (topBottom)
+    sl = 1;
 
-		add(g1, (float) (hc*100)    ,0, 15, 0);
-		add(g2, (float) (hc*100+100),0,-15,pi);
-	}
+  for (sl; sl<nh; sl += 2) {
+    add(new StreetLight(sl % 2 ? 9 : -9), static_cast<float>(sl * 100 + 25), 0, (float)((sl % 2) ? 8 : -9));
+  }
 
-  add(new Sign(4,4,4,"stop.png",octagon),(float)(100*nh-2),0,17,-(3.141592f/2.f));
-  add(new Sign(4,4,4,"stop.png",octagon),  2,0,-17 ,(3.141592f/2.f));
+  // add houses - one on each side of the street
+  for (int hc = 0; hc<nh; hc++) {
+    GrObject* g1 = new SimpleLot(rand(), rand());
+    GrObject* g2 = new SimpleLot(rand(), rand());
+
+    if (topBottom)
+      add(g1, (float)(hc * 100), 0, 15, 0);
+    else
+      add(g2, (float)(hc * 100 + 100), 0, -15, pi);
+  }
+
+  if (topBottom)
+    add(new Sign(4, 4, 4, "stop.png", octagon), (float)(100 * nh - 2), 0, 17, -(3.141592f / 2.f));
+  else
+    add(new Sign(4, 4, 4, "stop.png", octagon), 2, 0, -17, (3.141592f / 2.f));
 }
 
 
