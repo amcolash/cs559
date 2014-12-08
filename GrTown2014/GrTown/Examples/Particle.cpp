@@ -38,7 +38,7 @@ void Particle::init(Part *p) {
   p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
 }
 
-void Particle::draw(DrawingState* st){
+void Particle::draw(DrawingState* st) {
   /*
   if (!triedShader) {
     triedShader = true;

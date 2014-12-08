@@ -12,6 +12,12 @@ public:
   Fountain();
 };
 
+class Ground : public GrObject {
+public:
+  Ground();
+  virtual void draw(DrawingState*);
+};
+
 // Simple park put onto a block
 class Park : public GrObject {
 public:

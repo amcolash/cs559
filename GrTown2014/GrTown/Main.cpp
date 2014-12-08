@@ -210,7 +210,8 @@ int main(int /*argc*/, char** /*argv*/)
   add(ufo);
 
   Park* p = new Park();
-  add(p, 1615, 0, 500);
+  //add(p, 1615, 0, 500);
+  add(p, 1590, 0, 460);
   p->name = "Park";
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
