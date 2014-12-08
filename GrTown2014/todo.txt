@@ -2,8 +2,8 @@ Andrew McOlash and Jason Bernstein
 
 Theme: Future City
 
-- Lane markers
-- Birds in the sky - Jason
+X Lane markers
+X Birds in the sky - Jason
 - New Houses
 X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
@@ -26,11 +26,12 @@ Fully Created Objects:
 
 Shaders:
 X Responds to time of day
-- Responds to global lighting
+X Responds to global lighting
 
 Behaviors:
 
 Textures:
+X Lane markers
 
 
 Jason
@@ -42,5 +43,7 @@ Shaders:
 - Maps textures to verticies
 
 Behaviors:
+X Creation of birds
+- Movement of birds
 
 Textures:
