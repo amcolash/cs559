@@ -134,6 +134,7 @@
     <ClInclude Include="Examples\Particle.h" />
     <ClInclude Include="Examples\SimpleBehaviors.H" />
     <ClInclude Include="Examples\Suburbs.H" />
+    <ClInclude Include="Examples\SunMoon.h" />
     <ClInclude Include="Examples\Surface.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="FlyCamera.H" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Examples\Particle.cpp" />
     <ClCompile Include="Examples\SimpleBehaviors.cpp" />
     <ClCompile Include="Examples\Suburbs.cpp" />
+    <ClCompile Include="Examples\SunMoon.cpp" />
     <ClCompile Include="Examples\Surface.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
@@ -174,14 +176,15 @@
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Billboard.frag" />
     <None Include="Shaders\Billboard.vert" />
     <None Include="Shaders\Building.frag" />
     <None Include="Shaders\Building.vert" />
     <None Include="Shaders\Fountain.frag" />
     <None Include="Shaders\Fountain.vert" />
+    <None Include="Shaders\Moon.frag" />
     <None Include="Shaders\ShadedCubeTest.frag" />
     <None Include="Shaders\ShadedCubeTest.vert" />
+    <None Include="Shaders\Sun.frag" />
     <None Include="Shaders\UFO.frag" />
     <None Include="Shaders\UFO.vert" />
   </ItemGroup>

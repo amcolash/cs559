@@ -123,6 +123,9 @@
     <ClInclude Include="Flag.h">
       <Filter>Examples Objects and Behaviors\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Examples\SunMoon.h">
+      <Filter>Examples Objects and Behaviors\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -200,6 +203,9 @@
     <ClCompile Include="Flag.cpp">
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Examples\SunMoon.cpp">
+      <Filter>Examples Objects and Behaviors\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShadedCubeTest.frag">
@@ -226,7 +232,10 @@
     <None Include="Shaders\Building.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Billboard.frag">
+    <None Include="Shaders\Sun.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Moon.frag">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Billboard.vert">

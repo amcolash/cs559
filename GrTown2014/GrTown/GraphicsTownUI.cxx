@@ -60,7 +60,7 @@ void GraphicsTownUI::cb_particles(Fl_Value_Slider* o, void* v) {
 }
 
 Fl_Double_Window* GraphicsTownUI::make_window() {
-  { window = new Fl_Double_Window(930, 646, "CS 559 Graphics Town!");
+  { window = new Fl_Double_Window(922, 638, "CS 559 Graphics Town!");
     window->labelsize(12);
     window->user_data((void*)(this));
     { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 635);
@@ -121,7 +121,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       } // Fl_Value_Output* rate
       { speedup = new Fl_Value_Slider(840, 558, 85, 25, "speedup");
         speedup->type(1);
-        speedup->maximum(3);
+        speedup->maximum(5);
         speedup->step(0.1);
         speedup->align(Fl_Align(FL_ALIGN_LEFT));
       } // Fl_Value_Slider* speedup
@@ -148,6 +148,12 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         skybox->selection_color((Fl_Color)11);
         skybox->labelsize(12);
       } // Fl_Button* skybox
+      { advanceTime = new Fl_Button(850, 617, 75, 25, "Advance Time");
+        advanceTime->type(1);
+        advanceTime->value(1);
+        advanceTime->selection_color((Fl_Color)11);
+        advanceTime->labelsize(12);
+      } // Fl_Button* advanceTime
       o->end();
     } // Fl_Group* o
     window->end();

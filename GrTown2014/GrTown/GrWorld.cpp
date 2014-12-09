@@ -36,7 +36,6 @@ void drawSky(DrawingState* st)
 // ft/mile) 
 void drawEarth(DrawingState* st)
 {
- 
   st->ground(0,84,24);
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(1.,10);
@@ -49,7 +48,7 @@ void drawEarth(DrawingState* st)
   glVertex3d(-25000,-1,-25000);
   glEnd();
   glDisable(GL_POLYGON_OFFSET_FILL);
-  }
+}
 
 // 
 // setup lighting

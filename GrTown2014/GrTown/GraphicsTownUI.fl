@@ -40,9 +40,9 @@ class GraphicsTownUI {open
   } {
     Fl_Window window {
       label {CS 559 Graphics Town!} open
-      xywh {263 296 930 646} type Double labelsize 12 resizable visible
+      xywh {305 42 922 638} type Double labelsize 12 resizable visible
     } {
-      Fl_Box townView {selected
+      Fl_Box townView {
         xywh {5 5 760 635} align 2 resizable
         code0 {o->ui = this;}
         class TownViewWidget
@@ -85,7 +85,7 @@ class GraphicsTownUI {open
         }
         Fl_Value_Slider speedup {
           label speedup
-          xywh {840 558 85 25} type Horizontal align 4 maximum 3 step 0.1
+          xywh {840 558 85 25} type Horizontal align 4 maximum 5 step 0.1
         }
         Fl_Browser pickInteresting {
           label sights
@@ -111,6 +111,10 @@ townView->damage(1);}
         Fl_Button skybox {
           label SkyBox
           xywh {770 617 75 25} type Toggle value 1 selection_color 11 labelsize 12
+        }
+        Fl_Button advanceTime {
+          label {Advance Time} selected
+          xywh {850 617 75 25} type Toggle value 1 selection_color 11 labelsize 12
         }
       }
     }

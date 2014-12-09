@@ -31,6 +31,7 @@
 #include "Examples/Bird.h"
 #include "Examples/Park.h"
 #include "Examples/BirdFly.h"
+#include "Examples/SunMoon.h"
 #include "Flag.h"
 
 #include <time.h>
@@ -208,7 +209,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add building
   Surface* b1 = new Surface(glm::vec3(80, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
-    "Building.vert", "Building.frag", false);
+    "ShadedCubeTest.vert", "Building.frag", false);
   add(b1);
 
   Surface* ring = new Surface(glm::vec3(80, 0, -20), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
@@ -217,15 +218,17 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "UFO.vert", "UFO.frag", true);
+    "ShadedCubeTest.vert", "UFO.frag", true);
   add(ufo);
 
-  Billboard* sun = new Billboard();
+  Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
-  sun->name = "Sun";
+  sun->name = "Sun / Moon";
   sun->interesting = true;
   sun->laX = 350; sun->laY = 100; sun->laZ = 250;
   sun->lfX = -3500; sun->lfY = 300; sun->lfZ = -950;
+  Moon* moon = new Moon();
+  add(moon, 1500.0, 0.0, 250.0);
 
   Park* p = new Park();
   add(p, 1590, 0, 460);

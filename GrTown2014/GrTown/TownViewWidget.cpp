@@ -18,6 +18,8 @@
 
 using std::vector;
 
+float counter;
+
 // at idle time, this gets called
 // it must advance time to the current time step by simulating
 // all of the objects
@@ -38,6 +40,14 @@ void tvIdler(void* v)
   unsigned long ti = static_cast<unsigned long>(static_cast<float>(dt) * speedup);
 
   tv->time +=  ti;
+
+  if (tv->ui->advanceTime->value()) {
+    counter += tv->ui->speedup->value() * 1.0;
+    if (counter > 30) {
+      tv->ui->time->value(fmod(tv->ui->time->value() + 1, 24));
+      counter = 0;
+    }
+  }
 
   if (ti>0)
 	  for(vector<GrObject*>::iterator g = theObjects.begin(); g != theObjects.end(); ++g)
@@ -130,7 +140,7 @@ void TownViewWidget::draw()
 
 void TownViewWidget::getStateFromUI(DrawingState* st)
 {
-	st->timeOfDay = (int) ui->time->value();
+  st->timeOfDay = (int) ui->time->value();
 	st->fieldOfView = (float) ui->fov->value();
 	st->camera = getCamera();
 	st->backCull = ui->cull->value();

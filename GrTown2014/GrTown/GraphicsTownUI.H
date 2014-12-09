@@ -54,5 +54,6 @@ private:
   static void cb_particles(Fl_Value_Slider*, void*);
 public:
   Fl_Button *skybox;
+  Fl_Button *advanceTime;
 };
 #endif
