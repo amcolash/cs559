@@ -58,9 +58,7 @@ void Particle::draw(DrawingState* st) {
   //glUseProgram(shader);
   */
 
-  
   if (num != st->particles) {
-    printf("changing size\n");
     initList(num, st->particles);
     num = st->particles;
   }

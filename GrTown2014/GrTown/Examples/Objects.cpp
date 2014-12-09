@@ -232,17 +232,13 @@ void Billboard::draw(DrawingState*)
   float size = 5.0;
 
   Texture* tree = fetchTexture("tree.jpg");
-  
-  glColor3f(1.0, 1.0, 1.0);
-  
+
   if (billboardShader != 0) {
     glUseProgram(billboardShader);
-    GLint timeUniformLocation = glGetUniformLocation(billboardShader, "myTexture");
-    glUniform1i(timeUniformLocation, tree->texName);
+    GLint textureUniformLocation = glGetUniformLocation(billboardShader, "texture");
+    glUniform1i(textureUniformLocation, (GLint) tree->texName);
   }
   
-  
-
   glBegin(GL_QUADS);
   glTexCoord2f(1, 0);     glVertex3f(0, -size, -size);
   glTexCoord2f(0, 0);     glVertex3f(0, -size, size);
