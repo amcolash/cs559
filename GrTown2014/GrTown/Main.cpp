@@ -186,8 +186,6 @@ int main(int /*argc*/, char** /*argv*/)
   Flag* f = new Flag(2050.0, 0.0, 500.0, 0, 0, 0);
   add(f);
 
-
-
   // Add 40 birds (simpler)
   int numBirds = 40;
   for (int i = 0; i < numBirds; i++) {
@@ -218,6 +216,9 @@ int main(int /*argc*/, char** /*argv*/)
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
     "UFO.vert", "UFO.frag", true);
   add(ufo);
+
+  Billboard* billboard = new Billboard();
+  add(billboard, 35, 7, 0);
 
   Park* p = new Park();
   add(p, 1590, 0, 460);

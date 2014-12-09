@@ -7,8 +7,8 @@ X Birds in the sky - Jason
 - New Houses
 X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
-- Stars, Clouds - Skybox
-- Billboards
+X Skybox - Jason
+X Billboard Shader - Andrew
 - Sun / Moon
 X Potentially implementing some particle systems, very rough - Andrew
 - Police Spaceship
@@ -27,11 +27,12 @@ Fully Created Objects:
 Shaders:
 X Responds to time of day
 X Responds to global lighting
+X Billboard shader
 
 Behaviors:
 
 Textures:
-X Lane markers
+X Lane markers + Intersections
 X Brushed Metal
 
 
@@ -39,6 +40,7 @@ Jason
 --------------------
 Fully Created Objects:
 X Birds
+X Skybox
 
 Shaders:
 - Maps textures to verticies

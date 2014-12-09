@@ -39,7 +39,7 @@ void Particle::initParticle(Part *p) {
   p->size = randFloat(7.0, 10.0);
   p->age = 0;
   p->active = true;
-  p->maxAge = randInt(10 * scale, 30 * scale);
+  p->maxAge = randInt(10, 30);
   p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
 }
 
@@ -58,9 +58,7 @@ void Particle::draw(DrawingState* st) {
   //glUseProgram(shader);
   */
 
-  
   if (num != st->particles) {
-    printf("changing size\n");
     initList(num, st->particles);
     num = st->particles;
   }
