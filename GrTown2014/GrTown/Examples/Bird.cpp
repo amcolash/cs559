@@ -5,17 +5,24 @@
 #include <glm/glm.hpp>
 
 
+
 Bird::Bird(float x, float y, float z, float r, float g, float b)
 	: color(r, g, b), count(count)
 {
 	count = 0;
 	transMatrix(transform, x, y, z);
-	for (int i = 0; i < 3; i++){
-		rotations.push_back(0);
-	}
 }
 
+/*float Bird::getSpeed(){
+	printf("SPEED: %f\n", speed);
+	return speed;
+}*/
+
 void Bird::draw(DrawingState* state){
+	//speed = state->speedup;
+
+	//ds = state;
+
 	glPushMatrix();
 	glScaled(10, 10, 10);
 	glPushMatrix();

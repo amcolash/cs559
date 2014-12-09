@@ -45,7 +45,6 @@ void GrObject::drawAfter(DrawingState* drst)
 {
 }
 
-
 // for most objects, the way to use it as a camera is to take its
 // transformation and invert it - potentially using "rideabove"
 void GrObject::getCamera(Matrix camera)

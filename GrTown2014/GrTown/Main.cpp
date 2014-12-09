@@ -31,6 +31,7 @@
 #include "Examples/Bird.h"
 #include "Examples/Park.h"
 #include "Examples/BirdFly.h"
+#include "Flag.h"
 
 #include <time.h>
 
@@ -43,8 +44,10 @@ const int nGrids = 5;
 
 int main(int /*argc*/, char** /*argv*/)
 {
-	Skybox* sky = new Skybox();
-	add(sky);
+  //Draw skybox
+  Skybox* sky = new Skybox();
+  add(sky);
+
   // put in some texture paths - look all over the place
   texturePaths.push_back(".");
   texturePaths.push_back("..");
@@ -180,11 +183,10 @@ int main(int /*argc*/, char** /*argv*/)
   Drive* d = new SimpleDrive(h, t, 0, 1);
   d->speed *= 2;
 
+  Flag* f = new Flag(2050.0, 0.0, 500.0, 0, 0, 0);
+  add(f);
 
-  /* Our new items for the world*/
 
-  Skybox* sky = new Skybox();
-  add(sky);
 
   // Add 40 birds (simpler)
   int numBirds = 40;
@@ -192,9 +194,9 @@ int main(int /*argc*/, char** /*argv*/)
     Bird* b = new Bird(0, 0, 0, 255, 255, 255);
     add(b);
     if (i < numBirds - 1)
-      new BirdFly(b, false);
+      new BirdFly(b, false, i, 0);
     else
-      new BirdFly(b, true);
+      new BirdFly(b, true, i, 0);
   }
 
   //b2->interesting = true;

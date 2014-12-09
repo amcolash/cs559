@@ -34,7 +34,6 @@ class GrObject {
  public:
   GrObject(char* nameBase = "NoName", int& nameCtr = noNameCtr, char* xn=0);
   virtual ~GrObject();
-
   // things to know about the object
   bool ridable;					/* can we "ride" this thing */
   std::string name;

@@ -56,7 +56,7 @@ unsigned long Drive::advanceU(unsigned long time)
 		// figure out where we're starting
 		float bx, bz, bdx, bdz;
 		road->position(lane,u, bx,bz,bdx,bdz);
-
+		
 		// figure out how long the step is
 		dur = static_cast<float>(time-lastV);
 
@@ -76,8 +76,7 @@ unsigned long Drive::advanceU(unsigned long time)
 
 		u += du;
 	}
- 	lastV = time;
-	if (u>1) {
+ 	lastV = time;	if (u>1) {
 		float leftOverU = u-1;
 		// figure out how long that was 
 		float leftOverD = leftOverU * d / uig;
