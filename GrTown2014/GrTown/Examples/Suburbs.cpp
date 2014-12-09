@@ -75,9 +75,10 @@ void Lawn::draw(DrawingState* d)
   // the catch here is that we need to use a polygon offset to draw
   // the lawn just above the ground...
   if (d->drGrTex)
-	fetchTexture("grass.png",true,true);
+	  fetchTexture("webground_lightgrays_000023.png",true,true);
   else
     glBindTexture(GL_TEXTURE_2D,0);
+
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(-2.,-2.);
   glNormal3f(0,1,0);
