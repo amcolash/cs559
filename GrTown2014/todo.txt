@@ -9,7 +9,7 @@ X Spaceships instead of cars - Andrew
 - A few cool buildings/skyscrapers (curved surfaces)
 X Skybox - Jason
 X Billboard Shader - Andrew
-- Sun / Moon
+- Sun / Moon - Andrew
 X Potentially implementing some particle systems, very rough - Andrew
 - Police Spaceship
 - Tweaking UI and controls to allow movement when following
@@ -17,19 +17,23 @@ X Potentially implementing some particle systems, very rough - Andrew
 X Hover Fountain - Kinda, Andrew
 X Surfaces of revolution - Andrew
 
+------------------------------------------------------------------------------
+
 Andrew
 --------------------
 Fully Created Objects:
 - Building
-- Fountain
+X Fountain
 - UFO
 
 Shaders:
 X Responds to time of day
 X Responds to global lighting
-X Billboard shader
+X Billboard shader / Moon + Sun
+- Procedural Texture - Moon?
 
 Behaviors:
+- UFO Movement
 
 Textures:
 X Lane markers + Intersections
@@ -41,12 +45,15 @@ Jason
 Fully Created Objects:
 X Birds
 X Skybox
+- Flag
+- Future House
 
 Shaders:
-- Maps textures to verticies
+- Procedural Texture - Flag
 
 Behaviors:
 X Creation of birds
-- Movement of birds
+X Movement of birds
 
 Textures:
+X Skybox Texture

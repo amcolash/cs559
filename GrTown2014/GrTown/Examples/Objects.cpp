@@ -215,7 +215,7 @@ Billboard::Billboard()
 static unsigned int billboardShader = 0;
 static bool triedBillboardShader = false;
 
-void Billboard::draw(DrawingState*)
+void Billboard::draw(DrawingState* ds)
 {
   if (!billboardShader && !triedBillboardShader) {
     triedBillboardShader = true;
@@ -226,28 +226,49 @@ void Billboard::draw(DrawingState*)
       fl_alert(s.c_str());
     }
   }
-
-  float size = 5.0;
-
-  Texture* tree = fetchTexture("tree.jpg");
-
-  if (billboardShader != 0) {
-    glUseProgram(billboardShader);
-    GLint textureUniformLocation = glGetUniformLocation(billboardShader, "texture");
-    glUniform1i(textureUniformLocation, (GLint) tree->texName);
-  }
   
+  /*
   glBegin(GL_QUADS);
   glTexCoord2f(1, 0);     glVertex3f(0, -size, -size);
   glTexCoord2f(0, 0);     glVertex3f(0, -size, size);
   glTexCoord2f(0, 1);     glVertex3f(0, size, size);
   glTexCoord2f(1, 1);     glVertex3f(0, size, -size);
   glEnd();
-  
-  if (billboardShader != 0)
-    glUseProgram(0);
-  
-  glBindTexture(GL_TEXTURE_2D, 0);
+  */
+
+  float PI = 3.14159;
+  float radius = 25.0;
+
+  float arcSize = 1500.0;
+
+  if (ds->timeOfDay >= 5 && ds->timeOfDay <= 20) {
+
+    Texture* tree = fetchTexture("tree.jpg");
+
+    if (billboardShader != 0) {
+      glUseProgram(billboardShader);
+      GLint textureUniformLocation = glGetUniformLocation(billboardShader, "texture");
+      glUniform1i(textureUniformLocation, (GLint)tree->texName);
+    }
+
+    glPushMatrix();
+    glTranslatef(0.0,
+      arcSize * sin((ds->timeOfDay / 24.0) * (2 * PI) - (PI / 2.0)),
+      arcSize * cos((ds->timeOfDay / 24.0) * (2 * PI) - (PI / 2.0)));
+
+    glBegin(GL_POLYGON);
+    for (double i = 0; i < 2 * PI; i += PI / 16) //<-- Change this Value
+      glVertex3f(0.0, sin(i) * radius, cos(i) * radius);
+    glEnd();
+
+    if (billboardShader != 0)
+      glUseProgram(0);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glPopMatrix();
+
+  }
 }
 
 

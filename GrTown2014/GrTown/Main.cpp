@@ -220,8 +220,12 @@ int main(int /*argc*/, char** /*argv*/)
     "UFO.vert", "UFO.frag", true);
   add(ufo);
 
-  Billboard* billboard = new Billboard();
-  add(billboard, 35, 7, 0);
+  Billboard* sun = new Billboard();
+  add(sun, 1500.0, 0.0, 250.0);
+  sun->name = "Sun";
+  sun->interesting = true;
+  sun->laX = 350; sun->laY = 100; sun->laZ = 250;
+  sun->lfX = -3500; sun->lfY = 300; sun->lfZ = -950;
 
   Park* p = new Park();
   add(p, 1590, 0, 460);
