@@ -81,7 +81,7 @@ void Lawn::draw(DrawingState* d)
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(-2.,-2.);
   glNormal3f(0,1,0);
-  glColor3f(0,1,1);
+  glColor3f(1,1,1);
   glBegin(GL_POLYGON);
   glTexCoord2f(0,(z2-z1)/4.f);            glVertex3f(x1,0,z2);
   glTexCoord2f((x2-x1)/4.f, (z2-z1)/4.f); glVertex3f(x2,0,z2);

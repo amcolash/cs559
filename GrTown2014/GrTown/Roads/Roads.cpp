@@ -44,6 +44,8 @@ void Road::draw(DrawingState*)
   glColor3f(.6f,.6f,.6f);
   glNormal3f(0,1,0);
   fetchTexture("asphalt.png",true,true);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   roadDraw();
   glDisable(GL_POLYGON_OFFSET_FILL);
 
@@ -218,7 +220,9 @@ void Intersection::roadDraw()
   glTranslatef(ax,0,az);
   
   fetchTexture("intersection.png", true, true);
-  
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
   glBegin(GL_POLYGON);
   glTexCoord2f(0, 1);     glVertex3f(-roadWidth, 0, roadWidth);
   glTexCoord2f(1, 1);     glVertex3f(roadWidth, 0, roadWidth);

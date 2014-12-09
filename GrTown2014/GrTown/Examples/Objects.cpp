@@ -113,6 +113,8 @@ void Skybox::draw(DrawingState* ds) {
     glColor3f(1.0, 1.0, 1.0);
 
     fetchTexture("left2.jpg");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
     glVertex3f(-10000, -5, -10000);
@@ -125,6 +127,8 @@ void Skybox::draw(DrawingState* ds) {
     glEnd();
 
     fetchTexture("right4.jpg");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(0, 1);
     glVertex3f(-10000, 4000, 10000);
@@ -138,6 +142,8 @@ void Skybox::draw(DrawingState* ds) {
     glEnd();
 
     fetchTexture("Up.jpg");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
     glVertex3f(10000, 4000, 10000);
@@ -150,6 +156,8 @@ void Skybox::draw(DrawingState* ds) {
     glEnd();
 
     fetchTexture("front3.jpg");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
     glVertex3f(10000, 4000, -10000);
@@ -162,7 +170,8 @@ void Skybox::draw(DrawingState* ds) {
     glEnd();
 
     fetchTexture("back.jpg");
-
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
     glVertex3f(-10000, 4000, 10000);
@@ -222,29 +231,28 @@ void Billboard::draw(DrawingState*)
 
   float size = 5.0;
 
-  fetchTexture("tree.png");
-
-  glUseProgram(billboardShader);
+  Texture* tree = fetchTexture("tree.jpg");
+  
+  glColor3f(1.0, 1.0, 1.0);
+  
+  if (billboardShader != 0) {
+    glUseProgram(billboardShader);
+    GLint timeUniformLocation = glGetUniformLocation(billboardShader, "myTexture");
+    glUniform1i(timeUniformLocation, tree->texName);
+  }
+  
+  
 
   glBegin(GL_QUADS);
-
-  glVertex3f(0, -size, -size);
-  glVertex3f(0, -size, size);
-  glVertex3f(0, size, size);
-  glVertex3f(0, size, -size);
-
-  /*
-  glVertex3f(0, -size, -size);
-  glVertex3f(0, size, -size);
-  glVertex3f(0, size, size);
-  glVertex3f(0, -size, size);
-  */
-
+  glTexCoord2f(1, 0);     glVertex3f(0, -size, -size);
+  glTexCoord2f(0, 0);     glVertex3f(0, -size, size);
+  glTexCoord2f(0, 1);     glVertex3f(0, size, size);
+  glTexCoord2f(1, 1);     glVertex3f(0, size, -size);
   glEnd();
   
+  if (billboardShader != 0)
+    glUseProgram(0);
   
-  glUseProgram(0);
-
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
