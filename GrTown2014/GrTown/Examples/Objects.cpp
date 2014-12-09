@@ -188,6 +188,9 @@ void Skybox::draw(DrawingState* ds) {
     glVertex3f(10000, -5, 10000);
     glEnd();
     */
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
     if (!depthTest)
       glEnable(GL_DEPTH_TEST);
 
@@ -217,20 +220,32 @@ void Billboard::draw(DrawingState*)
     }
   }
 
+  float size = 5.0;
+
+  fetchTexture("tree.png");
+
   glUseProgram(billboardShader);
-  
+
   glBegin(GL_QUADS);
 
-  glVertex3f(0, -2.5, -2.5);
-  glVertex3f(0, -2.5, 2.5);
-  glVertex3f(0, 2.5, 2.5);
-  glVertex3f(0, 2.5, -2.5);
-  
-  
+  glVertex3f(0, -size, -size);
+  glVertex3f(0, -size, size);
+  glVertex3f(0, size, size);
+  glVertex3f(0, size, -size);
+
+  /*
+  glVertex3f(0, -size, -size);
+  glVertex3f(0, size, -size);
+  glVertex3f(0, size, size);
+  glVertex3f(0, -size, size);
+  */
 
   glEnd();
   
+  
   glUseProgram(0);
+
+  glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
