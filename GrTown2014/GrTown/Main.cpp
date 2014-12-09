@@ -44,9 +44,6 @@ const int nGrids = 5;
 
 int main(int /*argc*/, char** /*argv*/)
 {
-  //Draw skybox
-  Skybox* sky = new Skybox();
-  add(sky);
 
   // put in some texture paths - look all over the place
   texturePaths.push_back(".");
@@ -60,6 +57,10 @@ int main(int /*argc*/, char** /*argv*/)
 
   shaderPaths.push_back("Shaders");
   shaderPaths.push_back("../Shaders");
+
+  //Draw skybox
+  Skybox* sky = new Skybox();
+  add(sky);
 
   // add some more stuff
   GrObject* o1 = new Church;
@@ -182,6 +183,8 @@ int main(int /*argc*/, char** /*argv*/)
   add(h);
   Drive* d = new SimpleDrive(h, t, 0, 1);
   d->speed *= 2;
+
+  /* Our added objects */
 
   Flag* f = new Flag(2050.0, 0.0, 500.0, 0, 0, 0);
   add(f);
