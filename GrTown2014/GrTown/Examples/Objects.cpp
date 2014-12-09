@@ -92,110 +92,15 @@ Skybox::Skybox()
 }
 
 void Skybox::draw(DrawingState* ds) {
-  glPushMatrix();
-
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  glDisable(GL_DEPTH_TEST);
-  //glDisable(GL_BLEND);
-  //glDisable(GL_ALPHA_TEST);
-  //glDisable(GL_TEXTURE_GEN_S);
-  //glDisable(GL_TEXTURE_GEN_T);
-  //glDisable(GL_DEPTH_TEST | GL_BLEND | GL_ALPHA_TEST |
-	//  GL_TEXTURE_GEN_S | GL_TEXTURE_GEN_T);
-  //glDepthMask(GL_FALSE);
-  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-  glColor3f(1.0, 1.0, 1.0);
-
-  fetchTexture("left2.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 0);
-  glVertex3f(-10000, -5, -10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(10000, -5, -10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(10000, 4000, -10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(-10000, 4000, -10000);
-  glEnd();
-
-  fetchTexture("right4.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, 10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, -5, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -5, 10000);
-
-  glEnd();
+  int depthTest = 1;
   
-  fetchTexture("Up.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, 4000, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, -10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, -10000);
-  glEnd();
-
-  fetchTexture("front3.jpg");
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, 4000, -10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, -5, -10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(10000, -5, 10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(10000, 4000, 10000);
-  glEnd();
-
-  fetchTexture("back.jpg");
-
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 1);
-  glVertex3f(-10000, 4000, 10000);
-  glTexCoord2i(1, 0);
-  glVertex3f(-10000, -5, 10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -5, -10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, 4000, -10000);
-
-  glEnd();
-  /*
-  fetchTexture("down2.jpg");
-  
-  glBegin(GL_QUADS);
-  glTexCoord2i(1, 0);
-  glVertex3f(10000, -5, -10000);
-  glTexCoord2i(0, 0);
-  glVertex3f(-10000, -5, -10000);
-  glTexCoord2i(0, 1);
-  glVertex3f(-10000, -5, 10000);
-  glTexCoord2i(1, 1);
-  glVertex3f(10000, -5, 10000);
-  glEnd();
-  */
-  glEnable(GL_DEPTH_TEST);
-
-  glPopMatrix();
-  
- 
   if (ds->skybox) {
 
     glPushMatrix();
 
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //glDisable(GL_DEPTH_TEST);
+    if (!depthTest)
+      glDisable(GL_DEPTH_TEST);
     //glDisable(GL_BLEND);
     //glDisable(GL_ALPHA_TEST);
     //glDisable(GL_TEXTURE_GEN_S);
@@ -210,25 +115,25 @@ void Skybox::draw(DrawingState* ds) {
     fetchTexture("left2.jpg");
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
-    glVertex3f(-10000, -1000, -10000);
+    glVertex3f(-10000, -5, -10000);
     glTexCoord2i(0, 0);
-    glVertex3f(10000, -1000, -10000);
+    glVertex3f(10000, -5, -10000);
     glTexCoord2i(0, 1);
     glVertex3f(10000, 4000, -10000);
     glTexCoord2i(1, 1);
     glVertex3f(-10000, 4000, -10000);
     glEnd();
 
-    fetchTexture("right.jpg");
+    fetchTexture("right4.jpg");
     glBegin(GL_QUADS);
     glTexCoord2i(0, 1);
     glVertex3f(-10000, 4000, 10000);
     glTexCoord2i(1, 1);
     glVertex3f(10000, 4000, 10000);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, -1000, 10000);
+    glVertex3f(10000, -5, 10000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, -1000, 10000);
+    glVertex3f(-10000, -5, 10000);
 
     glEnd();
 
@@ -244,33 +149,88 @@ void Skybox::draw(DrawingState* ds) {
     glVertex3f(10000, 4000, -10000);
     glEnd();
 
-    fetchTexture("front.jpg");
+    fetchTexture("front3.jpg");
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
     glVertex3f(10000, 4000, -10000);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, -1000, -10000);
+    glVertex3f(10000, -5, -10000);
     glTexCoord2i(0, 0);
-    glVertex3f(10000, -1000, 10000);
+    glVertex3f(10000, -5, 10000);
     glTexCoord2i(0, 1);
     glVertex3f(10000, 4000, 10000);
     glEnd();
 
     fetchTexture("back.jpg");
+
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
     glVertex3f(-10000, 4000, 10000);
     glTexCoord2i(1, 0);
-    glVertex3f(-10000, -1000, 10000);
+    glVertex3f(-10000, -5, 10000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, -1000, -10000);
+    glVertex3f(-10000, -5, -10000);
     glTexCoord2i(0, 1);
     glVertex3f(-10000, 4000, -10000);
 
     glEnd();
+    /*
+    fetchTexture("down2.jpg");
+
+    glBegin(GL_QUADS);
+    glTexCoord2i(1, 0);
+    glVertex3f(10000, -5, -10000);
+    glTexCoord2i(0, 0);
+    glVertex3f(-10000, -5, -10000);
+    glTexCoord2i(0, 1);
+    glVertex3f(-10000, -5, 10000);
+    glTexCoord2i(1, 1);
+    glVertex3f(10000, -5, 10000);
+    glEnd();
+    */
+    if (!depthTest)
+      glEnable(GL_DEPTH_TEST);
 
     glPopMatrix();
+
   }
+ 
+}
+
+
+Billboard::Billboard()
+{
+}
+
+static unsigned int billboardShader = 0;
+static bool triedBillboardShader = false;
+
+void Billboard::draw(DrawingState*)
+{
+  if (!billboardShader && !triedBillboardShader) {
+    triedBillboardShader = true;
+    char* error;
+    if (!(billboardShader = loadShader("Billboard.vert", "Billboard.frag", error))) {
+      std::string s = "Can't Load Billboard Shader:";
+      s += error;
+      fl_alert(s.c_str());
+    }
+  }
+
+  glUseProgram(billboardShader);
+  
+  glBegin(GL_QUADS);
+
+  glVertex3f(0, -2.5, -2.5);
+  glVertex3f(0, -2.5, 2.5);
+  glVertex3f(0, 2.5, 2.5);
+  glVertex3f(0, 2.5, -2.5);
+  
+  
+
+  glEnd();
+  
+  glUseProgram(0);
 }
 
 

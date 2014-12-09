@@ -220,5 +220,11 @@
     <None Include="Shaders\Building.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\Billboard.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Billboard.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

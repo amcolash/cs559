@@ -172,6 +172,8 @@
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Billboard.frag" />
+    <None Include="Shaders\Billboard.vert" />
     <None Include="Shaders\Building.frag" />
     <None Include="Shaders\Building.vert" />
     <None Include="Shaders\Fountain.frag" />

@@ -45,6 +45,12 @@ public:
   virtual void draw(DrawingState*);
 };
 
+class Billboard : public GrObject {
+public:
+  Billboard();
+  virtual void draw(DrawingState*);
+};
+
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/Examples/Objects.H,v 1.3 2008/11/11 04:18:40 gleicher Exp $
 
 
