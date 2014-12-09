@@ -1,4 +1,5 @@
 varying vec3 normal;
+attribute vec2 position;
 
 void main()
 {
@@ -26,4 +27,6 @@ void main()
   modelView[2][2] = 0.0;
 
   gl_Position = gl_ProjectionMatrix * modelView * gl_Vertex;
+
+  position = gl_Position;
 }

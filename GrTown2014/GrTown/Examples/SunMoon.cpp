@@ -41,8 +41,8 @@ void Sun::draw(DrawingState* ds)
 
     glPushMatrix();
     glTranslatef(0.0,
-      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / 30.0 / 24.0)) * (2 * PI) - (PI / 2.0)),
-      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / 30.0 / 24.0)) * (2 * PI) - (PI / 2.0)));
+      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0)),
+      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0)));
 
     glBegin(GL_POLYGON);
     for (double i = 0; i < 2 * PI; i += PI / 16) //<-- Change this Value
@@ -93,8 +93,8 @@ void Moon::draw(DrawingState* ds)
 
     glPushMatrix();
     glTranslatef(0.0,
-      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / 30.0 / 24.0)) * (2 * PI) + (PI / 2.0)),
-      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / 30.0 / 24.0)) * (2 * PI) + (PI / 2.0)));
+      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0)),
+      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0)));
 
     glBegin(GL_POLYGON);
     for (double i = 0; i < 2 * PI; i += PI / 16) //<-- Change this Value

@@ -19,6 +19,7 @@
 using std::vector;
 
 float counter;
+float const maxCounter = 30.0;
 
 // at idle time, this gets called
 // it must advance time to the current time step by simulating
@@ -43,7 +44,7 @@ void tvIdler(void* v)
 
   if (tv->ui->advanceTime->value()) {
     counter += tv->ui->speedup->value() * 1.0;
-    if (counter > 30) {
+    if (counter > maxCounter) {
       tv->ui->time->value(fmod(tv->ui->time->value() + 1, 24));
       counter = 0;
     }
@@ -149,6 +150,7 @@ void TownViewWidget::getStateFromUI(DrawingState* st)
   st->particles = ui->particles->value();
   st->skybox = ui->skybox->value();
   st->counter = counter;
+  st->maxCounter = maxCounter;
 }
 
 GrObject* TownViewWidget::getCamera()

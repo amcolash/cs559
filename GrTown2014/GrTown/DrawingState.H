@@ -38,6 +38,7 @@ public:
 
   float speedup;
   float counter;
+  float maxCounter = 30.0;
 
   float particles;
 
