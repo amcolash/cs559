@@ -98,7 +98,7 @@ void BirdFly::simulateUntil(unsigned long t){
 	unsigned long leftover = 0;
 	if (u >= 1) u = 0;
 	leftover = advanceU(t);
-
+	
 	// if we didn't go far enough since we hit the end, we need to
 	// do something
 	// idea: say that our last update is not now, so next time, we'll
@@ -110,15 +110,19 @@ void BirdFly::simulateUntil(unsigned long t){
 	
 	
 	float speed = static_cast<float>(t - lastV)*.1;
-	
-
-	unsigned long move = advanceU(t);
-	owner->transform[3][0] += move;
-	//printf("XCOORD: %f\n", owner->getSpeed());
+	printf("%lu\n", t);
+	//if (t - u > 100){
+		//owner->transform[3][0] += 1;
+		//u = t;
+	//}
+		//u = t;
+	//unsigned long move = advanceU(t);
+	//owner->transform[3][0] += move;
+	//printf("XCOORD: %f\n", owner->transform[3][0]);
 	
 }
 unsigned long BirdFly::advanceU(unsigned long time){
-	// need to keep these things in case we need them
+	/*// need to keep these things in case we need them
 	float d = 0, dur = 0;
 	float speed = .25f;
 	// guess at the u increment
@@ -152,7 +156,6 @@ unsigned long BirdFly::advanceU(unsigned long time){
 		u += du;
 		return(unsigned long)time / lastV;
 	}
-	printf("time: %lu\n lastV: %lu\n", time, lastV);
 	
 	//lastV = time;	
 		float leftOverU = u - 1;
@@ -170,8 +173,8 @@ unsigned long BirdFly::advanceU(unsigned long time){
 			lastV = 1;
 		return (unsigned long)time / lastV;
 		return static_cast<unsigned long>(leftOverT);
-		
-	//return 0;
+	*/	
+	return 0;
 }
 void BirdFly::setMatrix(){
 	float x, y, z, dx, dy, dz;

@@ -23,7 +23,6 @@ void Flag::draw(DrawingState* ds){
 			fl_alert(s.c_str());
 		}
 	}
-	printf("count: %f\n", count);
 	if (shader != 0) {
 		glUseProgram(shader);
 		GLfloat timeUniformLocation = glGetUniformLocation(shader, "_time");

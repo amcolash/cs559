@@ -24,6 +24,7 @@ void Bird::draw(DrawingState* state){
 	//ds = state;
 
 	glPushMatrix();
+	this->transform[3][0] += state->speedup*3;
 	glScaled(10, 10, 10);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);
