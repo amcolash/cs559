@@ -114,13 +114,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
-    glVertex3f(-10000, -5, -10000);
+    glVertex3f(-7000, -5, -7000);
     glTexCoord2i(0, 0);
-    glVertex3f(10000, -5, -10000);
+    glVertex3f(7000, -5, -7000);
     glTexCoord2i(0, 1);
-    glVertex3f(10000, 4000, -10000);
+    glVertex3f(7000, 4000, -7000);
     glTexCoord2i(1, 1);
-    glVertex3f(-10000, 4000, -10000);
+    glVertex3f(-7000, 4000, -7000);
     glEnd();
     if (ds->timeOfDay >= 20 || ds->timeOfDay <= 5)
       fetchTexture("right4.jpg");
@@ -130,13 +130,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(0, 1);
-    glVertex3f(-10000, 4000, 10000);
+    glVertex3f(-7000, 4000, 7000);
     glTexCoord2i(1, 1);
-    glVertex3f(10000, 4000, 10000);
+    glVertex3f(7000, 4000, 7000);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, -5, 10000);
+    glVertex3f(7000, -5, 7000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, -5, 10000);
+    glVertex3f(-7000, -5, 7000);
 
     glEnd();
 
@@ -145,13 +145,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, 4000, 10000);
+    glVertex3f(7000, 4000, 7000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, 4000, 10000);
+    glVertex3f(-7000, 4000, 7000);
     glTexCoord2i(0, 1);
-    glVertex3f(-10000, 4000, -10000);
+    glVertex3f(-7000, 4000, -7000);
     glTexCoord2i(1, 1);
-    glVertex3f(10000, 4000, -10000);
+    glVertex3f(7000, 4000, -7000);
     glEnd();
 
     if (ds->timeOfDay >= 20 || ds->timeOfDay <= 5)
@@ -162,13 +162,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
-    glVertex3f(10000, 4000, -10000);
+    glVertex3f(7000, 4000, -7000);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, -5, -10000);
+    glVertex3f(7000, -5, -7000);
     glTexCoord2i(0, 0);
-    glVertex3f(10000, -5, 10000);
+    glVertex3f(7000, -5, 7000);
     glTexCoord2i(0, 1);
-    glVertex3f(10000, 4000, 10000);
+    glVertex3f(7000, 4000, 7000);
     glEnd();
 
     fetchTexture("back.jpg");
@@ -176,13 +176,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 1);
-    glVertex3f(-10000, 4000, 10000);
+    glVertex3f(-7000, 4000, 7000);
     glTexCoord2i(1, 0);
-    glVertex3f(-10000, -5, 10000);
+    glVertex3f(-7000, -5, 7000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, -5, -10000);
+    glVertex3f(-7000, -5, -7000);
     glTexCoord2i(0, 1);
-    glVertex3f(-10000, 4000, -10000);
+    glVertex3f(-7000, 4000, -7000);
 
     glEnd();
 
@@ -194,13 +194,13 @@ void Skybox::draw(DrawingState* ds) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBegin(GL_QUADS);
     glTexCoord2i(1, 0);
-    glVertex3f(10000, -5, -10000);
+    glVertex3f(7000, -5, -7000);
     glTexCoord2i(0, 0);
-    glVertex3f(-10000, -5, -10000);
+    glVertex3f(-7000, -5, -7000);
     glTexCoord2i(0, 1);
-    glVertex3f(-10000, -5, 10000);
+    glVertex3f(-7000, -5, 7000);
     glTexCoord2i(1, 1);
-    glVertex3f(10000, -5, 10000);
+    glVertex3f(7000, -5, 7000);
     glEnd();
 
     glEnable(GL_DEPTH_TEST);

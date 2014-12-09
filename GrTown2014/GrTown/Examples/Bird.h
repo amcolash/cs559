@@ -6,9 +6,10 @@
 
 class Bird : public GrObject {
 public:
-	Bird(float x, float y, float z, float r, float g, float b);
+	Bird(float x, float y, float z, float r, float g, float b, int ID);
 	Color color;
 	float count;
+	int ID;
 	float speed;
 	virtual void draw(DrawingState*);
 	std::vector<float> rotations;

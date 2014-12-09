@@ -6,8 +6,8 @@
 
 
 
-Bird::Bird(float x, float y, float z, float r, float g, float b)
-	: color(r, g, b), count(count)
+Bird::Bird(float x, float y, float z, float r, float g, float b, int ID)
+	: color(r, g, b), count(count), ID(ID)
 {
 	count = 0;
 	transMatrix(transform, x, y, z);
@@ -24,7 +24,20 @@ void Bird::draw(DrawingState* state){
 	//ds = state;
 
 	glPushMatrix();
-	this->transform[3][0] += state->speedup*5;
+	this->transform[3][0] += state->speedup*8;
+	printf("XCOORD: %f\n", ID);
+	if (this->transform[3][0] > 5000 && this->ID <= 16){
+		this->transform[3][0] = -5000;
+		
+	}
+	if (this->transform[3][0] > 6420 && this->ID<= 33)
+		this->transform[3][0] = -6210;
+	if (this->transform[3][0] > 7721 && this->ID <= 51)
+		this->transform[3][0] = -7105;
+	if (this->transform[3][0] > 5643 && this->ID <= 68)
+		this->transform[3][0] = -5615;
+	if (this->transform[3][0] > 6000 && this->ID <= 86)
+		this->transform[3][0] = -7000;
 	glScaled(10, 10, 10);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);

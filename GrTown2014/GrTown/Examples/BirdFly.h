@@ -12,7 +12,7 @@ public:
 	float u;
 	void Fly(GrObject* bird, bool last, int count);
 	void RotateToFace(GrObject* b, glm::vec3 objPos, glm::vec3 lookAt, glm::vec3 Up);
-	virtual void simulateUntil(unsigned long until);
+	//virtual void simulateUntil(unsigned long until);
 	unsigned long advanceU(unsigned long time);
 
 
