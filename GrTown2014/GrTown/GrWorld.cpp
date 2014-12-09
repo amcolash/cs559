@@ -73,7 +73,8 @@ void setupLights(DrawingState* dr)
 	pos[1] = (float) sin(angle);
   }
   else {
-	  pos[1] = -1;
+    pos[0] = -5000;
+	  pos[1] = -5000;
   }
   dr->lightPos[0] = pos[0];
   dr->lightPos[1] = pos[1];

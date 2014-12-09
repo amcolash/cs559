@@ -37,6 +37,7 @@ public:
   float fieldOfView;
 
   float speedup;
+  float counter;
 
   float particles;
 

@@ -178,15 +178,14 @@
   <ItemGroup>
     <None Include="Shaders\Billboard.vert" />
     <None Include="Shaders\Building.frag" />
-    <None Include="Shaders\Building.vert" />
+    <None Include="Shaders\flag.frag" />
+    <None Include="Shaders\flag.vert" />
     <None Include="Shaders\Fountain.frag" />
-    <None Include="Shaders\Fountain.vert" />
     <None Include="Shaders\Moon.frag" />
     <None Include="Shaders\ShadedCubeTest.frag" />
     <None Include="Shaders\ShadedCubeTest.vert" />
     <None Include="Shaders\Sun.frag" />
     <None Include="Shaders\UFO.frag" />
-    <None Include="Shaders\UFO.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\todo.txt" />

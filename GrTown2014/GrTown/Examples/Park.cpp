@@ -18,7 +18,7 @@ Fountain::Fountain(glm::vec3 scale) {
   add(s);
 
   // Add water to fountain
-  Surface* w = new Surface(glm::vec3(0, 10, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_WATER, divs,
+  Surface* w = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_WATER, divs,
     "ShadedCubeTest.vert", "Fountain.frag", false);
   add(w);
 

@@ -16,6 +16,7 @@ DrawingState::DrawingState()
   fieldOfView = 45;
   backCull = 0;
   drGrTex = 0;
+  counter = 0;
 }
 
 

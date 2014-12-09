@@ -217,19 +217,10 @@
     <None Include="Shaders\Fountain.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Fountain.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\UFO.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\UFO.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\Building.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\Building.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Sun.frag">
@@ -239,6 +230,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Billboard.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\flag.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\flag.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
