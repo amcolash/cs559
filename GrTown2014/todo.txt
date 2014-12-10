@@ -5,12 +5,12 @@ Theme: Future City
 X Lane markers
 X Birds in the sky - Jason
 - New Houses
-X Spaceships instead of cars - Andrew
-- A few cool buildings/skyscrapers (curved surfaces)
+X Spaceships instead of cars - Andrew / Jason
+- A few cool buildings/skyscrapers (curved su rfaces) - Andrew / Jason
 X Skybox - Jason
 X Billboard Shader - Andrew
-- Sun / Moon - Andrew
-X Potentially implementing some particle systems, very rough - Andrew
+X Sun / Moon - Andrew
+X Particle system- Andrew
 - Police Spaceship
 - Tweaking UI and controls to allow movement when following
 - Cars stop at stopsigns
@@ -22,7 +22,7 @@ X Surfaces of revolution - Andrew
 Andrew
 --------------------
 Fully Created Objects:
-- Building
+X Building
 X Fountain
 - UFO
 
@@ -30,7 +30,7 @@ Shaders:
 X Responds to time of day
 X Responds to global lighting
 X Billboard shader / Moon + Sun
-- Procedural Texture - Moon?
+X Procedural Texture - Moon
 
 Behaviors:
 - UFO Movement

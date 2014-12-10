@@ -11,8 +11,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs, char* vert, char* frag, bool special)
-  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert), special(special)
+Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs,
+  char* vert, char* frag, char* texture, bool special)
+  : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert),
+    texture(texture), special(special)
 {
   transMatrix(transform, t[0], t[1], t[2]);
   glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
@@ -52,14 +54,18 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
 
 void Surface::draw(DrawingState* ds){
   
-  if (!triedShader) {
-    triedShader = true;
-    char* error;
-    if (!(shader = loadShader(vert, frag, error))) {
-      std::string s = "Can't Load Surface Shader:";
-      s += error;
-      fl_alert(s.c_str());
+  if (vert != NULL && frag != NULL) {
+    if (!triedShader) {
+      triedShader = true;
+      char* error;
+      if (!(shader = loadShader(vert, frag, error))) {
+        std::string s = "Can't Load Surface Shader:";
+        s += error;
+        fl_alert(s.c_str());
+      }
     }
+  } else if (texture != NULL) {
+    fetchTexture(texture);
   }
   
   glPushMatrix();
@@ -104,6 +110,7 @@ void Surface::draw(DrawingState* ds){
   }
 
   glUseProgram(0);
+  glBindTexture(GL_TEXTURE_2D, 0);
 
   glPopMatrix();
 }

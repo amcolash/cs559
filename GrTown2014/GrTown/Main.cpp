@@ -209,16 +209,16 @@ int main(int /*argc*/, char** /*argv*/)
 
   // Add building
   Surface* b1 = new Surface(glm::vec3(80, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
-    "ShadedCubeTest.vert", "Building.frag", false);
+    NULL, NULL, "metal003.png", false);
   add(b1);
 
   Surface* ring = new Surface(glm::vec3(80, 0, -20), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
+    "ShadedCubeTest.vert", "ShadedCubeTest.frag", NULL, false);
   add(ring);
 
   // Add UFO
   Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "ShadedCubeTest.vert", "UFO.frag", true);
+    "ShadedCubeTest.vert", "UFO.frag", NULL, true);
   add(ufo);
 
   Sun* sun = new Sun();
