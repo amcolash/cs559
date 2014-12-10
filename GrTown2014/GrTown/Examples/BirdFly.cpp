@@ -52,7 +52,7 @@ void BirdFly::Fly(GrObject* bird, int count)
 	// Move birds into 5 lanes across the Z-axis on different X coordinates
 	if (count > 16 && count <= 33){
 		owner->transform[3][1] += 150;
-		owner->transform[3][0] -=  1000;
+		owner->transform[3][0] -= 1000;
 		owner->transform[3][2] += 500;
 	}
 	if (count > 33 && count <= 51){
