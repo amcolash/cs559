@@ -39,8 +39,8 @@ class GraphicsTownUI {open
   Function {make_window()} {open
   } {
     Fl_Window window {
-      label {CS 559 Graphics Town!} open
-      xywh {305 42 922 638} type Double labelsize 12 resizable visible
+      label {CS 559 Graphics Town!} open selected
+      xywh {309 46 950 667} type Double labelsize 12 resizable visible
     } {
       Fl_Box townView {
         xywh {5 5 760 635} align 2 resizable
@@ -48,7 +48,7 @@ class GraphicsTownUI {open
         class TownViewWidget
       }
       Fl_Group {} {open
-        xywh {770 5 155 644}
+        xywh {765 5 170 646}
       } {
         Fl_Browser pickCamera {
           label view
@@ -59,7 +59,7 @@ class GraphicsTownUI {open
         }
         Fl_Button cull {
           label {Backface Cull}
-          xywh {770 588 75 25} type Toggle value 1 selection_color 11 labelsize 12
+          xywh {765 588 80 25} type Toggle value 1 selection_color 11 labelsize 12
         }
         Fl_Value_Slider time {
           label {Time of Day (24hr)}
@@ -73,7 +73,7 @@ class GraphicsTownUI {open
         }
         Fl_Button lgTex {
           label {textured ground}
-          xywh {850 588 75 25} type Toggle value 1 selection_color 11 labelsize 10
+          xywh {850 588 80 25} type Toggle value 1 selection_color 11 labelsize 10
         }
         Fl_Button follower {
           label Follow
@@ -110,11 +110,11 @@ townView->damage(1);}
         }
         Fl_Button skybox {
           label SkyBox
-          xywh {770 617 75 25} type Toggle value 1 selection_color 11 labelsize 12
+          xywh {765 618 80 33} type Toggle value 1 selection_color 11 labelsize 12
         }
         Fl_Button advanceTime {
-          label {Advance Time} selected
-          xywh {850 617 75 25} type Toggle value 1 selection_color 11 labelsize 12
+          label {Advance Time}
+          xywh {849 618 85 33} type Toggle value 1 selection_color 11 labelsize 12
         }
       }
     }

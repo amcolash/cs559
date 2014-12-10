@@ -221,6 +221,9 @@ int main(int /*argc*/, char** /*argv*/)
     "ShadedCubeTest.vert", "UFO.frag", NULL, true);
   add(ufo);
 
+  Surface* skyskr = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_SKYSKRPR, 48, "ShadedCubeTest.vert", "ShadedCubeTest.frag", false);
+  add(skyskr);
+
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
   sun->name = "Sun / Moon";
