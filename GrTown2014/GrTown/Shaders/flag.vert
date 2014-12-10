@@ -15,9 +15,9 @@ void main(void) {
 	
 	vec4 v = vec4(vertex, 1.0);
 	 mat4 modelView = gl_ModelViewMatrix;
-	v.z = cos(-5.0*v.z + _time*0.01)*0.25;
+	//v.z = cos(-5.0*v.z + _time*0.01)*0.25;
 	// compute position
-	gl_Position = _mvProj * vec4(v);
+	gl_Position = modelView* vec4(v);
 	
 	uv = uv1;
 	// compute light info
