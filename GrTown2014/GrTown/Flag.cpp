@@ -13,6 +13,7 @@ color(r, g, b), shader(shader)
 	transMatrix(transform, x, 0, z);
 }
 void Flag::draw(DrawingState* ds){
+	
 	count += ds->speedup*.1;
 	if (!triedShader) {
 		triedShader = true;
@@ -25,8 +26,10 @@ void Flag::draw(DrawingState* ds){
 	}
 	if (shader != 0) {
 		glUseProgram(shader);
-		GLfloat timeUniformLocation = glGetUniformLocation(shader, "_time");
+		GLint timeUniformLocation = glGetUniformLocation(shader, "_time");
 		glUniform1i(timeUniformLocation, count);
+		GLfloat UniformMatrix = glGetUniformLocation(shader, "_mvProj");
+		glUniform1i(UniformMatrix, GL_MODELVIEW_PROJECTION_NV);
 	}
 
 		

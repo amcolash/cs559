@@ -25,7 +25,6 @@ void Bird::draw(DrawingState* state){
 
 	glPushMatrix();
 	this->transform[3][0] += state->speedup*8;
-	printf("XCOORD: %f\n", ID);
 	if (this->transform[3][0] > 5000 && this->ID <= 16){
 		this->transform[3][0] = -5000;
 		
