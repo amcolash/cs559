@@ -223,7 +223,6 @@ int main(int /*argc*/, char** /*argv*/)
 
   Surface* skyskr = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_SKYSKRPR, 48,
     "ShadedCubeTest.vert", "ShadedCubeTest.frag", NULL, 0.0, false);
-  add(skyskr);
 
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);

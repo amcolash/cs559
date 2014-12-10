@@ -14,7 +14,7 @@ varying vec2 uv;
 //#pragma include "cellular3D.glsl" //  cellular(vec3 P)
 
 void main(void)
-{
+{/*
 	float ys = n.y*5.0 - floor(n.y*5.0);
 	  float y = smoothstep(.45,.55,ys);
   float x = smoothstep(.55, .45, ys);
@@ -22,9 +22,9 @@ void main(void)
 	float y1 = n.y + pow(n.y,n.y);
 	float x2 = step(x1, 0.0);
 	float y2 = smoothstep(x2, x1, y1);
-	
+	asdf
     vec3 eyeSpaceLightDirection = vec3(2.0,1.0,1.0);
     //float diffuse = max(0.0,dot(n,eyeSpaceLightDirection));
-	//gl_FragColor = vec4(n.xz*diffuse, x2, y2);
-	gl_FragColor = vec4(x1,y, y, 1.0)*3.0;
+	//gl_FragColor = vec4(n.xz*diffuse, x2, y2);*/
+	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
