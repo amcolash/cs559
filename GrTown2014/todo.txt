@@ -1,36 +1,34 @@
 Andrew McOlash and Jason Bernstein
 
 Theme: Future City
+------------------------------------------------------------------------------
 
-X Lane markers
-X Birds in the sky - Jason
-- New Houses
+Todo:
+
 X Spaceships instead of cars - Andrew / Jason
-- A few cool buildings/skyscrapers (curved su rfaces) - Andrew / Jason
-X Skybox - Jason
-X Billboard Shader - Andrew
-X Sun / Moon - Andrew
-X Particle system- Andrew
+X Rearrange the suburbs a bit - Andrew
+
+- Cool buildings/skyscrapers/houses - Andrew / Jason
 - Police Spaceship
 - Tweaking UI and controls to allow movement when following
 - Cars stop at stopsigns
-X Hover Fountain - Kinda, Andrew
-X Surfaces of revolution - Andrew
 
 ------------------------------------------------------------------------------
 
 Andrew
 --------------------
+
 Fully Created Objects:
 X Building
 X Fountain
 - UFO
 
 Shaders:
-X Responds to time of day
-X Responds to global lighting
-X Billboard shader / Moon + Sun
-X Procedural Texture - Moon
+X Pond Color Responds to time of day, also UFO
+X Simple global lighting shader
+X Billboard shader
+X Sun Shader - time based with fancy math
+X Procedural Texture - Moon, blurred noise (like clouds)
 
 Behaviors:
 - UFO Movement
@@ -38,18 +36,27 @@ Behaviors:
 Textures:
 X Lane markers + Intersections
 X Brushed Metal
+X Textures wrapped onto surfaces
 
+Technical Challenges:
+X Particles
+X Curved Surfaces (Surfaces of Revolution)
+X Billboard (Sum/Moon)
+
+------------------------------------------------------------------------------
 
 Jason
 --------------------
+
 Fully Created Objects:
 X Birds
 X Skybox
 - Flag
-- Future House
+X Future House - "Big Hut" :P
 
 Shaders:
-- Procedural Texture - Flag
+- Procedural Texture? - Could do simple noise for an object
+- Physics based flag
 
 Behaviors:
 X Creation of birds
@@ -57,3 +64,8 @@ X Movement of birds
 
 Textures:
 X Skybox Texture
+
+Technical Challenges:
+X Physics (Flag)
+X Skybox
+- Advanced Behavior? (Birds) / Flocking

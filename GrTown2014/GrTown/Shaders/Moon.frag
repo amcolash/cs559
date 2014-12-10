@@ -20,7 +20,7 @@ float interpolatedNoise(vec2 p) {
 
 void main() {
   vec2 position = gl_FragCoord.xy / resolution.xx;
-  float tiles = 8.0;
+  float tiles = 64.0;
   position *= tiles;
 
   float noise = interpolatedNoise(position.xy);
