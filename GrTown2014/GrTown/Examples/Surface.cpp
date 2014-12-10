@@ -54,6 +54,8 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
 
 void Surface::draw(DrawingState* ds){
   
+  glColor4fv(&color.r);
+
   if (vert != NULL && frag != NULL) {
     if (!triedShader) {
       triedShader = true;
@@ -70,8 +72,6 @@ void Surface::draw(DrawingState* ds){
   }
   
   glPushMatrix();
-
-  glColor4fv(&color.r);
 
   if (shader != 0) {
     glUseProgram(shader);
