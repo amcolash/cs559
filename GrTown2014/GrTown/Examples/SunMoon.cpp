@@ -36,7 +36,7 @@ void Sun::draw(DrawingState* ds)
     if (sunShader != 0) {
       glUseProgram(sunShader);
       GLint textureUniformLocation = glGetUniformLocation(sunShader, "timeOfDay");
-      glUniform1i(textureUniformLocation, ds->timeOfDay);
+      glUniform1f(textureUniformLocation, ds->timeOfDay + (ds->counter / ds->maxCounter));
     }
 
     glPushMatrix();
@@ -87,8 +87,8 @@ void Moon::draw(DrawingState* ds)
 
     if (moonShader != 0) {
       glUseProgram(moonShader);
-      GLint textureUniformLocation = glGetUniformLocation(moonShader, "timeOfDay");
-      glUniform1i(textureUniformLocation, ds->timeOfDay);
+      GLint widthUniformLocation = glGetUniformLocation(moonShader, "resolution");
+      glUniform2f(widthUniformLocation, ds->width, ds->height);
     }
 
     glPushMatrix();

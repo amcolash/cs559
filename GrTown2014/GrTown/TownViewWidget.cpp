@@ -151,6 +151,8 @@ void TownViewWidget::getStateFromUI(DrawingState* st)
   st->skybox = ui->skybox->value();
   st->counter = counter;
   st->maxCounter = maxCounter;
+  st->width = w();
+  st->height = h();
 }
 
 GrObject* TownViewWidget::getCamera()

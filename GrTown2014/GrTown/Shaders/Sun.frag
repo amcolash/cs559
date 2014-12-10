@@ -1,15 +1,10 @@
-uniform int timeOfDay;
+uniform float timeOfDay;
 
 void main() {
+  float myTime = timeOfDay - 12.0;
 
-  vec3 color;
-
-  if (timeOfDay <= 6 || timeOfDay > 16)
-    color = vec3(0.9, 0.15, 0.1);
-  else if ((timeOfDay >= 7 && timeOfDay < 9) || (timeOfDay > 14))
-    color = vec3(0.8, 0.5, 0.4);
-  else
-    color = vec3(1.0, 0.95, 0.85);
+  float intensity = cos(myTime / 4.0) * 1.5;
+  vec3 color = vec3(0.7 + intensity, intensity, intensity);
 
   gl_FragColor = vec4(color, 1.0);
 }

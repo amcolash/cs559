@@ -40,6 +40,9 @@ public:
   float counter;
   float maxCounter = 30.0;
 
+  float width;
+  float height;
+
   float particles;
 
   int skybox;

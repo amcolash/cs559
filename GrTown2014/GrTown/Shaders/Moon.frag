@@ -1,17 +1,30 @@
+uniform vec2 resolution;
 varying vec3 normal;
-varying vec2 position;
+varying vec3 fPosition;
 
 float randomNoise(vec2 p) {
-  return max(fract(10000.*sin(128.*p.x + 1024.*p.y)), 0.5);
+  return max(fract(6791.*sin(47.*p.x + p.y*9973.)), 0.5);
+}
+
+float interpolatedNoise(vec2 p) {
+  float q11 = randomNoise(vec2(floor(p.x), floor(p.y)));
+  float q12 = randomNoise(vec2(floor(p.x), ceil(p.y)));
+  float q21 = randomNoise(vec2(ceil(p.x), floor(p.y)));
+  float q22 = randomNoise(vec2(ceil(p.x), ceil(p.y)));
+
+  float r1 = mix(q11, q21, fract(p.x));
+  float r2 = mix(q12, q22, fract(p.x));
+
+  return mix(r1, r2, fract(p.y));
 }
 
 void main() {
+  vec2 position = gl_FragCoord.xy / resolution.xx;
+  float tiles = 8.0;
+  position *= tiles;
 
-  vec3 cLight = normalize(vec3(.5, .5, 1.0));
-  float diffuse = max(0.0, dot(normal, cLight));
+  float noise = interpolatedNoise(position.xy);
+  vec3 color = vec3(noise);
 
-  float noise = randomNoise(gl_Position);
-  vec3 color = vec3(noise * diffuse);
-
-  gl_FragColor = vec4(color, diffuse);
+  gl_FragColor = vec4(color, 1.0);
 }
