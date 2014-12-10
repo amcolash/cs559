@@ -12,12 +12,12 @@
 
 
 Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs,
-  char* vert, char* frag, char* texture, bool special)
+  char* vert, char* frag, char* texture, float scale, bool special)
   : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert),
-    texture(texture), special(special)
+    texture(texture), special(special), scale(scale)
 {
   transMatrix(transform, t[0], t[1], t[2]);
-  glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
+  glm::mat4 tempscale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
 
   // generate points and normals only once
 
@@ -26,12 +26,12 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
   for (int i = 0; i <= divs - 1; i++) {
     // Current rotation
     glm::mat4 rotateY1 = glm::rotate(
-      scale, i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+      tempscale, i * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
     // Rotation for next vertex (step + 1)
     glm::mat4 rotateY2 = glm::rotate(
-      scale, (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
+      tempscale, (i + 1) * divStep, glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
     glm::vec4 point1, point2;
@@ -65,7 +65,8 @@ void Surface::draw(DrawingState* ds){
       }
     }
   } else if (texture != NULL) {
-    fetchTexture(texture);
+    fetchTexture(texture, true, true);
+    glColor3f(1.0, 1.0, 1.0);
   }
   
   glPushMatrix();
@@ -98,17 +99,32 @@ void Surface::draw(DrawingState* ds){
 
     glBegin(GL_TRIANGLE_STRIP);
 
+    int debug = 0;
+
     // Build triangle strip from computed verticies and use computed normals
     for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
       glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
 
+      if (texture != NULL) {
+        float s = ( (float) (j - (i * perDiv) ) / (float) (perDiv - 1)) * scale;
+        float t = ( (float) (i + 1) / (float) (divs)) * scale;
+        glTexCoord2f(s, t);
+      }
+
       glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
+      
+      if (texture != NULL) {
+        float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * scale;
+        float t = ((float)i / (float)(divs)) * scale;
+        glTexCoord2f(s, t);
+      }
+
       glVertex3f(points[j][0], points[j][1], points[j][2]);
     }
 
     glEnd();
   }
-
+  
   glUseProgram(0);
   glBindTexture(GL_TEXTURE_2D, 0);
 

@@ -6,7 +6,8 @@
 
 class Surface : public GrObject {
 public:
-  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert, char* frag, char* texture, bool special);
+  Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert,
+    char* frag, char* texture, float scale, bool special);
   Color color;
   std::vector<glm::vec3> points;
   std::vector<glm::vec3> normals;
@@ -16,12 +17,21 @@ public:
   char* frag;
   char* vert;
   char* texture;
+  float scale;
   bool special;
   float counter;
   virtual void draw(DrawingState*);
 };
 
 // Define some surfaces below to make things easier
+
+
+// A cyllinder
+const std::vector<glm::vec3> S_CYL = {
+  glm::vec3(10.0, 30.0, 0.0),
+  glm::vec3(10.0, 15.0, 0.0),
+  glm::vec3(10.0, 0.0, 0.0)
+};
 
 // A Building
 const std::vector<glm::vec3> S_BUILDING = {

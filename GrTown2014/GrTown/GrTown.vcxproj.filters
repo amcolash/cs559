@@ -238,6 +238,9 @@
     <None Include="Shaders\flag.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\UV.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\todo.txt" />

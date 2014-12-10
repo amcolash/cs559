@@ -60,7 +60,7 @@ void GraphicsTownUI::cb_particles(Fl_Value_Slider* o, void* v) {
 }
 
 Fl_Double_Window* GraphicsTownUI::make_window() {
-  { window = new Fl_Double_Window(950, 667, "CS 559 Graphics Town!");
+  { window = new Fl_Double_Window(928, 645, "CS 559 Graphics Town!");
     window->labelsize(12);
     window->user_data((void*)(this));
     { TownViewWidget* o = townView = new TownViewWidget(5, 5, 760, 635);
@@ -76,7 +76,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
       Fl_Group::current()->resizable(townView);
       o->ui = this;
     } // TownViewWidget* townView
-    { Fl_Group* o = new Fl_Group(765, 5, 170, 646);
+    { Fl_Group* o = new Fl_Group(770, 5, 155, 644);
       { Fl_Browser* o = pickCamera = new Fl_Browser(770, 5, 155, 165, "view");
         pickCamera->type(2);
         pickCamera->callback((Fl_Callback*)cb_pickCamera);
@@ -84,7 +84,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         for(vector<GrObject*>::iterator g=theObjects.begin(); g != theObjects.end(); ++g)
         if((*g)->ridable) o->add((*g)->name.c_str(),*g);
       } // Fl_Browser* pickCamera
-      { cull = new Fl_Button(765, 588, 80, 25, "Backface Cull");
+      { cull = new Fl_Button(770, 588, 75, 25, "Backface Cull");
         cull->type(1);
         cull->value(1);
         cull->selection_color((Fl_Color)11);
@@ -104,7 +104,7 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         fov->value(45);
         fov->callback((Fl_Callback*)cb_fov);
       } // Fl_Value_Slider* fov
-      { lgTex = new Fl_Button(850, 588, 80, 25, "textured ground");
+      { lgTex = new Fl_Button(850, 588, 75, 25, "textured ground");
         lgTex->type(1);
         lgTex->value(1);
         lgTex->selection_color((Fl_Color)11);
@@ -142,13 +142,13 @@ Fl_Double_Window* GraphicsTownUI::make_window() {
         particles->value(150);
         particles->callback((Fl_Callback*)cb_particles);
       } // Fl_Value_Slider* particles
-      { skybox = new Fl_Button(765, 618, 80, 33, "SkyBox");
+      { skybox = new Fl_Button(770, 617, 75, 25, "SkyBox");
         skybox->type(1);
         skybox->value(1);
         skybox->selection_color((Fl_Color)11);
         skybox->labelsize(12);
       } // Fl_Button* skybox
-      { advanceTime = new Fl_Button(849, 618, 85, 33, "Advance Time");
+      { advanceTime = new Fl_Button(850, 617, 75, 25, "Advance Time");
         advanceTime->type(1);
         advanceTime->value(1);
         advanceTime->selection_color((Fl_Color)11);

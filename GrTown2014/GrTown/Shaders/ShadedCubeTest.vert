@@ -9,4 +9,5 @@ void main()
 	// inline comments should work
 	gl_Position = ftransform();	// like this one
 	normal = gl_Normal;
+  gl_TexCoord[0] = gl_MultiTexCoord0;
 }
