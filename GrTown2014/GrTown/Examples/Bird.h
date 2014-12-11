@@ -10,9 +10,5 @@ public:
 	Color color;
 	float count;
 	int ID;
-	float speed;
 	virtual void draw(DrawingState*);
-	std::vector<float> rotations;
-	DrawingState* ds;
-	float getSpeed();
 };

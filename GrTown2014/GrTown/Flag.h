@@ -1,4 +1,4 @@
-#include "GrObject.H"
+/*#include "GrObject.H"
 #include "DrawingState.H"
 #include <glm/glm.hpp>
 #include <vector>
@@ -11,4 +11,4 @@ public:
 	int shader;
 	bool triedShader = false;
 	virtual void draw(DrawingState*);
-};
+};*/

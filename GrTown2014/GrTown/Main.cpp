@@ -187,18 +187,16 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our added objects */
 
-  Flag* f = new Flag(2050.0, 0.0, 500.0, 0, 0, 0);
+  Flag* f = new Flag(1595.0, 0.0, 480.0, 0, 0, 0);
   add(f);
 
   // Add 40 birds (simpler)
-  int numBirds = 85;
+  int numBirds = 86;
   for (int i = 0; i < numBirds; i++) {
     Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
     add(b);
-    if (i < numBirds - 1)
-      new BirdFly(b, i, 0);
-    else
-      new BirdFly(b, i, 0);
+    new BirdFly(b, i, 0);
+
   }
 
   //b2->interesting = true;

@@ -136,7 +136,6 @@
     <ClInclude Include="Examples\Suburbs.H" />
     <ClInclude Include="Examples\SunMoon.h" />
     <ClInclude Include="Examples\Surface.h" />
-    <ClInclude Include="Flag.h" />
     <ClInclude Include="FlyCamera.H" />
     <ClInclude Include="GraphicsTownUI.H" />
     <ClInclude Include="GrObject.H" />
@@ -164,7 +163,6 @@
     <ClCompile Include="Examples\Suburbs.cpp" />
     <ClCompile Include="Examples\SunMoon.cpp" />
     <ClCompile Include="Examples\Surface.cpp" />
-    <ClCompile Include="Flag.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="GraphicsTownUI.cxx" />
     <ClCompile Include="GrObject.cpp" />
