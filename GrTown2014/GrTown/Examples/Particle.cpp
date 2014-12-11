@@ -40,7 +40,7 @@ void Particle::initParticle(Part *p) {
   p->age = 0;
   p->active = true;
   p->maxAge = randInt(10, 30);
-  p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.4, 1.0), randFloat(0.5, 1.0));
+  p->c = Color(randFloat(0.3, 0.5), randFloat(0.4, 0.7), randFloat(0.5, 1.0), randFloat(0.5, 0.75));
 }
 
 void Particle::draw(DrawingState* st) {
@@ -58,6 +58,19 @@ void Particle::draw(DrawingState* st) {
   //glUseProgram(shader);
   */
 
+  glDisable(GL_LIGHT0);
+
+  if ((st->timeOfDay >= 5) && (st->timeOfDay <= 19)) {
+    float a0[] = { .3f, .3f, .3f, .3f };
+    glLightfv(GL_LIGHT1, GL_AMBIENT, a0);
+  }
+  else {
+    float a1[] = { .2f, .2f, .2f, .2f };
+    glLightfv(GL_LIGHT1, GL_AMBIENT, a1);
+  }
+
+  glEnable(GL_LIGHT1);
+
   if (num != st->particles) {
     initList(num, st->particles);
     num = st->particles;
@@ -66,6 +79,7 @@ void Particle::draw(DrawingState* st) {
   // Enable blending
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_COLOR, GL_ONE);
+  //glBlendEquation(GL_FUNC_ADD);
 
   for (int i = 0; i < num; i++) {
     Part *p = &particleList[i];
@@ -94,6 +108,9 @@ void Particle::draw(DrawingState* st) {
 
   glDisable(GL_BLEND);
   //glUseProgram(0);
+  glDisable(GL_LIGHT1);
+
+  glEnable(GL_LIGHT0);
 }
 
 float randFloat(float min, float max) {
