@@ -50,10 +50,9 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
   }
 
   y = 0;
-  x = randFloat(-100.0, 100.0);
-  z = randFloat(-100.0, 100.0);
+  x = randFloat(600.0, 1500.0);
+  z = randFloat(300.0, 620.0);
   vx = vy = vz = 3.0;
-
 
   counter = 0;
 }
@@ -111,17 +110,21 @@ void Surface::draw(DrawingState* ds){
       z += (vz * ds->speedup);
       glTranslatef(x, y, z);
 
-      if (x > 250 || x < -250) {
-        vx *= (-1 * randFloat(0.85, 1.15));
+      if (x < 530 || x > 1590) {
+        vx *= -1;
       }
-      if (z > 250 || z < -250) {
-        vz *= (-1 * randFloat(0.85, 1.15));
+      if (z < 0 || z > 690) {
+        vz *= -1;
       }
+
+      glPushMatrix();
 
       if (texture == "metal.png")
         glRotatef(-counter, 0.0, 1.0, 0.0);
       else
         glRotatef(counter, 0.0, 1.0, 0.0);
+
+      glPopMatrix();
     }
 
     for (int i = 0; i <= divs - 1; i++) {

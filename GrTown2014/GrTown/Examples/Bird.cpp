@@ -159,7 +159,8 @@ void Bird::draw(DrawingState* state){
 	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
-	//glUseProgram(0);
+	
+  glUseProgram(0);
 	//Increment rotation of wing
 	count += .4;
 }

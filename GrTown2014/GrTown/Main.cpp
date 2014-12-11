@@ -107,7 +107,7 @@ int main(int /*argc*/, char** /*argv*/)
   int r, c;
   // make a 5x5 grid of town blocks - 5 houses per
   for (r = 0; r < 4; r++) {
-    for (c = 0; c < 5; c++) {  
+    for (c = 0; c < 4; c++) {  
       if (r == 2 && c == 2) {
         add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
       } else if (r == 2 && c == 3) {
@@ -119,17 +119,28 @@ int main(int /*argc*/, char** /*argv*/)
       add(new StraightRoad(static_cast<float>(r * 530), static_cast<float>(c * 230), static_cast<float>(r * 530 + 500), static_cast<float>(c * 230)));
     }
   }
+
+  for (r = 0; r < 4; r++) {
+    add(new StraightRoad(static_cast<float>(r * 530), static_cast<float>(c * 230), static_cast<float>(r * 530 + 500), static_cast<float>(c * 230)));
+  }
+  c = -1;
+  for (r = 0; r < 4; r++) {
+    add(new StraightRoad(static_cast<float>(r * 530), static_cast<float>(c * 230), static_cast<float>(r * 530 + 500), static_cast<float>(c * 230)));
+  }
+
   // make cross streets
+  
   for (int r = 0; r <= 4; r++) {
-    for (c = 0; c < 4; c++) {
+    for (c = -1; c < 4; c++) {
       add(new StraightRoad(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 15), static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 215)));
     }
   }
+  
 
   // make intersections
   // make an intersection intersesting so we can look at it
   for (int r = 0; r <= 4; r++) {
-    for (c = 0; c < 5; c++) {
+    for (c = -1; c < 5; c++) {
       GrObject* g = new Intersection(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230));
       if ((r == 2) && (c == 3)) {
         g->interesting = 1;
@@ -194,7 +205,6 @@ int main(int /*argc*/, char** /*argv*/)
     Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
     add(b);
     new BirdFly(b, i, 0);
-
   }
 
   //b2->interesting = true;
@@ -203,23 +213,12 @@ int main(int /*argc*/, char** /*argv*/)
   //b1->laX = 0; b1->laY = 0; 1b->laZ = -30;
   //b1->lfX = 0; b1->lfY = 15; b1->lfZ = 25;
 
-  // Add building
-  Surface* b1 = new Surface(glm::vec3(80, 0, 0), glm::vec3(0.75, 1.0, 0.75), S_BUILDING, 48,
-    NULL, NULL, "metal003.png", 4.0, 12.0, false);
-  add(b1);
-
-  Surface* ring = new Surface(glm::vec3(80, 0, -20), glm::vec3(1.0, 1.0, 1.0), S_RING, 32,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", NULL, 0.0, 0.0, false);
-  add(ring);
-
-
-
   // Add UFO
-  Surface* ufoBase = new Surface(glm::vec3(120, 48, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
+  Surface* ufoBase = new Surface(glm::vec3(0, 88, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 64,
     NULL, NULL, "metal003.png", 8.0, 2.0, true);
   add(ufoBase);
 
-  Surface* ufoBottom = new Surface(glm::vec3(120, 50, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO_BOTTOM, 64,
+  Surface* ufoBottom = new Surface(glm::vec3(0, 90, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 64,
     NULL, NULL, "metal.png", 2.0, 2.0, true);
   add(ufoBottom);
 
