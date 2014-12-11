@@ -467,6 +467,10 @@ int nHouseColors = 6;
 // a 100x200 lot...
 SimpleLot::SimpleLot(int ht, int hc)  
 {
+  Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 8,
+    NULL, NULL, "window3.jpg", 10.0, 9.8, false);
+  Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 3.0, 2.0), S_BUILDING, 8,
+    NULL, NULL, "metal003.png", 4.0, 12.0, false);
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
   switch(ht % 6) {
@@ -486,14 +490,11 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  add(h3,50.,0,60.,0);
 	  break; }
   case 3: {
-	  Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 8,
-		  NULL, NULL, "window3.jpg", 10.0, 9.8, false);
+
 	  add(hut, 50., 0, 60., 0);
 	  break;
   }
   case 4: {
-	  Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 3.0, 2.0), S_BUILDING, 8,
-		  NULL, NULL, "metal003.png", 4.0, 12.0, false);
 	  add(b1, 50., 0, 60., 0);
 	  break;
   }
