@@ -17,22 +17,15 @@ public:
   char* frag;
   char* vert;
   char* texture;
-  float sScale;
-  float tScale;
+  float sScale, tScale;
   bool special;
+  float x, y, z, vx, vy, vz;
   float counter;
   virtual void draw(DrawingState*);
+  float randFloat(float min, float max);
 };
 
 // Define some surfaces below to make things easier
-
-
-// A cyllinder
-const std::vector<glm::vec3> S_CYL = {
-  glm::vec3(10.0, 30.0, 0.0),
-  glm::vec3(10.0, 15.0, 0.0),
-  glm::vec3(10.0, 0.0, 0.0)
-};
 
 // A Building
 const std::vector<glm::vec3> S_BUILDING = {
@@ -82,6 +75,7 @@ const std::vector<glm::vec3> S_WATER = {
 };
 
 // A UFO
+/*
 const std::vector<glm::vec3> S_UFO = {
   glm::vec3(0.0, 17.0, 0.0),
   glm::vec3(1.0, 17.0, 0.0),
@@ -97,6 +91,29 @@ const std::vector<glm::vec3> S_UFO = {
   glm::vec3(20.0, 0.0, 0.0),
   glm::vec3(13.0, 2.0, 0.0),
   glm::vec3(6.0, 2.0, 0.0),
+  glm::vec3(0.0, 2.0, 0.0)
+};
+*/
+
+const std::vector<glm::vec3> S_UFO = {
+  glm::vec3(0.0, 17.0, 0.0),
+  glm::vec3(1.0, 17.0, 0.0),
+  glm::vec3(1.0, 12.0, 0.0),
+  glm::vec3(5.0, 12.0, 0.0),
+  glm::vec3(9.0, 11.5, 0.0),
+  glm::vec3(14.0, 10.25, 0.0),
+  glm::vec3(18.0, 8.25, 0.0),
+  glm::vec3(21.0, 6.0, 0.0),
+  glm::vec3(22.5, 4.0, 0.0),
+  glm::vec3(23.5, 2.0, 0.0),
+  glm::vec3(0.0, 7.0, 0.0)
+};
+
+const std::vector<glm::vec3> S_UFO_BOTTOM = {
+  glm::vec3(23.5, 0.0, 0.0),
+  glm::vec3(20.0, 0.0, 0.0),
+  glm::vec3(13.0, 1.5, 0.0),
+  glm::vec3(6.0, 1.85, 0.0),
   glm::vec3(0.0, 2.0, 0.0)
 };
 

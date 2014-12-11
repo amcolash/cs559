@@ -221,9 +221,13 @@ int main(int /*argc*/, char** /*argv*/)
   add(hut);
 
   // Add UFO
-  Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "ShadedCubeTest.vert", "UFO.frag", NULL, 0.0, 0.0, true);
-  add(ufo);
+  Surface* ufoBase = new Surface(glm::vec3(120, 48, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
+    NULL, NULL, "metal003.png", 8.0, 2.0, true);
+  add(ufoBase);
+
+  Surface* ufoBottom = new Surface(glm::vec3(120, 50, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO_BOTTOM, 64,
+    NULL, NULL, "metal.png", 2.0, 2.0, true);
+  add(ufoBottom);
 
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
@@ -240,6 +244,7 @@ int main(int /*argc*/, char** /*argv*/)
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
+
 
   /* End our new items for the world */
 
