@@ -43,7 +43,7 @@ void Road::draw(DrawingState*)
   glPolygonOffset(-1.,-2.);
   glColor3f(.6f,.6f,.6f);
   glNormal3f(0,1,0);
-  fetchTexture("asphalt.png",true,true);
+  fetchTexture("asphalt-lines.png",true,true);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   roadDraw();

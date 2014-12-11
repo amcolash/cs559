@@ -106,11 +106,11 @@ int main(int /*argc*/, char** /*argv*/)
   // now to make a real town!
   int r, c;
   // make a 5x5 grid of town blocks - 5 houses per
-  for (r = 0; r < 5; r++) {
+  for (r = 0; r < 4; r++) {
     for (c = 0; c < 5; c++) {  
-      if (r == 3 && c == 2) {
+      if (r == 2 && c == 2) {
         add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
-      } else if (r == 3 && c == 3) {
+      } else if (r == 2 && c == 3) {
         add(new SimpleSubdivision(5, 1), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
       } else {
         add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
@@ -120,7 +120,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
   }
   // make cross streets
-  for (int r = 0; r <= 5; r++) {
+  for (int r = 0; r <= 4; r++) {
     for (c = 0; c < 4; c++) {
       add(new StraightRoad(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 15), static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 215)));
     }
@@ -128,7 +128,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // make intersections
   // make an intersection intersesting so we can look at it
-  for (int r = 0; r <= 5; r++) {
+  for (int r = 0; r <= 4; r++) {
     for (c = 0; c < 5; c++) {
       GrObject* g = new Intersection(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230));
       if ((r == 2) && (c == 3)) {
@@ -188,7 +188,7 @@ int main(int /*argc*/, char** /*argv*/)
 
 
 
-  // Add 40 birds (simpler)
+  // Add 85 birds
   int numBirds = 86;
   for (int i = 0; i < numBirds; i++) {
     Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
@@ -212,15 +212,16 @@ int main(int /*argc*/, char** /*argv*/)
     "ShadedCubeTest.vert", "ShadedCubeTest.frag", NULL, 0.0, 0.0, false);
   add(ring);
 
-  Surface* hut = new Surface(glm::vec3(150, 0, 20), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 48,
-    NULL, NULL, "window2.jpg", 10.0, 9.8, false);
-  add(hut);
+
 
   // Add UFO
-  Surface* ufo = new Surface(glm::vec3(120, 25, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
-    "ShadedCubeTest.vert", "UFO.frag", NULL, 0.0, 0.0, true);
-  add(ufo);
+  Surface* ufoBase = new Surface(glm::vec3(120, 48, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO, 64,
+    NULL, NULL, "metal003.png", 8.0, 2.0, true);
+  add(ufoBase);
 
+  Surface* ufoBottom = new Surface(glm::vec3(120, 50, 15), glm::vec3(0.75, 1.0, 0.75), S_UFO_BOTTOM, 64,
+    NULL, NULL, "metal.png", 2.0, 2.0, true);
+  add(ufoBottom);
 
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
@@ -232,16 +233,12 @@ int main(int /*argc*/, char** /*argv*/)
   add(moon, 1500.0, 0.0, 250.0);
 
   Park* p = new Park();
-  add(p, 1590, 0, 460);
+  add(p, 1060, 0, 460);
   p->name = "Park";
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
 
-  add(new Flag(1595.0, 0.0, 480.0, 0, 0, 0));
-  add(new Flag(1595.0, 0.0, 670.0, 0, 0, 0));
-  add(new Flag(2085.0, 0.0, 480.0, 0, 0, 0));
-  add(new Flag(2085.0, 0.0, 670.0, 0, 0, 0));
 
   /* End our new items for the world */
 

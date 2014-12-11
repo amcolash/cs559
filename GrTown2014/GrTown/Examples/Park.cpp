@@ -29,6 +29,7 @@ Fountain::Fountain(glm::vec3 scale) {
   srand(static_cast <unsigned> (time(0)));
   Particle* p = new Particle(0, 8 * scale[1], 0, scale[0]);
   add(p);
+
 }
 
 Ground::Ground() {
