@@ -7,9 +7,11 @@
 #include <FL/fl_ask.H>
 #include "Utilities/ShaderTools.H"
 
+bool triedShader = false;
+int shader;
 
 Bird::Bird(float x, float y, float z, float r, float g, float b, int ID)
-	: color(r, g, b), count(count), ID(ID), shader(shader)
+	: color(r, g, b), count(count), ID(ID)
 {
 	count = 0;
 	transMatrix(transform, x, y, z);
