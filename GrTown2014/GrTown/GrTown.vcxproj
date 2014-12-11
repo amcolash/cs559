@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -56,7 +56,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\FLTK 1.3.2\include;C:\Program Files\glew\include;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\glm;C:\Program Files (x86)\glm-0.9.5.4;C:\Program Files (x86)\FLTK 1.3.2\include;C:\Program Files (x86)\glew-1.7.0\include;C:\Program Files (x86)\glew\include;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -64,11 +64,12 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <AdditionalDependencies>fltkd.lib;fltkgld.lib;comctl32.lib;wsock32.lib;opengl32.lib;glu32.lib;fltkjpegd.lib;fltkpngd.lib;fltkzlibd.lib;fltkimagesd.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)GrTown.exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\FLTK 1.3.2\lib;C:\Program Files\glew\lib\Release\Win32\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\glew-1.7.0\lib;C:\Program Files (x86)\FLTK 1.3.2\lib;C:\Program Files (x86)\glew\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)GrTown.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -87,7 +88,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\FLTK 1.3.2\include;C:\Program Files\glew\include;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\glm-0.9.5.4;C:\Program Files (x86)\FLTK 1.3.2\include;C:\Program Files (x86)\glew-1.7.0\include;C:\Program Files (x86)\glew\include;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
@@ -97,7 +98,7 @@
     <Link>
       <AdditionalDependencies>fltk.lib;fltkgl.lib;comctl32.lib;wsock32.lib;opengl32.lib;glu32.lib;fltkjpeg.lib;fltkpng.lib;fltkimages.lib;fltkzlib.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)GrTown.exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\FLTK 1.3.2\lib;C:\Program Files\glew\lib\Release\Win32\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\FLTK 1.3.2\lib;C:\Program Files (x86)\glew-1.7.0\lib;C:\Program Files (x86)\glew\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -125,10 +126,16 @@
     <ClInclude Include="Behavior.H" />
     <ClInclude Include="DrawingState.H" />
     <ClInclude Include="DrawUtils.H" />
+    <ClInclude Include="Examples\Bird.h" />
+    <ClInclude Include="Examples\BirdFly.h" />
     <ClInclude Include="Examples\Cars.H" />
     <ClInclude Include="Examples\Objects.H" />
+    <ClInclude Include="Examples\Park.h" />
+    <ClInclude Include="Examples\Particle.h" />
     <ClInclude Include="Examples\SimpleBehaviors.H" />
     <ClInclude Include="Examples\Suburbs.H" />
+    <ClInclude Include="Examples\SunMoon.h" />
+    <ClInclude Include="Examples\Surface.h" />
     <ClInclude Include="FlyCamera.H" />
     <ClInclude Include="GraphicsTownUI.H" />
     <ClInclude Include="GrObject.H" />
@@ -146,10 +153,16 @@
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="DrawingState.cpp" />
     <ClCompile Include="DrawUtils.cpp" />
+    <ClCompile Include="Examples\Bird.cpp" />
+    <ClCompile Include="Examples\BirdFly.cpp" />
     <ClCompile Include="Examples\Cars.cpp" />
     <ClCompile Include="Examples\Objects.cpp" />
+    <ClCompile Include="Examples\Park.cpp" />
+    <ClCompile Include="Examples\Particle.cpp" />
     <ClCompile Include="Examples\SimpleBehaviors.cpp" />
     <ClCompile Include="Examples\Suburbs.cpp" />
+    <ClCompile Include="Examples\SunMoon.cpp" />
+    <ClCompile Include="Examples\Surface.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="GraphicsTownUI.cxx" />
     <ClCompile Include="GrObject.cpp" />
@@ -160,7 +173,24 @@
     <ClCompile Include="Roads\Roads.cpp" />
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Billboard.vert" />
+    <None Include="Shaders\Building.frag" />
+    <None Include="Shaders\flag.frag" />
+    <None Include="Shaders\flag.vert" />
+    <None Include="Shaders\Fountain.frag" />
+    <None Include="Shaders\Moon.frag" />
+    <None Include="Shaders\ShadedCubeTest.frag" />
+    <None Include="Shaders\ShadedCubeTest.vert" />
+    <None Include="Shaders\Sun.frag" />
+    <None Include="Shaders\UFO.frag" />
+    <None Include="Shaders\UV.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\todo.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+
