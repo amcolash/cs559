@@ -106,11 +106,11 @@ int main(int /*argc*/, char** /*argv*/)
   // now to make a real town!
   int r, c;
   // make a 5x5 grid of town blocks - 5 houses per
-  for (r = 0; r < 5; r++) {
+  for (r = 0; r < 4; r++) {
     for (c = 0; c < 5; c++) {  
-      if (r == 3 && c == 2) {
+      if (r == 2 && c == 2) {
         add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
-      } else if (r == 3 && c == 3) {
+      } else if (r == 2 && c == 3) {
         add(new SimpleSubdivision(5, 1), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
       } else {
         add(new SimpleSubdivision(5, 0), static_cast<float>(r * 530), 0, static_cast<float>(c * 230));
@@ -120,7 +120,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
   }
   // make cross streets
-  for (int r = 0; r <= 5; r++) {
+  for (int r = 0; r <= 4; r++) {
     for (c = 0; c < 4; c++) {
       add(new StraightRoad(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 15), static_cast<float>(r * 530 - 15), static_cast<float>(c * 230 + 215)));
     }
@@ -128,7 +128,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   // make intersections
   // make an intersection intersesting so we can look at it
-  for (int r = 0; r <= 5; r++) {
+  for (int r = 0; r <= 4; r++) {
     for (c = 0; c < 5; c++) {
       GrObject* g = new Intersection(static_cast<float>(r * 530 - 15), static_cast<float>(c * 230));
       if ((r == 2) && (c == 3)) {
@@ -188,7 +188,7 @@ int main(int /*argc*/, char** /*argv*/)
 
 
 
-  // Add 40 birds (simpler)
+  // Add 85 birds
   int numBirds = 86;
   for (int i = 0; i < numBirds; i++) {
     Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
@@ -235,7 +235,7 @@ int main(int /*argc*/, char** /*argv*/)
   add(moon, 1500.0, 0.0, 250.0);
 
   Park* p = new Park();
-  add(p, 1590, 0, 460);
+  add(p, 1060, 0, 460);
   p->name = "Park";
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
