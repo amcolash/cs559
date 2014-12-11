@@ -32,7 +32,6 @@
 #include "Examples/Park.h"
 #include "Examples/BirdFly.h"
 #include "Examples/SunMoon.h"
-#include "Flag.h"
 
 #include <time.h>
 
@@ -187,8 +186,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our added objects */
 
-  Flag* f = new Flag(1595.0, 0.0, 480.0, 0, 0, 0);
-  add(f);
+
 
   // Add 40 birds (simpler)
   int numBirds = 86;
@@ -238,6 +236,9 @@ int main(int /*argc*/, char** /*argv*/)
   p->interesting = true;
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
+
+  Flag* f = new Flag(1595.0, 0.0, 480.0, 0, 0, 0);
+  add(f);
 
   /* End our new items for the world */
 

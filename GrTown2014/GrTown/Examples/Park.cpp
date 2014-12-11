@@ -96,15 +96,17 @@ void Flag::draw(DrawingState* ds){
 		glUniform1f(waveTimeLoc, waveTime);
 		glUniform1f(waveWidthLoc, waveWidth);
 		glUniform1f(waveHeightLoc, waveHeight);
-
+		
+		GLint widthUniformLocation = glGetUniformLocation(shader, "resolution");
+		glUniform2f(widthUniformLocation, ds->width, ds->height);
 	}
 
 
 	/* Draw flag */
-	fetchTexture("murica.jpg", true, true);
 	glPushMatrix();
 	glTranslated(0, 90, 0);
 	glRotated(90, 0, 1, 0);
+	glNormal3f(-1, 0, 0);
 	glBegin(GL_QUADS);
 	glVertex3f(0, -20, 0);
 	glVertex3f(0, 10, 0);
@@ -113,6 +115,7 @@ void Flag::draw(DrawingState* ds){
 	glEnd();
 
 	glBegin(GL_QUADS);
+	glNormal3f(1, 0, 0);
 	glVertex3f(30, -20, 30);
 	glVertex3f(30, 10, 30);
 	glVertex3f(0, 10, 0);
