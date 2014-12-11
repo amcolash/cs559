@@ -12,9 +12,9 @@
 
 
 Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs,
-  char* vert, char* frag, char* texture, float scale, bool special)
+  char* vert, char* frag, char* texture, float sScale, float tScale, bool special)
   : divs(divs), points(points), normals(normals), shader(shader), frag(frag), vert(vert),
-    texture(texture), special(special), scale(scale)
+    texture(texture), special(special), sScale(sScale), tScale(tScale)
 {
   transMatrix(transform, t[0], t[1], t[2]);
   glm::mat4 tempscale = glm::scale(glm::mat4(1.0f), glm::vec3(s[0], s[1], s[2]));
@@ -86,9 +86,9 @@ void Surface::draw(DrawingState* ds){
     GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
     glUniform1f(speedupUniformLocation, ds->speedup);
     if (special) {
-      counter = fmod((counter + (0.049087 * ds->speedup)), 3.14159);
-      GLint rotationUniformLocation = glGetUniformLocation(shader, "counter");
-      glUniform1f(speedupUniformLocation, counter);
+      counter += (ds->speedup * 1.0);
+      GLint counterUniformLocation = glGetUniformLocation(shader, "counter");
+      glUniform1f(counterUniformLocation, counter);
     }
   }
 
@@ -99,23 +99,21 @@ void Surface::draw(DrawingState* ds){
 
     glBegin(GL_TRIANGLE_STRIP);
 
-    int debug = 0;
-
     // Build triangle strip from computed verticies and use computed normals
     for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
       glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
 
       if (texture != NULL) {
-        float s = ( (float) (j - (i * perDiv) ) / (float) (perDiv - 1)) * scale;
-        float t = ( (float) (i + 1) / (float) (divs)) * scale;
+        float s = ( (float) (j - (i * perDiv) ) / (float) (perDiv - 1)) * tScale;
+        float t = ( (float) (i + 1) / (float) (divs)) * sScale;
         glTexCoord2f(s, t);
       }
 
       glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
       
       if (texture != NULL) {
-        float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * scale;
-        float t = ((float)i / (float)(divs)) * scale;
+        float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * tScale;
+        float t = ((float)i / (float)(divs)) * sScale;
         glTexCoord2f(s, t);
       }
 

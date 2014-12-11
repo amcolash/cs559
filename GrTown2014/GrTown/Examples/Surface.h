@@ -7,7 +7,7 @@
 class Surface : public GrObject {
 public:
   Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> points, int divs, char* vert,
-    char* frag, char* texture, float scale, bool special);
+    char* frag, char* texture, float sScale, float tScale, bool special);
   Color color;
   std::vector<glm::vec3> points;
   std::vector<glm::vec3> normals;
@@ -17,7 +17,8 @@ public:
   char* frag;
   char* vert;
   char* texture;
-  float scale;
+  float sScale;
+  float tScale;
   bool special;
   float counter;
   virtual void draw(DrawingState*);

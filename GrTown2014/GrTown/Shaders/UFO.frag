@@ -1,4 +1,14 @@
 varying vec3 normal;
+uniform float counter;
+
+void main()
+{
+  gl_FragColor = vec4(normal * (sin(counter * 10.0) + 1.0) * 0.5,
+    (sin(counter * 10.0) + 1.0) * 0.5);
+}
+
+/*
+varying vec3 normal;
 uniform int timeOfDay;
 uniform float ambient;
 uniform vec4 light;
@@ -21,3 +31,4 @@ void main() {
 
   gl_FragColor = vec4(mycolor[0], mycolor[1], mycolor[2], alpha);
 }
+*/

@@ -27,5 +27,5 @@ void main()
   modelView[2][2] = 0.0;
 
   gl_Position = gl_ProjectionMatrix * modelView * gl_Vertex;
-  fPosition = gl_Position;
+  fPosition = gl_Position.xyz;
 }
