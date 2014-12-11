@@ -68,6 +68,7 @@ void Surface::draw(DrawingState* ds){
     }
   } else if (texture != NULL) {
     fetchTexture(texture, true, true);
+
     glColor3f(1.0, 1.0, 1.0);
   }
   

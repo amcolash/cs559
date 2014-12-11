@@ -1,20 +1,37 @@
+#include "../GrTown_PCH.H"
 #include "Bird.h"
 #include "Utilities/Texture.H"
 #include <glm/gtc/matrix_transform.hpp>
 #include <math.h>
 #include <glm/glm.hpp>
-
+#include <FL/fl_ask.H>
+#include "Utilities/ShaderTools.H"
 
 
 Bird::Bird(float x, float y, float z, float r, float g, float b, int ID)
-	: color(r, g, b), count(count), ID(ID)
+	: color(r, g, b), count(count), ID(ID), shader(shader)
 {
 	count = 0;
 	transMatrix(transform, x, y, z);
 }
 
 void Bird::draw(DrawingState* state){
-
+	if (!triedShader) {
+		triedShader = true;
+		char* error;
+		if (!(shader = loadShader("ShadedCubeTest.vert", "Bird.frag", error))) {
+			std::string s = "Can't Load Surface Shader:";
+			s += error;
+			fl_alert(s.c_str());
+		}
+	}
+	if (shader != 0){
+		glUseProgram(shader);
+		GLint ambientLoc = glGetUniformLocation(shader, "ambient");
+		GLint lightLoc = glGetUniformLocation(shader, "light");
+		glUniform4f(lightLoc, state->lightPos[0], state->lightPos[1], state->lightPos[2], state->lightPos[3]);
+		glUniform1f(ambientLoc, state->ambient);
+	}
 	glPushMatrix();
 	this->transform[3][0] += state->speedup*8;
 	/* Make birds re-appear at other side of the environment */
@@ -36,17 +53,17 @@ void Bird::draw(DrawingState* state){
 	GLUquadricObj *quadric = gluNewQuadric();
 
 	//Draw beak
-	gluCylinder(quadric, .2, 0, 1, 20, 20);
+	gluCylinder(quadric, .2, 0, 1, 3, 1);
 	gluQuadricDrawStyle(quadric, GLU_FILL);
 
 	//Draw head
-	gluSphere(quadric, 0.5, 36, 18);
+	gluSphere(quadric, 0.5, 5, 5);
 	gluDeleteQuadric(quadric);
 	quadric = gluNewQuadric();
 	glTranslated(0, 0, -1.1);
 
 	//Draw body
-	gluSphere(quadric, .7, 20, 20);
+	gluSphere(quadric, .7, 10, 5);
 	glPopMatrix();
 
 
@@ -54,14 +71,14 @@ void Bird::draw(DrawingState* state){
 
 	glTranslated(0, 0, -3);
 	quadric = gluNewQuadric();
-	gluCylinder(quadric, .05, .05, 1, 20, 20);
+	gluCylinder(quadric, .05, .05, 1, 5, 1);
 	glRotated(20, 0, 1, 1);
 	glTranslated(-.2, 0, 0);
-	gluCylinder(quadric, 0.05, .05, 1, 20, 20);
+	gluCylinder(quadric, 0.05, .05, 1, 5, 1);
 	glTranslated(.2, 0, 0);
 	glRotated(-40, 0, 1, 1);
 	glTranslated(.2, 0, 0);
-	gluCylinder(quadric, 0.05, 0.05, 1, 10, 10);
+	gluCylinder(quadric, 0.05, 0.05, 1, 5, 1);
 	
 	glPopMatrix();
 
@@ -142,7 +159,7 @@ void Bird::draw(DrawingState* state){
 	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
-
+	//glUseProgram(0);
 	//Increment rotation of wing
 	count += .4;
 }

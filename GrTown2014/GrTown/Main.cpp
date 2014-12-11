@@ -213,7 +213,7 @@ int main(int /*argc*/, char** /*argv*/)
   add(ring);
 
   Surface* hut = new Surface(glm::vec3(150, 0, 20), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 48,
-    "ShadedCubeTest.vert", "ShadedCubeTest.frag", NULL, 0.0, 0.0, false);
+    NULL, NULL, "window2.jpg", 10.0, 9.8, false);
   add(hut);
 
   // Add UFO
@@ -221,13 +221,7 @@ int main(int /*argc*/, char** /*argv*/)
     "ShadedCubeTest.vert", "UFO.frag", NULL, 0.0, 0.0, true);
   add(ufo);
 
-<<<<<<< HEAD
-  Surface* hut = new Surface(glm::vec3(100, 0, 20), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 48,
-    NULL, NULL, "metal003.png", 2.0, false);
-  add(hut);
 
-=======
->>>>>>> 8f296d1cb21f9dd22967c7067ee26f191cb3f701
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
   sun->name = "Sun / Moon";

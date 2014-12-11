@@ -175,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Billboard.vert" />
-    <None Include="Shaders\Building.frag" />
+    <None Include="Shaders\Bird.frag" />
     <None Include="Shaders\flag.frag" />
     <None Include="Shaders\flag.vert" />
     <None Include="Shaders\Fountain.frag" />
