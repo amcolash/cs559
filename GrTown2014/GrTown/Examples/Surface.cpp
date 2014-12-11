@@ -49,115 +49,83 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     }
   }
 
-  y = 0;
-  x = randFloat(-100.0, 100.0);
-  z = randFloat(-100.0, 100.0);
-  vx = vy = vz = 3.0;
-
-
   counter = 0;
 }
 
 void Surface::draw(DrawingState* ds){
   
-  if (!special || (special && ds->timeOfDay < 5 || ds->timeOfDay >= 19)) {
+  glColor4fv(&color.r);
 
-    glColor4fv(&color.r);
-
-    if (vert != NULL && frag != NULL) {
-      if (!triedShader) {
-        triedShader = true;
-        char* error;
-        if (!(shader = loadShader(vert, frag, error))) {
-          std::string s = "Can't Load Surface Shader:";
-          s += error;
-          fl_alert(s.c_str());
-        }
+  if (vert != NULL && frag != NULL) {
+    if (!triedShader) {
+      triedShader = true;
+      char* error;
+      if (!(shader = loadShader(vert, frag, error))) {
+        std::string s = "Can't Load Surface Shader:";
+        s += error;
+        fl_alert(s.c_str());
       }
     }
-    else if (texture != NULL) {
-      fetchTexture(texture, true, true);
-      glColor3f(1.0, 1.0, 1.0);
-    }
+  } else if (texture != NULL) {
+    fetchTexture(texture, true, true);
 
-    glPushMatrix();
-
-    if (shader != 0) {
-      glUseProgram(shader);
-      /* Lighting */
-      GLint timeUniformLocation = glGetUniformLocation(shader, "timeOfDay");
-      glUniform1i(timeUniformLocation, ds->timeOfDay);
-      GLint ambientUniformLocation = glGetUniformLocation(shader, "ambient");
-      glUniform1f(ambientUniformLocation, ds->ambient);
-      GLint lightUniformLocation = glGetUniformLocation(shader, "light");
-      glUniform4fv(lightUniformLocation, 1, ds->lightPos);
-      /* Other Vars */
-      GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
-      glUniform1f(speedupUniformLocation, ds->speedup);
-      if (special) {
-        counter += (ds->speedup * 1.0);
-        GLint counterUniformLocation = glGetUniformLocation(shader, "counter");
-        glUniform1f(counterUniformLocation, counter);
-      }
-    }
-
-    int perDiv = points.size() / divs;
-    int total = points.size();
-
-    if (special) {
-      x += (vx * ds->speedup);
-      //y += (vy * ds->speedup);
-      z += (vz * ds->speedup);
-      glTranslatef(x, y, z);
-
-      if (x > 250 || x < -250) {
-        vx *= (-1 * randFloat(0.85, 1.15));
-      }
-      if (z > 250 || z < -250) {
-        vz *= (-1 * randFloat(0.85, 1.15));
-      }
-
-      if (texture == "metal.png")
-        glRotatef(-counter, 0.0, 1.0, 0.0);
-      else
-        glRotatef(counter, 0.0, 1.0, 0.0);
-    }
-
-    for (int i = 0; i <= divs - 1; i++) {
-
-      glBegin(GL_TRIANGLE_STRIP);
-
-      // Build triangle strip from computed verticies and use computed normals
-      for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
-        glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
-
-        if (texture != NULL) {
-          float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * tScale;
-          float t = ((float)(i + 1) / (float)(divs)) * sScale;
-          glTexCoord2f(s, t);
-        }
-
-        glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
-
-        if (texture != NULL) {
-          float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * tScale;
-          float t = ((float)i / (float)(divs)) * sScale;
-          glTexCoord2f(s, t);
-        }
-
-        glVertex3f(points[j][0], points[j][1], points[j][2]);
-      }
-
-      glEnd();
-    }
-
-    glUseProgram(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glPopMatrix();
+    glColor3f(1.0, 1.0, 1.0);
   }
-}
+  
+  glPushMatrix();
 
-float Surface::randFloat(float min, float max) {
-  return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+  if (shader != 0) {
+    glUseProgram(shader);
+    /* Lighting */
+    GLint timeUniformLocation = glGetUniformLocation(shader, "timeOfDay");
+    glUniform1i(timeUniformLocation, ds->timeOfDay);
+    GLint ambientUniformLocation = glGetUniformLocation(shader, "ambient");
+    glUniform1f(ambientUniformLocation, ds->ambient);
+    GLint lightUniformLocation = glGetUniformLocation(shader, "light");
+    glUniform4fv(lightUniformLocation, 1, ds->lightPos);
+    /* Other Vars */
+    GLint speedupUniformLocation = glGetUniformLocation(shader, "speedup");
+    glUniform1f(speedupUniformLocation, ds->speedup);
+    if (special) {
+      counter += (ds->speedup * 1.0);
+      GLint counterUniformLocation = glGetUniformLocation(shader, "counter");
+      glUniform1f(counterUniformLocation, counter);
+    }
+  }
+
+  int perDiv = points.size() / divs;
+  int total = points.size();
+
+  for (int i = 0; i <= divs - 1; i++) {
+
+    glBegin(GL_TRIANGLE_STRIP);
+
+    // Build triangle strip from computed verticies and use computed normals
+    for (int j = i * perDiv; j < (i + 1) * perDiv; j++) {
+      glNormal3f(normals[j][0], normals[j][1], normals[j][2]);
+
+      if (texture != NULL) {
+        float s = ( (float) (j - (i * perDiv) ) / (float) (perDiv - 1)) * tScale;
+        float t = ( (float) (i + 1) / (float) (divs)) * sScale;
+        glTexCoord2f(s, t);
+      }
+
+      glVertex3f(points[(j + perDiv) % total][0], points[(j + perDiv) % total][1], points[(j + perDiv) % total][2]);
+      
+      if (texture != NULL) {
+        float s = ((float)(j - (i * perDiv)) / (float)(perDiv - 1)) * tScale;
+        float t = ((float)i / (float)(divs)) * sScale;
+        glTexCoord2f(s, t);
+      }
+
+      glVertex3f(points[j][0], points[j][1], points[j][2]);
+    }
+
+    glEnd();
+  }
+  
+  glUseProgram(0);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  glPopMatrix();
 }

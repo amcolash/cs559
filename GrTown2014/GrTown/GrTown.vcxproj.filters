@@ -214,9 +214,6 @@
     <None Include="Shaders\UFO.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Building.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\Sun.frag">
       <Filter>Shaders</Filter>
     </None>
@@ -233,6 +230,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\UV.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Bird.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

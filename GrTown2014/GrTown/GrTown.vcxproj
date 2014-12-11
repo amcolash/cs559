@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -175,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Billboard.vert" />
-    <None Include="Shaders\Building.frag" />
+    <None Include="Shaders\Bird.frag" />
     <None Include="Shaders\flag.frag" />
     <None Include="Shaders\flag.vert" />
     <None Include="Shaders\Fountain.frag" />
@@ -193,4 +193,3 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
-
