@@ -120,9 +120,6 @@
     <ClInclude Include="Examples\BirdFly.h">
       <Filter>Examples Objects and Behaviors\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Flag.h">
-      <Filter>Examples Objects and Behaviors\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Examples\SunMoon.h">
       <Filter>Examples Objects and Behaviors\Headers</Filter>
     </ClInclude>
@@ -198,9 +195,6 @@
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
     <ClCompile Include="Examples\BirdFly.cpp">
-      <Filter>Examples Objects and Behaviors\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Flag.cpp">
       <Filter>Examples Objects and Behaviors\Source</Filter>
     </ClCompile>
     <ClCompile Include="Examples\SunMoon.cpp">

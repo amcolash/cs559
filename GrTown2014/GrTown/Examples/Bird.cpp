@@ -13,30 +13,22 @@ Bird::Bird(float x, float y, float z, float r, float g, float b, int ID)
 	transMatrix(transform, x, y, z);
 }
 
-/*float Bird::getSpeed(){
-	printf("SPEED: %f\n", speed);
-	return speed;
-}*/
-
 void Bird::draw(DrawingState* state){
-	//speed = state->speedup;
-
-	//ds = state;
 
 	glPushMatrix();
 	this->transform[3][0] += state->speedup*8;
-	if (this->transform[3][0] > 5000 && this->ID <= 16){
-		this->transform[3][0] = -5000;
-		
-	}
+	/* Make birds re-appear at other side of the environment */
+	if (this->transform[3][0] > 5000 && this->ID <= 16)
+		this->transform[3][0] -= -10000;
 	if (this->transform[3][0] > 6420 && this->ID<= 33)
-		this->transform[3][0] = -6210;
+		this->transform[3][0] -= 12630;
 	if (this->transform[3][0] > 7721 && this->ID <= 51)
-		this->transform[3][0] = -7105;
+		this->transform[3][0] -= 14826;
 	if (this->transform[3][0] > 5643 && this->ID <= 68)
-		this->transform[3][0] = -5615;
+		this->transform[3][0] -= 11258;
 	if (this->transform[3][0] > 6000 && this->ID <= 86)
-		this->transform[3][0] = -7000;
+		this->transform[3][0] -= 13000;
+
 	glScaled(10, 10, 10);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);
