@@ -12,7 +12,7 @@
 #include "../DrawUtils.H"
 #include "Utilities/Texture.H"
 #include "../MMatrix.H"
-#include "Surface.h"
+
 #include "Suburbs.H"
 
 /***********************************************************************/
@@ -469,7 +469,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 {
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
-  switch(ht % 6) {
+  switch(ht % 3) {
   case 0: {
 	  SimpleHouse1* h1 = new SimpleHouse1();
 	  h1->color(houseColors[hc % nHouseColors]);
@@ -485,25 +485,12 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  h3->color(houseColors[hc% nHouseColors]);
 	  add(h3,50.,0,60.,0);
 	  break; }
-  case 3: {
-	  Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 8,
-		  NULL, NULL, "window3.jpg", 10.0, 9.8, false);
-	  add(hut, 50., 0, 60., 0);
-	  break;
-  }
-  case 4: {
-	  Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 3.0, 2.0), S_BUILDING, 8,
-		  NULL, NULL, "metal003.png", 4.0, 12.0, false);
-	  add(b1, 50., 0, 60., 0);
-	  break;
-  }
-  default: {break; }
   } 
- /* add(new SimpleTree1(15,5), 10,0, 10,0);
+  add(new SimpleTree1(15,5), 10,0, 10,0);
   add(new SimpleTree1(15,5), 10,0,190,0);
   add(new SimpleTree1(15,5), 30,0,190,0);
   add(new SimpleTree1(15,5), 50,0,190,0);
-  add(new SimpleTree1(15,5), 70,0,190,0);*/
+  add(new SimpleTree1(15,5), 70,0,190,0);
 }
 
 /***********************************************************************/

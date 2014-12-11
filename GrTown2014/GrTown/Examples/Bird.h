@@ -10,7 +10,5 @@ public:
 	Color color;
 	float count;
 	int ID;
-	bool triedShader = false;
-	int shader;
 	virtual void draw(DrawingState*);
 };
