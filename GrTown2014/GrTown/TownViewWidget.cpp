@@ -19,7 +19,7 @@
 using std::vector;
 
 float counter;
-float const maxCounter = 30.0;
+float const maxCounter = 50.0;
 
 // at idle time, this gets called
 // it must advance time to the current time step by simulating

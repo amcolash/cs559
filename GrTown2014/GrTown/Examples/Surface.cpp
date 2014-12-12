@@ -58,7 +58,7 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     this->laX = ufoX; this->laY = ufoY; this->laZ = ufoZ;
   }
 
-  counter = 0;
+  counter = 1.0;
 }
 
 void Surface::draw(DrawingState* ds){

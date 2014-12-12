@@ -29,7 +29,6 @@ Fountain::Fountain(glm::vec3 scale) {
   srand(static_cast <unsigned> (time(0)));
   Particle* p = new Particle(0, 8 * scale[1], 0, scale[0]);
   add(p);
-
 }
 
 Ground::Ground() {
@@ -59,7 +58,7 @@ void Ground::draw(DrawingState* ds) {
 Park::Park() {
   add(new Ground(), 0, 0, 0);
 
-  add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);  
+  add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);
 
   add(new Flag(5, 0, 19, 0, 0, 0));
   add(new Flag(490, 0, 19, 0, 0, 0));

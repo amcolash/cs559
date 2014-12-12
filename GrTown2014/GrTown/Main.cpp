@@ -208,22 +208,6 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our added objects */
 
-  // Add UFO
-  Surface* ufoBase = new Surface(glm::vec3(0, 120, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 32,
-    NULL, NULL, "metal003.png", 8.0, 2.0, true);
-  add(ufoBase);
-  ufoBase->name = "UFO";
-  ufoBase->interesting = true;
-  ufoBase->lfX = 350.0; ufoBase->lfY = 650.0; ufoBase->lfZ = 250.0;
-
-  Surface* ufoBottom = new Surface(glm::vec3(0, 122, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 32,
-    NULL, NULL, "metal.png", 2.0, 2.0, true);
-  add(ufoBottom);
-
-  Surface* ufoCone = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 1.0, 2.5), S_UFO_CONE, 32,
-    "SimpleCubeTest.vert", "UFO.frag", NULL, 2.0, 2.0, true);
-  add(ufoCone);
-
   Surface* cool = new Surface(glm::vec3(150, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_COOL, 8,
     "ShadedCubeTest.vert", "Bird.frag", NULL, 2.0, 2.0, false);
   add(cool);
@@ -244,6 +228,21 @@ int main(int /*argc*/, char** /*argv*/)
   p->laX = 350; p->laY = -100; p->laZ = 250;
   p->lfX = -150; p->lfY = 200; p->lfZ = -200;
 
+  // Add UFO
+  Surface* ufoBase = new Surface(glm::vec3(0, 120, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 16,
+    NULL, NULL, "metal003.png", 8.0, 2.0, true);
+  add(ufoBase);
+  ufoBase->name = "UFO";
+  ufoBase->interesting = true;
+  ufoBase->lfX = 350.0; ufoBase->lfY = 650.0; ufoBase->lfZ = 250.0;
+
+  Surface* ufoBottom = new Surface(glm::vec3(0, 122, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 16,
+    NULL, NULL, "metal.png", 2.0, 2.0, true);
+  add(ufoBottom);
+
+  Surface* ufoCone = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 1.0, 2.5), S_UFO_CONE, 32,
+    "ShadedCubeTest.vert", "UFO.frag", NULL, 2.0, 2.0, true);
+  add(ufoCone);
 
   /* End our new items for the world */
 

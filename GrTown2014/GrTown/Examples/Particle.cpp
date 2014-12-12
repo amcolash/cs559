@@ -45,19 +45,6 @@ void Particle::initParticle(Part *p) {
 
 void Particle::draw(DrawingState* st) {
   /*
-  if (!triedShader) {
-    triedShader = true;
-    char* error;
-    if (!(shader = loadShader("fountain.vert", "fountain.frag", error))) {
-      std::string s = "Can't Load Surface Shader:";
-      s += error;
-      fl_alert(s.c_str());
-    }
-  }
-
-  //glUseProgram(shader);
-  */
-
   glDisable(GL_LIGHT0);
 
   if ((st->timeOfDay >= 5) && (st->timeOfDay <= 19)) {
@@ -70,16 +57,17 @@ void Particle::draw(DrawingState* st) {
   }
 
   glEnable(GL_LIGHT1);
-
+  */
+  
   if (num != st->particles) {
     initList(num, st->particles);
     num = st->particles;
   }
+  
 
   // Enable blending
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_COLOR, GL_ONE);
-  //glBlendEquation(GL_FUNC_ADD);
 
   for (int i = 0; i < num; i++) {
     Part *p = &particleList[i];
@@ -107,10 +95,9 @@ void Particle::draw(DrawingState* st) {
   }
 
   glDisable(GL_BLEND);
-  //glUseProgram(0);
-  glDisable(GL_LIGHT1);
+  //glDisable(GL_LIGHT1);
 
-  glEnable(GL_LIGHT0);
+  //glEnable(GL_LIGHT0);
 }
 
 float randFloat(float min, float max) {
