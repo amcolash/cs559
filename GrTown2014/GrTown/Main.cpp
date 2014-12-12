@@ -207,11 +207,6 @@ int main(int /*argc*/, char** /*argv*/)
   d->speed *= 2;
 
   /* Our added objects */
-
-  Surface* cool = new Surface(glm::vec3(150, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_COOL, 8,
-    "ShadedCubeTest.vert", "Bird.frag", NULL, 2.0, 2.0, false);
-  add(cool);
-
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
   sun->name = "Sun / Moon";

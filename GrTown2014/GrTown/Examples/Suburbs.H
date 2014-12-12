@@ -53,6 +53,12 @@ public:
   virtual void draw(DrawingState*);
 };
 
+class SkySkrp : public GrObject {
+public:
+	SkySkrp();
+	virtual void draw(DrawingState*);
+};
+
 //
 // a sortof a church: a bigger house with a steeple
 class Church : public GrObject {
