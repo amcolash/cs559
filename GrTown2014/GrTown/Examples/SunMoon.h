@@ -1,10 +1,9 @@
 #include "../GrObject.H"
 #include "../DrawingState.H"
 
-
 class Sun : public GrObject {
 public:
-  Sun();
+  Sun(float tx, float ty, float tz);
   virtual void draw(DrawingState*);
 };
 

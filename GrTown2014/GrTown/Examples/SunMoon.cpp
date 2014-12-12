@@ -7,8 +7,12 @@
 
 #include "Utilities/ShaderTools.H"
 
-Sun::Sun()
-{
+float x, y, z;
+
+Sun::Sun(float tx, float ty, float tz) {
+	x = tx;
+	y = ty;
+	z = tz;
 }
 
 static unsigned int sunShader = 0;
@@ -31,7 +35,7 @@ void Sun::draw(DrawingState* ds)
 
   float arcSize = 1500.0;
 
-  if (ds->timeOfDay >= 5 && ds->timeOfDay <= 20) {
+  if (ds->timeOfDay > 5 && ds->timeOfDay <= 18) {
 
     if (sunShader != 0) {
       glUseProgram(sunShader);
@@ -39,10 +43,11 @@ void Sun::draw(DrawingState* ds)
       glUniform1f(textureUniformLocation, ds->timeOfDay + (ds->counter / ds->maxCounter));
     }
 
+		y = arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0));
+		z = arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0));
+
     glPushMatrix();
-    glTranslatef(0.0,
-      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0)),
-      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) - (PI / 2.0)));
+    glTranslatef(x, y, z);
 
     glBegin(GL_POLYGON);
     for (double i = 0; i < 2 * PI; i += PI / 16) //<-- Change this Value
@@ -57,6 +62,10 @@ void Sun::draw(DrawingState* ds)
     glPopMatrix();
 
   }
+
+	this->laX = x;
+	this->laY = y;
+	this->laZ = z;
 }
 
 Moon::Moon()
@@ -90,11 +99,12 @@ void Moon::draw(DrawingState* ds)
       GLint widthUniformLocation = glGetUniformLocation(moonShader, "resolution");
       glUniform2f(widthUniformLocation, ds->width, ds->height);
     }
+		
+		y = arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0));
+		z = arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0));
 
-    glPushMatrix();
-    glTranslatef(0.0,
-      arcSize * sin(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0)),
-      arcSize * cos(((ds->timeOfDay / 24.0) + (ds->counter / ds->maxCounter / 24.0)) * (2 * PI) + (PI / 2.0)));
+		glPushMatrix();
+		glTranslatef(x, y, z);
 
     glBegin(GL_POLYGON);
     for (double i = 0; i < 2 * PI; i += PI / 16) //<-- Change this Value

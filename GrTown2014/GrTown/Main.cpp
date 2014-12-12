@@ -109,7 +109,7 @@ int main(int /*argc*/, char** /*argv*/)
 
 	  new BirdFly(b, i);
 	  if (i == 8){
-		  b->name = "Bird (Follow Only)";
+		  b->name = "Bird Flock 1";
 		  b->interesting = true;
 	  }
   }
@@ -207,31 +207,30 @@ int main(int /*argc*/, char** /*argv*/)
   d->speed *= 2;
 
   /* Our added objects */
-  Sun* sun = new Sun();
-  add(sun, 1500.0, 0.0, 250.0);
+  Sun* sun = new Sun(2500.0, 0.0, 250.0);
+  add(sun);
   sun->name = "Sun / Moon";
   sun->interesting = true;
-  sun->laX = 350; sun->laY = 100; sun->laZ = 250;
-  sun->lfX = -3500; sun->lfY = 300; sun->lfZ = -950;
+  sun->lfX = -2000; sun->lfY = 550; sun->lfZ = 400;
   Moon* moon = new Moon();
-  add(moon, 1500.0, 0.0, 250.0);
+  add(moon, 2500.0, 0.0, 250.0);
 
   Park* p = new Park();
   add(p, 1060, 0, 460);
   p->name = "Park";
   p->interesting = true;
-  p->laX = 350; p->laY = -100; p->laZ = 250;
-  p->lfX = -150; p->lfY = 200; p->lfZ = -200;
+  p->laX = 350; p->laY = -100; p->laZ = 0;
+  p->lfX = -150; p->lfY = 200; p->lfZ = 300;
 
   // Add UFO
-  Surface* ufoBase = new Surface(glm::vec3(0, 120, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 16,
+  Surface* ufoBase = new Surface(glm::vec3(0, 260, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 16,
     NULL, NULL, "metal003.png", 8.0, 2.0, true);
   add(ufoBase);
   ufoBase->name = "UFO";
   ufoBase->interesting = true;
   ufoBase->lfX = 350.0; ufoBase->lfY = 650.0; ufoBase->lfZ = 250.0;
 
-  Surface* ufoBottom = new Surface(glm::vec3(0, 122, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 16,
+  Surface* ufoBottom = new Surface(glm::vec3(0, 262, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 16,
     NULL, NULL, "UFO.png", 2.0, 2.0, true);
   add(ufoBottom);
 

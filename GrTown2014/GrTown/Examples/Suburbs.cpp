@@ -162,36 +162,6 @@ void SimpleHouse2::draw(DrawingState*)
   polygoni(-4,-20,30,-30, -20,30, 30,   0, 45, 30,   0, 45, -30);
 }
 
-SkySkrp::SkySkrp() {
-}
-
-void SkySkrp::draw(DrawingState*) {
-	glColor3f(1.0, 1.0, 1.0);
-	fetchTexture("window-repeat.jpg");
-	glBegin(GL_POLYGON);
-	glNormal3f(1, 0, 0);
-	glTexCoord2f(0, 1); glVertex3i(20, 100, -20);
-	glTexCoord2f(1, 1); glVertex3i(20, 100, 20);
-	glTexCoord2f(1, 0); glVertex3i(20, 0, 20);
-	glTexCoord2f(0, 0); glVertex3i(20, 0, -20);
-	glEnd();
-	glBegin(GL_POLYGON);
-	glNormal3f(-1, 0, 0);
-	glTexCoord2f(0, 0); glVertex3i(-20, 0, -20);
-	glTexCoord2f(1, 0); glVertex3i(-20, 0, 20);
-	glTexCoord2f(1, 1); glVertex3i(-20, 100, 20);
-	glTexCoord2f(0, 1); glVertex3i(-20, 100, -20);
-	glEnd();
-	glBegin(GL_POLYGON);
-	glNormal3f(0, 0, 1);
-	glTexCoord2f(0, 0); glVertex3i(20, 0, -20);
-	glTexCoord2f(0, 1); glVertex3i(-20, 100, -20);
-	glTexCoord2f(1, 1); glVertex3i(20, 100, -20);
-	glTexCoord2f(1, 0); glVertex3i(-20, 0, -20);
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 /***********************************************************************/
 // OK, this is even simpler...
 SimpleHouse3::SimpleHouse3()
@@ -499,14 +469,15 @@ SimpleLot::SimpleLot(int ht, int hc)
 
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
-  switch(ht % 7) {
+  switch(ht % 8) {
   case 0: {
 	  SimpleHouse1* h1 = new SimpleHouse1();
 	  h1->color(houseColors[hc % nHouseColors]);
 	  add(h1,50.,0,60.,0);
 	  break; }
   case 1: {
-		SkySkrp* s = new SkySkrp();
+		Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BOX, 6,
+			NULL, NULL, "window-repeat.jpg", 5.0, 6.0, false);
 		add(s, 50., 0, 60., 0);
 		/*
 	  SimpleHouse2* h2 = new SimpleHouse2();
@@ -525,17 +496,17 @@ SimpleLot::SimpleLot(int ht, int hc)
 		*/
 	  break; }
   case 3: {
-		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BIG_HUT, 8,
+		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 2.5, 2.5), S_BIG_HUT, 8,
 			NULL, NULL, "window3.jpg", 10.0, 9.8, false);
 	  add(hut, 50., 0, 60., 0);
 	  break; }
   case 4: {
-		Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 3.0, 2.0), S_BUILDING, 8,
+		Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(3.5, 5.0, 3.5), S_BUILDING, 8,
 			NULL, NULL, "metal003.png", 4.0, 12.0, false);
 	  add(b1, 50., 0, 60., 0);
 	  break; }
   case 5: {
-		Surface* egg = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_EGG, 8,
+		Surface* egg = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 2.5, 2.5), S_EGG, 8,
 			NULL, NULL, "windows.jpg", 2.0, 2.0, false);
     add(egg, 50., 5., 60., 0);
     break; }

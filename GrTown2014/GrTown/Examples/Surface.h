@@ -97,7 +97,7 @@ const std::vector<glm::vec3> S_UFO_BOTTOM = {
 };
 
 const std::vector<glm::vec3> S_UFO_CONE = {
-  glm::vec3(7.0, 120.0, 0.0),
+  glm::vec3(7.0, 260.0, 0.0),
   glm::vec3(25.0, 0.0, 0.0),
 };
 
@@ -145,6 +145,12 @@ const std::vector<glm::vec3> S_EGG = {
 	glm::vec3(08.0, 04.5, 0.0),
 	glm::vec3(05.0, 02.0, 0.0),
 	glm::vec3(00.0, 01.0, 0.0)
+};
+
+const std::vector<glm::vec3> S_BOX = {
+	glm::vec3(00.0, 200.0, 0.0),
+	glm::vec3(20.0, 200.0, 0.0),
+	glm::vec3(20.0, 0.0, 0.0)
 };
 
 const std::vector<glm::vec3> S_BIG_HUT = {
