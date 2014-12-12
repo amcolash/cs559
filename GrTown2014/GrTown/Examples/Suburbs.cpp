@@ -316,26 +316,7 @@ void StreetLight::drawAfter(DrawingState* d)
 	  GLfloat ambient[] = { 1, 1, 1, 1 };
 	  glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	  
-	  /*
-	  glEnable(GL_LIGHT0);
-	  glShadeModel(GL_SMOOTH); // or GL_FLAT
-	  glEnable(GL_NORMALIZE); //or not
-	  glEnable(GL_LIGHTING);
-	  GLfloat light_ambient[] = { .5, 0, 0, 1 };
-	  GLfloat light_diffuse[] = { 1, 0, 0, 1 };
-	  GLfloat light_specular[] = { 1, 1, 1, 1 };
-	  GLfloat light_position[] = { 1, 1, 1, 1 };
-	  GLfloat spot_direction[] = { -1, -1, 0 };
-	  glLightfv(GL_LIGHTING, GL_SPOT_DIRECTION, spot_direction);
-	  glLightf(GL_LIGHTING, GL_SPOT_CUTOFF, 20.0);
-	  glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	  glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	  glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	  glDisable(GL_LIGHTING);
-	  glDisable(GL_LIGHT0);*/
-	// glEnable(GL_BLEND);
-	// glBlendFunc(GL_SRC_ALPHA,GL_DST_ALPHA);
+
 	float cone_length = 20;
 	float radius = 10;
 	float theta,dtheta = pi/16;
@@ -469,15 +450,15 @@ SimpleLot::SimpleLot(int ht, int hc)
 
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
-  switch(ht % 8) {
-  case 0: {
+  switch(ht % 4) {
+  //case 0: {
 		/*
 		SimpleHouse1* h1 = new SimpleHouse1();
 	  h1->color(houseColors[hc % nHouseColors]);
 	  add(h1,50.,0,60.,0);
 		*/
-	  break; }
-  case 1: {
+	//  break; }
+  case 0: {
 		Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BOX, 6,
 			NULL, NULL, "window-repeat.jpg", 5.0, 6.0, false);
 		add(s, 50., 0, 60., 0);
@@ -487,8 +468,8 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  add(h2,50.,0,60.,0);
 		*/
 	  break; }
-  case 2: {
-		Surface* skpr = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_IDK, 16,
+  case 1: {
+		Surface* skpr = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_SKYSKPR, 16,
 			NULL, NULL, "skyskpr.jpg", 5.0, 5.0, false);
 		add(skpr, 50., 0, 60., 0);
 		/*
@@ -497,12 +478,12 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  add(h3,50.,0,60.,0);
 		*/
 	  break; }
-  case 3: {
+  case 2: {
 		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 2.0, 2.0), S_BIG_HUT, 8,
 			NULL, NULL, "window3.jpg", 10.0, 9.8, false);
 	  add(hut, 50., 0, 60., 0);
 	  break; }
-  case 4: {
+  case 3: {
 		Surface* b1 = new Surface(glm::vec3(0, 0, 0), glm::vec3(3.5, 5.0, 3.5), S_BUILDING, 8,
 			NULL, NULL, "metal003.png", 4.0, 12.0, false);
 	  add(b1, 50., 0, 60., 0);

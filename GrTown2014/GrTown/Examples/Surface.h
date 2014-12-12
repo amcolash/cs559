@@ -199,7 +199,7 @@ const std::vector<glm::vec3> S_TABLE = {
 	
 };
 
-const std::vector<glm::vec3> S_IDK = {
+const std::vector<glm::vec3> S_SKYSKPR = {
 	glm::vec3(0.0, 150.0, 0.0),
 	glm::vec3(20.0, 150.0, 0.0),
 	glm::vec3(20.0, 0.0, 0.0)

@@ -64,8 +64,8 @@ Park::Park() {
   add(new Flag(5, 0, 210, 0, 0, 0));
   add(new Flag(490, 0, 210, 0, 0, 0));
 
-  add(new PicnicTable(50, 0, 100));
-  add(new PicnicTable(450, 0, 100));
+  add(new PicnicTable(50, 0, 120));
+  add(new PicnicTable(450, 0, 120));
 
   add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);
 }
