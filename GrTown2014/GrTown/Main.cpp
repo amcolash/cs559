@@ -211,7 +211,7 @@ int main(int /*argc*/, char** /*argv*/)
   add(sun);
   sun->name = "Sun / Moon";
   sun->interesting = true;
-  sun->lfX = -2000; sun->lfY = 550; sun->lfZ = 400;
+  sun->lfX = -2000; sun->lfY = 450; sun->lfZ = 400;
   Moon* moon = new Moon();
   add(moon, 2500.0, 0.0, 250.0);
 

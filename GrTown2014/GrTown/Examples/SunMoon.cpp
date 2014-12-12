@@ -62,7 +62,7 @@ void Sun::draw(DrawingState* ds)
   }
 
 	this->laX = x;
-	this->laY = y;
+	this->laY = y - 400.0;
 	this->laZ = z;
 }
 

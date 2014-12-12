@@ -450,7 +450,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
-  switch(ht % 4) {
+  switch(ht % 5) {
   //case 0: {
 		/*
 		SimpleHouse1* h1 = new SimpleHouse1();
@@ -488,7 +488,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 			NULL, NULL, "metal003.png", 4.0, 12.0, false);
 	  add(b1, 50., 0, 60., 0);
 	  break; }
-  case 5: {
+  case 4: {
 		Surface* egg = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 2.5, 2.5), S_EGG, 8,
 			NULL, NULL, "windows.jpg", 2.0, 2.0, false);
     add(egg, 50., 5., 60., 0);
