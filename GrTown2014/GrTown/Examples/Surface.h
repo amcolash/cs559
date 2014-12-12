@@ -165,3 +165,18 @@ const std::vector<glm::vec3> S_BIG_HUT = {
 
 
 };
+const std::vector<glm::vec3> S_UMBRELLA = {
+	glm::vec3(1.0, 40.0, 1.0),
+	glm::vec3(10, 30.0, 30.0),
+	glm::vec3(1.0, 40.0, 1.0)
+	
+	//glm::vec3(4.0, 10.0, 13.0)
+};
+const std::vector<glm::vec3> S_TABLE = {
+	glm::vec3(0.0, 10.0, 0.0),
+	glm::vec3(20.0, 10.0, 0.0),
+	glm::vec3(20.2, 13.0, 0.0),
+	glm::vec3(0.0, 13.0, 0.0),
+	glm::vec3(20.0, 10.0, 0.0),
+	
+};

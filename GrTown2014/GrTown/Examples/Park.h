@@ -32,3 +32,9 @@ public:
 	bool triedShader = false;
 	virtual void draw(DrawingState*);
 };
+
+class PicnicTable : public GrObject{
+public:
+	PicnicTable(float x, float y, float z);
+	virtual void draw(DrawingState*);
+};
