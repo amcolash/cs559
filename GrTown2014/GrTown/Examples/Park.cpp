@@ -103,8 +103,10 @@ void Flag::draw(DrawingState* ds){
 		glUniform1f(waveWidthLoc, waveWidth);
 		glUniform1f(waveHeightLoc, waveHeight);
 		
-		GLint widthUniformLocation = glGetUniformLocation(shader, "resolution");
-		glUniform2f(widthUniformLocation, ds->width, ds->height);
+		GLint ambientLightLocation = glGetUniformLocation(shader, "ambient");
+		glUniform1f(ambientLightLocation, ds->ambient);
+		GLint lightLoc = glGetUniformLocation(shader, "light");
+		glUniform4f(lightLoc, ds->lightPos[0], ds->lightPos[1], ds->lightPos[2], ds->lightPos[3]);
 	}
 
 

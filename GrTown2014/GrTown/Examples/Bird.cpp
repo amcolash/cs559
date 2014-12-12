@@ -13,6 +13,15 @@ int shader;
 Bird::Bird(float x, float y, float z, float r, float g, float b, int _ID)
 	: color(r, g, b), count(count), ID(_ID)
 {
+	if (ID == 8){
+		this->laX = this->transform[3][0];
+		this->laY = this->transform[3][1]-200;
+		this->laZ = 0;
+		this->lfX = 00;
+		this->lfY = 400;
+		this->lfZ = -650;
+		printf("x trans: %f\n y trans: %f\nz trans: %f\n", this->transform[3][0], this->transform[3][1], this->transform[3][2]);
+	}
 		count = 0;
 	transMatrix(transform, x, y, z);
 }
@@ -32,15 +41,6 @@ void Bird::draw(DrawingState* state){
 	if (this->transform[3][0] > 6000 && this->ID <= 86 && this->ID > 68)
 		this->transform[3][0] -= 13000;
 	
-	if (ID == 1){
-		glPushMatrix();
-		glColorMask(false, false, false, false);
-		GLUquadricObj *quadric = gluNewQuadric();
-		glTranslated(0, 100, 0);
-		gluCylinder(quadric, .2, 0, 1, 3, 0);
-		glColorMask(true, true, true, true);
-		glPopMatrix();
-	}
 	if (!triedShader) {
 		triedShader = true;
 		char* error;

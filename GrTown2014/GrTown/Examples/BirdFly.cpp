@@ -31,14 +31,12 @@ void BirdFly::SetUp(GrObject* bird, int count)
 		owner->transform[3][1] = 2000;
 		owner->transform[3][2] = (count % 17 + 1) * 15;
 	}
-	//transMatrix(owner->transform, -(cnt)* 15, 100, -(cnt)* 45);
 	else{
 		owner->transform[3][0] = -(count % 17 - 8) * 45;
 		owner->transform[3][1] = 2000;
 		owner->transform[3][2] = -(count % 17 - 8) * 15;
-		//transMatrix(owner->transform, (cnt - 8) * 15, 100, -(cnt - 8) * 45);
 	}
-	//transMatrix(owner->transform, 1000, 0, -1000);
+
 
 	// Move birds into 5 lanes across the Z-axis on different X coordinates
 	if (count > 16 && count <= 33){
