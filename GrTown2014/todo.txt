@@ -1,6 +1,12 @@
 Andrew McOlash and Jason Bernstein
 
-Theme: Future City
+Project Theme: Future City
+
+Project Description: In this project, we added new and interesting buildings as well
+as making hover cars and some cool graphical additions and new objects for the
+graphics town world. These include surfaces of revolution, particle systems, sun
+and moon, multiple shaders which added physical characteristics (physics) to
+verticies, cool shaders for coloring/lighting, a skybox and interesting behaviors.
 ------------------------------------------------------------------------------
 
 Todo:
@@ -20,7 +26,7 @@ Andrew
 
 Fully Created Objects:
 X Buildings
-  -- Cool one, egg, skyscraper
+  X Cool one, egg, skyscraper
 X Fountain
 X UFO
 
@@ -45,7 +51,7 @@ X Particles
 X Curved Surfaces (Surfaces of Revolution)
 X Billboard (Sum/Moon)
 
-- Modified ligthing to only use ambient at night (more realistic)
+X Modified ligthing to only use ambient at night (more realistic)
 
 ------------------------------------------------------------------------------
 
@@ -57,12 +63,12 @@ X Birds
 X Skybox
 X Flag
 X Buildings
-  -- "Big Hut", SkyScpr Cyllinder one
+  X "Big Hut", SkyScpr Cyllinder one
 
 Shaders:
-- Procedural Texture - Flag
-- Physics based flag
-- Bird Shader for Lighting
+X Procedural Texture - Flag
+X Physics based flag
+X Bird Shader for Lighting
 
 Behaviors:
 X Creation of birds
@@ -74,4 +80,4 @@ X Skybox Texture
 Technical Challenges:
 X Physics (Flag)
 X Skybox
-- Advanced Behavior? (Birds) / Flocking
+X Advanced Behavior? (Birds) / Flocking
