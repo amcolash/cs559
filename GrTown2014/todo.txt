@@ -80,4 +80,10 @@ X Skybox Texture
 Technical Challenges:
 X Physics (Flag)
 X Skybox
-X Advanced Behavior? (Birds) / Flocking
+X Surfaces of Revolution
+
+Textures:
+Picnic table: http://www.texturex.com/Wood-Textures/wood+grain+texture+table+surface+brown+stock+photo+design.jpg.php
+SKYSCPR: http://www.cgtextures.com/thumbnails/textures/Buildings/HighRise/Glass/HighRiseGlass0055_2_preview.jpg
+BIG_HUT: http://www.windowsofnewyork.com/windows/186-sullivan.png
+Skybox: https://www.opengl.org/discussion_boards/showthread.php/144431-Skybox-with-seams
