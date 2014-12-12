@@ -83,14 +83,15 @@ void Flag::draw(DrawingState* ds){
 	glColor4fv(&color.r);
 	glRotated(-90, 1, 0, 0);
 	gluCylinder(quadric, 2, 2, 100, 10, 10);
-	glPopMatrix();
+  gluDeleteQuadric(quadric);
+  glPopMatrix();
 	waveTime += .1*ds->speedup;
 
 	if (!triedShader) {
 		triedShader = true;
 		char* error;
 		if (!(shader = loadShader("Flag.vert", "Flag.frag", error))) {
-			std::string s = "Can't Load Surface Shader:";
+			std::string s = "Can't Load Flag Shader:";
 			s += error;
 			fl_alert(s.c_str());
 		}

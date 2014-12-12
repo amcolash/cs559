@@ -479,7 +479,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 		*/
 	  break; }
   case 2: {
-		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 2.0, 2.0), S_BIG_HUT, 8,
+		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.5, 2.0, 1.5), S_BIG_HUT, 8,
 			NULL, NULL, "window3.jpg", 10.0, 9.8, false);
 	  add(hut, 50., 0, 60., 0);
 	  break; }

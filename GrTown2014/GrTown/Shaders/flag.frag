@@ -5,7 +5,7 @@ uniform vec4 light;
 
 void main()
 {
-  vec2 position = fPosition.xy;
+  vec2 position = vec2(fPosition.xy);
 
   vec3 n = normalize(normal);
   
