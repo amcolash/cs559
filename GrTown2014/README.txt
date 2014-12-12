@@ -59,6 +59,7 @@ Code:
 Moon Shader Tutorial code samples: http://www.raywenderlich.com/70208/opengl-es-pixel-shaders-tutorial
 Billboard Shader Code: http://www.geeks3d.com/20140807/billboarding-vertex-shader-glsl/
 
+Textures:
 Hexagon Floor Texture: https://www.filterforge.com/filters/1326.jpg
 Skyscraper (hexagon) Windows: http://www.patternpictures.com/wp-content/uploads/2014/05/PP28240908-Empty-repeating-windows-of-a-large-office-building.jpg
 Egg Window Texture: http://thumbs.dreamstime.com/x/seamless-black-white-glass-tiles-texture-15207309.jpg

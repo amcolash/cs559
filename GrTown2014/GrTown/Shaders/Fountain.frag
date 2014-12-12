@@ -1,23 +1,30 @@
 varying vec3 normal;
-uniform int timeOfDay;
+uniform float ambient;
+uniform vec4 light;
+
+float randomNoise(vec2 p) {
+  return max(fract(6791.*sin(47.*p.x + p.y*9973.)), 0.5);
+}
 
 void main() {
-	//gl_FragColor = vec4(1,0,0,1);
-	//vec3 mycolor = normal * 0.5 + vec3(.5,.5,.5);
-  float time;
 
-  if (timeOfDay < 5) {
-    time = 0.25;
-  } else if (timeOfDay < 8) {
-    time = 0.5;
-  } else if (timeOfDay < 16) {
-    time = 0.85;
-  } else if (timeOfDay < 19) {
-    time = 0.5;
-  } else {
-    time = 0.25;
-  }
+  vec3 mycolor = vec3(0.95, 0.85, 0.85);
 
-	vec3 mycolor = time * vec3(0.25, 0.25, 0.7) + 0.1;
-  gl_FragColor = vec4(mycolor.x,mycolor.y,mycolor.z,1);
+  vec2 p = gl_FragCoord.xz;
+
+  float noise = randomNoise(p);
+  mycolor =  vec3(vec3(noise) * mycolor);
+
+  vec3 n = normalize(normal);
+
+  float dl;
+
+  if (light[0] != -1)
+	dl = max(0.0, dot(n, vec3(light[0], light[1], light[2])));
+  else
+	dl = 0.0;
+
+	 mycolor *= (ambient + .7*dl);
+
+  gl_FragColor = vec4(mycolor[2], mycolor[1], mycolor[0], 1.0);
 }

@@ -18,12 +18,12 @@ float count = 0.0f;
 Fountain::Fountain(glm::vec3 scale) {
   // Add a fountain
   Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_FOUNTAIN, divs,
-    NULL, NULL, "rock005.png", 30.0, 15.0, false);
+    "ShadedCubeTest.vert", "Fountain.frag", NULL, 30.0, 15.0, false);
   add(s);
 
   // Add water to fountain
   Surface* w = new Surface(glm::vec3(0, 0, 0), glm::vec3(0.75 * scale[0], 1.0 * scale[1], 0.75 * scale[2]), S_WATER, divs,
-    "ShadedCubeTest.vert", "Fountain.frag", NULL, 0.0, 0.0, false);
+    "ShadedCubeTest.vert", "Fountain-Water.frag", NULL, 0.0, 0.0, false);
   add(w);
 
   // Seed rng and add fountain particles
