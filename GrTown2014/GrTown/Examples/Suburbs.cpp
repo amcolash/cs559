@@ -473,7 +473,7 @@ SimpleLot::SimpleLot(int ht, int hc)
     NULL, NULL, "metal003.png", 4.0, 12.0, false);
   // make the things we want
   add(new Lawn(0,0,100,200),0,0,0,0);
-  switch(ht % 6) {
+  switch(ht % 7) {
   case 0: {
 	  SimpleHouse1* h1 = new SimpleHouse1();
 	  h1->color(houseColors[hc % nHouseColors]);
@@ -485,6 +485,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  add(h2,50.,0,60.,0);
 	  break; }
   case 2: {
+	  //add(new Surface(glm::vec3(-100, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_IDK, 24, NULL, NULL, "skyskpr.jpg", 5.0, 5.0, false), 50, 0, 60, 0);
 	  SimpleHouse3* h3 = new SimpleHouse3();
 	  h3->color(houseColors[hc % nHouseColors]);
 	  add(h3,50.,0,60.,0);

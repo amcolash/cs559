@@ -191,3 +191,9 @@ const std::vector<glm::vec3> S_TABLE = {
 	glm::vec3(20.0, 10.0, 0.0),
 	
 };
+
+const std::vector<glm::vec3> S_IDK = {
+	glm::vec3(0.0, 150.0, 0.0),
+	glm::vec3(20.0, 150.0, 0.0),
+	glm::vec3(20.0, 0.0, 0.0)
+};
