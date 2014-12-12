@@ -65,6 +65,7 @@ Park::Park() {
   add(new Flag(490, 0, 210, 0, 0, 0));
 
   add(new PicnicTable(50, 0, 100));
+  add(new PicnicTable(450, 0, 100));
 
   add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);
 }
@@ -140,8 +141,8 @@ void Flag::draw(DrawingState* ds){
 
 PicnicTable::PicnicTable(float x, float y, float z){
 	transMatrix(transform, x, y, z);
-	add(new Surface(glm::vec3(0, 20, 0), glm::vec3(1.0, 1.0, 1.0), S_UMBRELLA, 10,"ShadedCubeTest.vert", "Bird.frag", NULL, 1.0, 1.0, false));
-	add(new Surface(glm::vec3(0, 10, 0), glm::vec3(1.0, 1.0, 1.0), S_TABLE, 5, NULL, NULL, "wood.jpg", 1.0, 1.0, false));
+	add(new Surface(glm::vec3(0, 10, 0), glm::vec3(1.0, 1.0, 1.0), S_UMBRELLA, 10,"ShadedCubeTest.vert", "Umbrella.frag", NULL, 1.0, 1.0, false));
+	add(new Surface(glm::vec3(0, 5, 0), glm::vec3(1.0, 1.0, 1.0), S_TABLE, 16, NULL, NULL, "wood.jpg", 1.0, 1.0, false));
 }
 void PicnicTable::draw(DrawingState* ds){
 
@@ -150,7 +151,11 @@ void PicnicTable::draw(DrawingState* ds){
   gluQuadricNormals(quadric, GLU_SMOOTH);
 	glColor4f(0.1, 0.6, 0.0, 1.0);
 	glRotated(-90, 1, 0, 0);
+<<<<<<< HEAD
 	gluCylinder(quadric, 2, 2, 60, 10, 2);
   gluDeleteQuadric(quadric);
+=======
+	gluCylinder(quadric, 2, 2, 50, 10, 10);
+>>>>>>> b7617619498d26c6575df36e547390a164807288
 	glPopMatrix();
 }
