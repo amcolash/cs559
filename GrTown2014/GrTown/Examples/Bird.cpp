@@ -7,19 +7,17 @@
 #include <FL/fl_ask.H>
 #include "Utilities/ShaderTools.H"
 
+bool triedShader = false;
+int shader;
 
 Bird::Bird(float x, float y, float z, float r, float g, float b, int _ID)
-	: color(r, g, b), count(count), ID(_ID), shader(shader)
+	: color(r, g, b), count(count), ID(_ID)
 {
 		count = 0;
 	transMatrix(transform, x, y, z);
 }
 
 void Bird::draw(DrawingState* state){
-
-
-
-
 	glPushMatrix();
 	this->transform[3][0] += state->speedup*8;
 	/* Make birds re-appear at other side of the environment */
