@@ -151,11 +151,7 @@ void PicnicTable::draw(DrawingState* ds){
   gluQuadricNormals(quadric, GLU_SMOOTH);
 	glColor4f(0.1, 0.6, 0.0, 1.0);
 	glRotated(-90, 1, 0, 0);
-<<<<<<< HEAD
-	gluCylinder(quadric, 2, 2, 60, 10, 2);
-  gluDeleteQuadric(quadric);
-=======
 	gluCylinder(quadric, 2, 2, 50, 10, 10);
->>>>>>> b7617619498d26c6575df36e547390a164807288
+  gluDeleteQuadric(quadric);
 	glPopMatrix();
 }

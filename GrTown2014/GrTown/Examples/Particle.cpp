@@ -45,14 +45,12 @@ void Particle::initParticle(Part *p) {
 
 void Particle::draw(DrawingState* st) {
 
-  if (st->timeOfDay < 5 || st->timeOfDay >= 13) {
+    glDisable(GL_LIGHT0);
     float a0[] = { .3f, .3f, .3f, .3f };
     glLightfv(GL_LIGHT1, GL_AMBIENT, a0);
     glEnable(GL_LIGHT1);
-  }
 
-  if (st->timeOfDay >= 13 && st->timeOfDay <= 20)
-    glDisable(GL_LIGHT0);
+
   
   if (num != st->particles) {
     initList(num, st->particles);
