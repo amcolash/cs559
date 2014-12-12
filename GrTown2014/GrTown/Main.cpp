@@ -237,7 +237,7 @@ int main(int /*argc*/, char** /*argv*/)
   ufoBase->lfX = 350.0; ufoBase->lfY = 650.0; ufoBase->lfZ = 250.0;
 
   Surface* ufoBottom = new Surface(glm::vec3(0, 122, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 16,
-    NULL, NULL, "metal.png", 2.0, 2.0, true);
+    NULL, NULL, "UFO.png", 2.0, 2.0, true);
   add(ufoBottom);
 
   Surface* ufoCone = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 1.0, 2.5), S_UFO_CONE, 32,

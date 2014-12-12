@@ -108,6 +108,11 @@ void Surface::draw(DrawingState* ds){
     int perDiv = points.size() / divs;
     int total = points.size();
 
+    GLint blendSrc;
+    GLint blendDst;
+    glGetIntegerv(GL_BLEND_SRC_ALPHA, &blendSrc);
+    glGetIntegerv(GL_BLEND_DST_ALPHA, &blendDst);
+
     if (special) {
       if (frag == "UFO.frag") {
         glEnable(GL_BLEND);
@@ -131,9 +136,10 @@ void Surface::draw(DrawingState* ds){
 
       glPushMatrix();
 
-      if (texture == "metal.png")
+      if (texture == "ufo.png") {
+        glDisable(GL_LIGHT0);
         glRotatef(-counter, 0.0, 1.0, 0.0);
-      else
+      } else
         glRotatef(counter, 0.0, 1.0, 0.0);
 
       glPopMatrix();
@@ -170,6 +176,7 @@ void Surface::draw(DrawingState* ds){
     glUseProgram(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
+    glBlendFunc(blendSrc, blendDst);
     glDisable(GL_BLEND);
 
     glPopMatrix();

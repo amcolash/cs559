@@ -59,14 +59,14 @@ void Ground::draw(DrawingState* ds) {
 Park::Park() {
   add(new Ground(), 0, 0, 0);
 
-  add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);
-
   add(new Flag(5, 0, 19, 0, 0, 0));
   add(new Flag(490, 0, 19, 0, 0, 0));
   add(new Flag(5, 0, 210, 0, 0, 0));
   add(new Flag(490, 0, 210, 0, 0, 0));
 
   add(new PicnicTable(50, 0, 100));
+
+  add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);
 }
 
 Flag::Flag(float x, float y, float z, float r, float g, float b) :

@@ -45,13 +45,13 @@ void Particle::initParticle(Part *p) {
 
 void Particle::draw(DrawingState* st) {
 
-  if (st->timeOfDay < 5 || st->timeOfDay > 13) {
+  if (st->timeOfDay < 5 || st->timeOfDay >= 13) {
     float a0[] = { .3f, .3f, .3f, .3f };
     glLightfv(GL_LIGHT1, GL_AMBIENT, a0);
     glEnable(GL_LIGHT1);
   }
 
-  if (st->timeOfDay >= 14 && st->timeOfDay <= 20)
+  if (st->timeOfDay >= 13 && st->timeOfDay <= 20)
     glDisable(GL_LIGHT0);
   
   if (num != st->particles) {
@@ -59,6 +59,11 @@ void Particle::draw(DrawingState* st) {
     num = st->particles;
   }
   
+
+  GLint blendSrc;
+  GLint blendDst;
+  glGetIntegerv(GL_BLEND_SRC_ALPHA, &blendSrc);
+  glGetIntegerv(GL_BLEND_DST_ALPHA, &blendDst);
 
   // Enable blending
   glEnable(GL_BLEND);
@@ -89,7 +94,9 @@ void Particle::draw(DrawingState* st) {
 
   }
 
+  glBlendFunc(blendSrc, blendDst);
   glDisable(GL_BLEND);
+
   glDisable(GL_LIGHT1);
   glEnable(GL_LIGHT0);
 }

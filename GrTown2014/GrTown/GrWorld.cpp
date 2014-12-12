@@ -87,10 +87,11 @@ void setupLights(DrawingState* dr)
     glEnable(GL_LIGHTING);
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
     glEnable(GL_LIGHT0);
-    glEnable(GL_COLOR_MATERIAL);
   } else {
     glDisable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, a0);
   }
+  glEnable(GL_COLOR_MATERIAL);
 }
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/GrWorld.cpp,v 1.3 2008/11/11 03:48:23 gleicher Exp $
