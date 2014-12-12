@@ -220,6 +220,10 @@ int main(int /*argc*/, char** /*argv*/)
     NULL, NULL, "metal.png", 2.0, 2.0, true);
   add(ufoBottom);
 
+  Surface* ufoCone = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 1.0, 2.5), S_UFO_CONE, 32,
+    "SimpleCubeTest.vert", "UFO.frag", NULL, 2.0, 2.0, true);
+  add(ufoCone);
+
   Surface* cool = new Surface(glm::vec3(150, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_COOL, 8,
     "ShadedCubeTest.vert", "Bird.frag", NULL, 2.0, 2.0, false);
   add(cool);

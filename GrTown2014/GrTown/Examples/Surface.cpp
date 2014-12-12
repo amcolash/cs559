@@ -50,13 +50,11 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     }
   }
 
-  //printf("texture: %s\n", texture);
-  if (texture == "metal003.png") {
+  if (texture == "metal003.png" && special) {
     ufoY = 0;
     ufoX = randFloat(600.0, 1500.0);
     ufoZ = randFloat(300.0, 620.0);
     ufoVx = ufoVz = randFloat(2.6, 3.2);
-    //printf("x: %f, y: %f, z: %f\n", ufoX, ufoY, ufoZ);
     this->laX = ufoX; this->laY = ufoY; this->laZ = ufoZ;
   }
 

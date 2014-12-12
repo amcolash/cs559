@@ -116,34 +116,23 @@ const std::vector<glm::vec3> S_UFO_BOTTOM = {
   glm::vec3(0.0, 2.0, 0.0)
 };
 
-// Simple ring
-const std::vector<glm::vec3> S_RING = {
-  glm::vec3(4.0, 8.0, 0.0),
-  glm::vec3(8.0, 8.0, 0.0),
-  glm::vec3(14.0, 6.0, 0.0),
-  glm::vec3(14.0, 4.0, 0.0),
-  glm::vec3(8.0, 2.0, 0.0),
-  glm::vec3(4.0, 2.0, 0.0),
-  glm::vec3(4.0, 10.0, 0.0),
-  glm::vec3(8.0, 10.0, 0.0),
-  glm::vec3(16.0, 6.0, 0.0),
-  glm::vec3(16.0, 4.0, 0.0),
-  glm::vec3(8.0, 0.0, 0.0),
-  glm::vec3(4.0, 0.0, 0.0)
+const std::vector<glm::vec3> S_UFO_CONE = {
+  glm::vec3(7.0, 120.0, 0.0),
+  glm::vec3(25.0, 0.0, 0.0),
 };
 
-// Simple ring
+// Simple Shape
 const std::vector<glm::vec3> S_COOL = {
   glm::vec3(00.0, 90.0, 00.0),
-  glm::vec3(05.0, 80.0, 00.0),
+  glm::vec3(07.5, 80.0, 00.0),
   glm::vec3(15.0, 70.0, 05.0),
   glm::vec3(15.0, 60.0, 10.0),
   glm::vec3(15.0, 50.0, 15.0),
-  glm::vec3(15.0, 40.0, 20.0),
-  glm::vec3(15.0, 30.0, 25.0),
-  glm::vec3(15.0, 20.0, 30.0),
-  glm::vec3(15.0, 10.0, 35.0),
-  glm::vec3(15.0, 00.0, 40.0)
+  glm::vec3(00.0, 40.0, 20.0),
+  glm::vec3(15.0, 30.0, 15.0),
+  glm::vec3(15.0, 20.0, 10.0),
+  glm::vec3(15.0, 10.0, 05.0),
+  glm::vec3(15.0, 00.0, 0.0)
 };
 
 const std::vector<glm::vec3> S_BIG_HUT = {
