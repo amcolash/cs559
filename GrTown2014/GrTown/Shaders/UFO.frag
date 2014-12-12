@@ -5,37 +5,6 @@ uniform float counter;
 void main() {
   vec3 color = vec3(0.2, 0.8, 0.3);
   color += (normal / 32.0);
+
   gl_FragColor = vec4(color, (sin(counter * 0.1) + 1.0) * 0.25);
 }
-
-/*
-void main()
-{
-  gl_FragColor = vec4(normal * (sin(counter * 10.0) + 1.0) * 0.5,
-    (sin(counter * 10.0) + 1.0) * 0.5);
-}
-
-varying vec3 normal;
-uniform int timeOfDay;
-uniform float ambient;
-uniform vec4 light;
-
-uniform float rotation;
-
-
-void main() {
-  float alpha = 0.0;
-
-  if (timeOfDay < 5 || timeOfDay >= 19) {
-    alpha = 1.0;
-  }
-
-  vec3 mycolor = vec3(0.2, 0.9, 0.7);
-  vec3 n = normalize(normal);
-  float dl = max(0.0, dot(n, vec3(light[0], light[1], light[2])));
-
-  mycolor *= (ambient + .7*dl);
-
-  gl_FragColor = vec4(mycolor[0], mycolor[1], mycolor[2], alpha);
-}
-*/

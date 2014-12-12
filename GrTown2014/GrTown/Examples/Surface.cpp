@@ -109,6 +109,11 @@ void Surface::draw(DrawingState* ds){
     int total = points.size();
 
     if (special) {
+      if (frag == "UFO.frag") {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+      }
+
       if (texture == "metal003.png") {
         ufoX += (ufoVx * ds->speedup);
         ufoZ += (ufoVz * ds->speedup);
@@ -164,6 +169,8 @@ void Surface::draw(DrawingState* ds){
 
     glUseProgram(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    glDisable(GL_BLEND);
 
     glPopMatrix();
   }

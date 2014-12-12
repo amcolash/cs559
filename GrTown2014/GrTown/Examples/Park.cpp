@@ -5,6 +5,7 @@
 #include "Utilities/ShaderTools.H"
 #include <FL/fl_ask.h>
 #include "../GraphicsTownUI.H"
+#include "../GrObject.H"
 
 #include "Park.h"
 #include "Surface.h"
@@ -135,8 +136,8 @@ void Flag::draw(DrawingState* ds){
 	glUseProgram(0);
 
 
-
 }
+
 PicnicTable::PicnicTable(float x, float y, float z){
 	transMatrix(transform, x, y, z);
 	add(new Surface(glm::vec3(0, 20, 0), glm::vec3(1.0, 1.0, 1.0), S_UMBRELLA, 10,"ShadedCubeTest.vert", "Bird.frag", NULL, 1.0, 1.0, false));
@@ -146,8 +147,10 @@ void PicnicTable::draw(DrawingState* ds){
 
 	glPushMatrix();
 	GLUquadricObj *quadric = gluNewQuadric();
-	glColor3d(0.1, 0.6, 0.0);
+  gluQuadricNormals(quadric, GLU_SMOOTH);
+	glColor4f(0.1, 0.6, 0.0, 1.0);
 	glRotated(-90, 1, 0, 0);
-	gluCylinder(quadric, 2, 2, 60, 10, 10);
+	gluCylinder(quadric, 2, 2, 60, 10, 2);
+  gluDeleteQuadric(quadric);
 	glPopMatrix();
 }

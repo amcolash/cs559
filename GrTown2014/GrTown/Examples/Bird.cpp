@@ -69,8 +69,6 @@ void Bird::draw(DrawingState* state){
 
 	//Draw head
 	gluSphere(quadric, 0.5, 5, 5);
-	gluDeleteQuadric(quadric);
-	quadric = gluNewQuadric();
 	glTranslated(0, 0, -1.1);
 
 	//Draw body
@@ -81,7 +79,6 @@ void Bird::draw(DrawingState* state){
 	glPushMatrix();
 
 	glTranslated(0, 0, -3);
-	quadric = gluNewQuadric();
 	gluCylinder(quadric, .05, .05, 1, 5, 1);
 	glRotated(20, 0, 1, 1);
 	glTranslated(-.2, 0, 0);
@@ -170,6 +167,8 @@ void Bird::draw(DrawingState* state){
 	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
+
+  gluDeleteQuadric(quadric);
 	
   glUseProgram(0);
 	//Increment rotation of wing

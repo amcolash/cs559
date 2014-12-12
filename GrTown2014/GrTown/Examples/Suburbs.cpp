@@ -75,7 +75,7 @@ void Lawn::draw(DrawingState* d)
   // the catch here is that we need to use a polygon offset to draw
   // the lawn just above the ground...
   if (d->drGrTex)
-	  fetchTexture("webground_lightgrays_000023.png",true,true);
+	  fetchTexture("hexagon.jpg", true, true);
   else
     glBindTexture(GL_TEXTURE_2D,0);
 

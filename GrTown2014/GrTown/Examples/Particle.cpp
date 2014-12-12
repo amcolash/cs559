@@ -44,20 +44,15 @@ void Particle::initParticle(Part *p) {
 }
 
 void Particle::draw(DrawingState* st) {
-  /*
-  glDisable(GL_LIGHT0);
 
-  if ((st->timeOfDay >= 5) && (st->timeOfDay <= 19)) {
+  if (st->timeOfDay < 5 || st->timeOfDay > 13) {
     float a0[] = { .3f, .3f, .3f, .3f };
     glLightfv(GL_LIGHT1, GL_AMBIENT, a0);
-  }
-  else {
-    float a1[] = { .2f, .2f, .2f, .2f };
-    glLightfv(GL_LIGHT1, GL_AMBIENT, a1);
+    glEnable(GL_LIGHT1);
   }
 
-  glEnable(GL_LIGHT1);
-  */
+  if (st->timeOfDay >= 14 && st->timeOfDay <= 20)
+    glDisable(GL_LIGHT0);
   
   if (num != st->particles) {
     initList(num, st->particles);
@@ -95,9 +90,8 @@ void Particle::draw(DrawingState* st) {
   }
 
   glDisable(GL_BLEND);
-  //glDisable(GL_LIGHT1);
-
-  //glEnable(GL_LIGHT0);
+  glDisable(GL_LIGHT1);
+  glEnable(GL_LIGHT0);
 }
 
 float randFloat(float min, float max) {

@@ -74,26 +74,6 @@ const std::vector<glm::vec3> S_WATER = {
 };
 
 // A UFO
-/*
-const std::vector<glm::vec3> S_UFO = {
-  glm::vec3(0.0, 17.0, 0.0),
-  glm::vec3(1.0, 17.0, 0.0),
-  glm::vec3(1.0, 12.0, 0.0),
-  glm::vec3(5.0, 12.0, 0.0),
-  glm::vec3(9.0, 11.5, 0.0),
-  glm::vec3(14.0, 10.25, 0.0),
-  glm::vec3(18.0, 8.25, 0.0),
-  glm::vec3(21.0, 6.0, 0.0),
-  glm::vec3(22.5, 4.0, 0.0),
-  glm::vec3(23.5, 2.0, 0.0),
-  glm::vec3(24.0, 0.0, 0.0),
-  glm::vec3(20.0, 0.0, 0.0),
-  glm::vec3(13.0, 2.0, 0.0),
-  glm::vec3(6.0, 2.0, 0.0),
-  glm::vec3(0.0, 2.0, 0.0)
-};
-*/
-
 const std::vector<glm::vec3> S_UFO = {
   glm::vec3(0.0, 17.0, 0.0),
   glm::vec3(1.0, 17.0, 0.0),
@@ -121,18 +101,19 @@ const std::vector<glm::vec3> S_UFO_CONE = {
   glm::vec3(25.0, 0.0, 0.0),
 };
 
-// Simple Shape
+// Buildings
 const std::vector<glm::vec3> S_COOL = {
-  glm::vec3(00.0, 90.0, 00.0),
-  glm::vec3(07.5, 80.0, 00.0),
-  glm::vec3(15.0, 70.0, 05.0),
-  glm::vec3(15.0, 60.0, 10.0),
-  glm::vec3(15.0, 50.0, 15.0),
-  glm::vec3(00.0, 40.0, 20.0),
-  glm::vec3(15.0, 30.0, 15.0),
-  glm::vec3(15.0, 20.0, 10.0),
-  glm::vec3(15.0, 10.0, 05.0),
-  glm::vec3(15.0, 00.0, 0.0)
+  glm::vec3(00.0, 88.0, 00.0),
+  glm::vec3(1.0, 87.75, 00.0),
+  glm::vec3(3.0, 86.5, 00.0),
+  glm::vec3(6.0, 77.0, 02.5),
+  glm::vec3(9.0, 65.0, 05.0),
+  glm::vec3(12.0, 54.0, 10.0),
+  glm::vec3(9.0, 43.0, 10.0),
+  glm::vec3(6.0, 32.0, 15.0),
+  glm::vec3(3.0, 21.0, 15.0),
+  glm::vec3(6.0, 15.0, 20.0),
+  glm::vec3(9.0, 00.0, 20.0)
 };
 
 const std::vector<glm::vec3> S_BIG_HUT = {
