@@ -184,6 +184,7 @@
     <None Include="Shaders\ShadedCubeTest.vert" />
     <None Include="Shaders\Sun.frag" />
     <None Include="Shaders\UFO.frag" />
+    <None Include="Shaders\Umbrella.frag" />
     <None Include="Shaders\UV.frag" />
   </ItemGroup>
   <ItemGroup>
