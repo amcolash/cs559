@@ -1,18 +1,19 @@
-uniform vec2 resolution;
+varying vec3 normal;
 varying vec3 fPosition;
-varying vec3 fNormal;
-varying vec3 uPos;
-
-varying vec4 outputF;
-varying vec3 n;
+uniform float ambient;
+uniform vec4 light;
 
 void main()
 {
   vec2 position = fPosition.xy;
- 
+
+  vec3 n = normalize(normal);
+  float dl = max(0.0, dot(n, vec3(light[0], light[1], light[2])));
+
   float pi = 3.14159265359;
   float wave = sin(.25*pi*position.y);
   wave = (wave+1.)/4.;
+  wave*= (ambient + .7*dl);
  
   gl_FragColor = vec4(vec3(wave-.5, wave+.12, wave+.11), 1.);
 

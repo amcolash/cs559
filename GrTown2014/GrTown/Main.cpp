@@ -110,7 +110,7 @@ int main(int /*argc*/, char** /*argv*/)
 	  new BirdFly(b, i);
 	  if (i == 8){
 		  b->name = "Bird (Follow Only)";
-		  b->ridable = 1;
+		  b->interesting = true;
 	  }
   }
   ////////////////////////////////////////////////////////////////////////
