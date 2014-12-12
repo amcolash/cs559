@@ -60,10 +60,15 @@ Park::Park() {
   add(new Ground(), 0, 0, 0);
 
   add(new Fountain(glm::vec3(5.0, 5.0, 5.0)), 250, 0, 115);  
+
+  add(new Flag(5, 0, 19, 0, 0, 0));
+  add(new Flag(490, 0, 19, 0, 0, 0));
+  add(new Flag(5, 0, 210, 0, 0, 0));
+  add(new Flag(490, 0, 210, 0, 0, 0));
 }
 
 Flag::Flag(float x, float y, float z, float r, float g, float b) :
-color(r, g, b), shader(shader)
+color(r, g, b)
 {
 	transMatrix(transform, x, 0, z);
 }

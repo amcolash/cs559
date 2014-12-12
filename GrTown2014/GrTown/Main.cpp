@@ -101,7 +101,18 @@ int main(int /*argc*/, char** /*argv*/)
   GrObject* cube4 = new Cube(0, 7.5, 0, 5, 1, 0, 1);
   cube3->add(cube4);
 
+  // Add 86 birds
+  int numBirds = 86;
+  for (int i = 0; i < numBirds; i++) {
+	  Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
+	  add(b);
 
+	  new BirdFly(b, i);
+	  if (i == 8){
+		  b->name = "Bird";
+		  b->ridable = true;
+	  }
+  }
   ////////////////////////////////////////////////////////////////////////
   // now to make a real town!
   int r, c;
@@ -199,13 +210,7 @@ int main(int /*argc*/, char** /*argv*/)
 
 
 
-  // Add 85 birds
-  int numBirds = 86;
-  for (int i = 0; i < numBirds; i++) {
-    Bird* b = new Bird(0, 0, 0, 255, 0, 0, i);
-    add(b);
-    new BirdFly(b, i, 0);
-  }
+
 
   //b2->interesting = true;
   //b1->interesting = true;

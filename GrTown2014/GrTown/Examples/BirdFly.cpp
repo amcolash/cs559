@@ -14,7 +14,7 @@ std::vector<glm::vec3> test;
 //all Birds in one array
 GrObject* los[40];
 
-BirdFly::BirdFly(GrObject* bird, int count, float _u) :
+BirdFly::BirdFly(GrObject* bird, int count) :
 Behavior(bird)
 {
 	SetUp(bird, count);

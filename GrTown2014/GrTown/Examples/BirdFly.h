@@ -6,10 +6,7 @@
 class BirdFly : public Behavior
 {
 public:
-	BirdFly(GrObject* bird, int count, float _u);
-	glm::vec3 direct;
-	void setMatrix();
-	float u;
+	BirdFly(GrObject* bird, int count);
 	void SetUp(GrObject* bird, int count);
 	void RotateToFace(GrObject* b, glm::vec3 objPos, glm::vec3 lookAt, glm::vec3 Up);
 	//virtual void simulateUntil(unsigned long until);

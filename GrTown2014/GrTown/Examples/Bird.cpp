@@ -8,14 +8,42 @@
 #include "Utilities/ShaderTools.H"
 
 
-Bird::Bird(float x, float y, float z, float r, float g, float b, int ID)
-	: color(r, g, b), count(count), ID(ID), shader(shader)
+Bird::Bird(float x, float y, float z, float r, float g, float b, int _ID)
+	: color(r, g, b), count(count), ID(_ID), shader(shader)
 {
-	count = 0;
+		count = 0;
 	transMatrix(transform, x, y, z);
 }
 
 void Bird::draw(DrawingState* state){
+
+
+
+
+	glPushMatrix();
+	this->transform[3][0] += state->speedup*8;
+	/* Make birds re-appear at other side of the environment */
+	if (this->transform[3][0] > 5000 && this->ID <= 16)
+		this->transform[3][0] -= 10000;
+	if (this->transform[3][0] > 6420 && this->ID<= 33 && this-> ID > 16)
+		this->transform[3][0] -= 12630;
+	if (this->transform[3][0] > 7721 && this->ID <= 51 && this->ID > 33)
+		this->transform[3][0] -= 14826;
+	if (this->transform[3][0] > 5643 && this->ID <= 68 && this->ID > 51)
+		this->transform[3][0] -= 11258;
+	if (this->transform[3][0] > 6000 && this->ID <= 86 && this->ID > 68)
+		this->transform[3][0] -= 13000;
+
+	
+	if (ID == 1){
+		glPushMatrix();
+		glColorMask(false, false, false, false);
+		GLUquadricObj *quadric = gluNewQuadric();
+		glTranslated(0, 100, 0);
+		gluCylinder(quadric, .2, 0, 1, 3, 0);
+		glColorMask(true, true, true, true);
+		glPopMatrix();
+	}
 	if (!triedShader) {
 		triedShader = true;
 		char* error;
@@ -32,20 +60,6 @@ void Bird::draw(DrawingState* state){
 		glUniform4f(lightLoc, state->lightPos[0], state->lightPos[1], state->lightPos[2], state->lightPos[3]);
 		glUniform1f(ambientLoc, state->ambient);
 	}
-	glPushMatrix();
-	this->transform[3][0] += state->speedup*8;
-	/* Make birds re-appear at other side of the environment */
-	if (this->transform[3][0] > 5000 && this->ID <= 16)
-		this->transform[3][0] -= -10000;
-	if (this->transform[3][0] > 6420 && this->ID<= 33)
-		this->transform[3][0] -= 12630;
-	if (this->transform[3][0] > 7721 && this->ID <= 51)
-		this->transform[3][0] -= 14826;
-	if (this->transform[3][0] > 5643 && this->ID <= 68)
-		this->transform[3][0] -= 11258;
-	if (this->transform[3][0] > 6000 && this->ID <= 86)
-		this->transform[3][0] -= 13000;
-
 	glScaled(10, 10, 10);
 	glPushMatrix();
 	glScaled(1, 1, 1.5);

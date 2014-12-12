@@ -8,6 +8,7 @@
 #include "DrawUtils.H"
 #include <time.h>
 #include <iostream>
+#include "Examples/Bird.h"
 
 int flyCamCount = 0;
 
@@ -164,7 +165,7 @@ bool FlyCamera::uiStep()
 
 ///////////////////////////////////////////////////////////////
 FollowCam::FollowCam() : GrObject("follower"), 
-	following(0), followDistance(45), minY(15)
+	following(0), followDistance(60), minY(15)
 {
   ridable = 1;
   lastUItime = 0;
@@ -211,7 +212,8 @@ void FollowCam::getCamera(Matrix camera)
   }
   if (fromY < minY) fromY = minY;
 
-  lookatMatrix(fromX,fromY,fromZ, atX,atY,atZ, camera);
+  lookatMatrix(fromX,fromY+90,fromZ, atX,atY,atZ, camera);
+
 }
 
 bool FollowCam::uiStep()
