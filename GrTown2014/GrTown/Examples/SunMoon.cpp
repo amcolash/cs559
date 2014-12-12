@@ -57,8 +57,6 @@ void Sun::draw(DrawingState* ds)
     if (sunShader != 0)
       glUseProgram(0);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
-
     glPopMatrix();
 
   }
@@ -113,8 +111,6 @@ void Moon::draw(DrawingState* ds)
 
     if (moonShader != 0)
       glUseProgram(0);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     glPopMatrix();
 

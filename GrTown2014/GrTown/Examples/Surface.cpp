@@ -134,15 +134,13 @@ void Surface::draw(DrawingState* ds){
 
       glTranslatef(ufoX, ufoY, ufoZ);
 
-      glPushMatrix();
+			glDisable(GL_LIGHT0);
 
-      if (texture == "ufo.png") {
-        glDisable(GL_LIGHT0);
+      if (texture == "ufo.png")        
         glRotatef(-counter, 0.0, 1.0, 0.0);
-      } else
+			else if (texture == "metal003.png")
         glRotatef(counter, 0.0, 1.0, 0.0);
 
-      glPopMatrix();
     }
 
     for (int i = 0; i <= divs - 1; i++) {
@@ -175,10 +173,13 @@ void Surface::draw(DrawingState* ds){
 
     glUseProgram(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
     glBlendFunc(blendSrc, blendDst);
     glDisable(GL_BLEND);
 
+		glEnable(GL_LIGHT0);
+		
     glPopMatrix();
   }
 }

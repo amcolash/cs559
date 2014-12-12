@@ -471,9 +471,11 @@ SimpleLot::SimpleLot(int ht, int hc)
   add(new Lawn(0,0,100,200),0,0,0,0);
   switch(ht % 8) {
   case 0: {
-	  SimpleHouse1* h1 = new SimpleHouse1();
+		/*
+		SimpleHouse1* h1 = new SimpleHouse1();
 	  h1->color(houseColors[hc % nHouseColors]);
 	  add(h1,50.,0,60.,0);
+		*/
 	  break; }
   case 1: {
 		Surface* s = new Surface(glm::vec3(0, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_BOX, 6,
@@ -496,7 +498,7 @@ SimpleLot::SimpleLot(int ht, int hc)
 		*/
 	  break; }
   case 3: {
-		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.5, 2.5, 2.5), S_BIG_HUT, 8,
+		Surface* hut = new Surface(glm::vec3(0, 0, 0), glm::vec3(2.0, 2.0, 2.0), S_BIG_HUT, 8,
 			NULL, NULL, "window3.jpg", 10.0, 9.8, false);
 	  add(hut, 50., 0, 60., 0);
 	  break; }

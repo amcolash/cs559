@@ -8,7 +8,7 @@ Todo:
 X Spaceships instead of cars - Andrew / Jason
 X Rearrange the suburbs a bit - Andrew
 
-- Cool buildings/skyscrapers/houses - Andrew / Jason
+X Cool buildings/skyscrapers/houses - Andrew / Jason
 - Police Spaceship
 - Tweaking UI and controls to allow movement when following
 - Cars stop at stopsigns
@@ -19,9 +19,10 @@ Andrew
 --------------------
 
 Fully Created Objects:
-X Building
+X Buildings
+  -- Cool one, egg, skyscraper
 X Fountain
-- UFO
+X UFO
 
 Shaders:
 X Pond Color Responds to time of day, also UFO
@@ -31,7 +32,8 @@ X Sun Shader - time based with fancy math
 X Procedural Texture - Moon, blurred noise (like clouds)
 
 Behaviors:
-- UFO Movement
+X UFO Movement
+X Sun / Moon Movement
 
 Textures:
 X Lane markers + Intersections
@@ -43,6 +45,8 @@ X Particles
 X Curved Surfaces (Surfaces of Revolution)
 X Billboard (Sum/Moon)
 
+- Modified ligthing to only use ambient at night (more realistic)
+
 ------------------------------------------------------------------------------
 
 Jason
@@ -51,12 +55,14 @@ Jason
 Fully Created Objects:
 X Birds
 X Skybox
-- Flag
-X Future House - "Big Hut" :P
+X Flag
+X Buildings
+  -- "Big Hut", SkyScpr Cyllinder one
 
 Shaders:
-- Procedural Texture? - Could do simple noise for an object
+- Procedural Texture - Flag
 - Physics based flag
+- Bird Shader for Lighting
 
 Behaviors:
 X Creation of birds
