@@ -59,7 +59,7 @@ void Ground::draw(DrawingState* ds) {
 Park::Park() {
   add(new Ground(), 0, 0, 0);
 
-  add(new Fountain(glm::vec3(5.0, 5.0, 5.0)), 250, 0, 115);  
+  add(new Fountain(glm::vec3(4.0, 4.0, 4.0)), 250, 0, 115);  
 
   add(new Flag(5, 0, 19, 0, 0, 0));
   add(new Flag(490, 0, 19, 0, 0, 0));

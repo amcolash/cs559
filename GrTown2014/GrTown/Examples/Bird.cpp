@@ -31,7 +31,6 @@ void Bird::draw(DrawingState* state){
 		this->transform[3][0] -= 11258;
 	if (this->transform[3][0] > 6000 && this->ID <= 86 && this->ID > 68)
 		this->transform[3][0] -= 13000;
-
 	
 	if (ID == 1){
 		glPushMatrix();

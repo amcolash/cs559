@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+float ufoX, ufoY, ufoZ, ufoVx, ufoVy, ufoVz;
 
 Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int divs,
   char* vert, char* frag, char* texture, float sScale, float tScale, bool special)
@@ -37,9 +38,9 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     glm::vec4 point1, point2;
     // Find current vertex when rotated and next one, compute normal too (to build strip)
     for (int j = 0; j < tmpPts.size(); j++) {
-      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
+      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 0);
       point1 = rotateY1 * point1;
-      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], 0, 0);
+      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 0);
       point2 = rotateY2 * point2;
 
       glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
@@ -49,10 +50,15 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     }
   }
 
-  y = 0;
-  x = randFloat(600.0, 1500.0);
-  z = randFloat(300.0, 620.0);
-  vx = vy = vz = 3.0;
+  //printf("texture: %s\n", texture);
+  if (texture == "metal003.png") {
+    ufoY = 0;
+    ufoX = randFloat(600.0, 1500.0);
+    ufoZ = randFloat(300.0, 620.0);
+    ufoVx = ufoVz = randFloat(2.6, 3.2);
+    //printf("x: %f, y: %f, z: %f\n", ufoX, ufoY, ufoZ);
+    this->laX = ufoX; this->laY = ufoY; this->laZ = ufoZ;
+  }
 
   counter = 0;
 }
@@ -105,17 +111,20 @@ void Surface::draw(DrawingState* ds){
     int total = points.size();
 
     if (special) {
-      x += (vx * ds->speedup);
-      //y += (vy * ds->speedup);
-      z += (vz * ds->speedup);
-      glTranslatef(x, y, z);
+      if (texture == "metal003.png") {
+        ufoX += (ufoVx * ds->speedup);
+        ufoZ += (ufoVz * ds->speedup);
 
-      if (x < 530 || x > 1590) {
-        vx *= -1;
+        if (ufoX < 530 || ufoX > 1590) {
+          ufoVx *= -1;
+        }
+        if (ufoZ < 0 || ufoZ > 690) {
+          ufoVz *= -1;
+        }
+        this->laX = ufoX; this->laY = ufoY; this->laZ = ufoZ;
       }
-      if (z < 0 || z > 690) {
-        vz *= -1;
-      }
+
+      glTranslatef(ufoX, ufoY, ufoZ);
 
       glPushMatrix();
 

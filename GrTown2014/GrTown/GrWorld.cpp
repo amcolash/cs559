@@ -80,11 +80,15 @@ void setupLights(DrawingState* dr)
   dr->lightPos[2] = pos[2];
   dr->lightPos[3] = pos[3];
 
-  glLightfv(GL_LIGHT0, GL_POSITION, pos);
-
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-  glEnable(GL_COLOR_MATERIAL);
+  
+  if ((dr->timeOfDay >= 5) && (dr->timeOfDay <= 19)) {
+    glEnable(GL_LIGHTING);
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
+  } else {
+    glDisable(GL_LIGHT0);
+  }
 }
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/GrWorld.cpp,v 1.3 2008/11/11 03:48:23 gleicher Exp $

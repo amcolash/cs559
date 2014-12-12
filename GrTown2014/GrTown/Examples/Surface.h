@@ -19,7 +19,6 @@ public:
   char* texture;
   float sScale, tScale;
   bool special;
-  float x, y, z, vx, vy, vz;
   float counter;
   virtual void draw(DrawingState*);
   float randFloat(float min, float max);
@@ -105,7 +104,7 @@ const std::vector<glm::vec3> S_UFO = {
   glm::vec3(18.0, 8.25, 0.0),
   glm::vec3(21.0, 6.0, 0.0),
   glm::vec3(22.5, 4.0, 0.0),
-  glm::vec3(23.5, 2.0, 0.0),
+  glm::vec3(23.5, 1.0, 0.0),
   glm::vec3(0.0, 7.0, 0.0)
 };
 
@@ -131,6 +130,20 @@ const std::vector<glm::vec3> S_RING = {
   glm::vec3(16.0, 4.0, 0.0),
   glm::vec3(8.0, 0.0, 0.0),
   glm::vec3(4.0, 0.0, 0.0)
+};
+
+// Simple ring
+const std::vector<glm::vec3> S_COOL = {
+  glm::vec3(00.0, 90.0, 00.0),
+  glm::vec3(05.0, 80.0, 00.0),
+  glm::vec3(15.0, 70.0, 05.0),
+  glm::vec3(15.0, 60.0, 10.0),
+  glm::vec3(15.0, 50.0, 15.0),
+  glm::vec3(15.0, 40.0, 20.0),
+  glm::vec3(15.0, 30.0, 25.0),
+  glm::vec3(15.0, 20.0, 30.0),
+  glm::vec3(15.0, 10.0, 35.0),
+  glm::vec3(15.0, 00.0, 40.0)
 };
 
 const std::vector<glm::vec3> S_BIG_HUT = {

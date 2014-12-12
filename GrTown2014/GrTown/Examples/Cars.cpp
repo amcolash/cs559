@@ -154,10 +154,10 @@ void Car::draw(DrawingState* d)
 }
 
   
-static void drawBeam()
+static void drawBeam(float cone_length)
 {
 
-	const float cone_length = 50;
+	//const float cone_length = 50;
 	int c;
 	const float radius = 10;
 	glEnable(GL_BLEND);
@@ -198,13 +198,13 @@ void Car::drawAfter(DrawingState* s)
 	glPushMatrix();		
 	glTranslatef(-w*.7f,h+m/2+5,0);
 	glRotated(90,1,0,0);
-	drawBeam();
+	drawBeam(50.05);
 	glPopMatrix();
 		// Beam 2
 	glPushMatrix();		
 	glTranslatef(w*.7f,h+m/2+5,0);
 	glRotated(90,1,0,0);
-	drawBeam();
+	drawBeam(50.0);
 	glPopMatrix();
 	glFrontFace(GL_CW);
 	glClearColor(1,1,1,1);

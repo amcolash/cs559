@@ -481,16 +481,15 @@ SimpleLot::SimpleLot(int ht, int hc)
 	  break; }
   case 1: {
 	  SimpleHouse2* h2 = new SimpleHouse2();
-	  h2->color(houseColors[hc% nHouseColors]);
+	  h2->color(houseColors[hc % nHouseColors]);
 	  add(h2,50.,0,60.,0);
 	  break; }
   case 2: {
 	  SimpleHouse3* h3 = new SimpleHouse3();
-	  h3->color(houseColors[hc% nHouseColors]);
+	  h3->color(houseColors[hc % nHouseColors]);
 	  add(h3,50.,0,60.,0);
 	  break; }
   case 3: {
-
 	  add(hut, 50., 0, 60., 0);
 	  break;
   }

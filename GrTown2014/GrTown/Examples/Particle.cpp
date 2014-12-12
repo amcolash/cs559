@@ -58,7 +58,7 @@ void Particle::draw(DrawingState* st) {
   //glUseProgram(shader);
   */
 
-  glDisable(GL_LIGHT0);
+  //glDisable(GL_LIGHT0);
 
   if ((st->timeOfDay >= 5) && (st->timeOfDay <= 19)) {
     float a0[] = { .3f, .3f, .3f, .3f };
@@ -69,7 +69,7 @@ void Particle::draw(DrawingState* st) {
     glLightfv(GL_LIGHT1, GL_AMBIENT, a1);
   }
 
-  glEnable(GL_LIGHT1);
+  //glEnable(GL_LIGHT1);
 
   if (num != st->particles) {
     initList(num, st->particles);
@@ -108,9 +108,9 @@ void Particle::draw(DrawingState* st) {
 
   glDisable(GL_BLEND);
   //glUseProgram(0);
-  glDisable(GL_LIGHT1);
+  //glDisable(GL_LIGHT1);
 
-  glEnable(GL_LIGHT0);
+  //glEnable(GL_LIGHT0);
 }
 
 float randFloat(float min, float max) {

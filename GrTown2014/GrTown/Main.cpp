@@ -208,24 +208,21 @@ int main(int /*argc*/, char** /*argv*/)
 
   /* Our added objects */
 
-
-
-
-
-  //b2->interesting = true;
-  //b1->interesting = true;
-  //b1->name = "Bird";
-  //b1->laX = 0; b1->laY = 0; 1b->laZ = -30;
-  //b1->lfX = 0; b1->lfY = 15; b1->lfZ = 25;
-
   // Add UFO
-  Surface* ufoBase = new Surface(glm::vec3(0, 88, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 64,
+  Surface* ufoBase = new Surface(glm::vec3(0, 120, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO, 32,
     NULL, NULL, "metal003.png", 8.0, 2.0, true);
   add(ufoBase);
+  ufoBase->name = "UFO";
+  ufoBase->interesting = true;
+  ufoBase->lfX = 350.0; ufoBase->lfY = 650.0; ufoBase->lfZ = 250.0;
 
-  Surface* ufoBottom = new Surface(glm::vec3(0, 90, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 64,
+  Surface* ufoBottom = new Surface(glm::vec3(0, 122, 0), glm::vec3(2.5, 2.0, 2.5), S_UFO_BOTTOM, 32,
     NULL, NULL, "metal.png", 2.0, 2.0, true);
   add(ufoBottom);
+
+  Surface* cool = new Surface(glm::vec3(150, 0, 0), glm::vec3(1.0, 1.0, 1.0), S_COOL, 8,
+    "ShadedCubeTest.vert", "Bird.frag", NULL, 2.0, 2.0, false);
+  add(cool);
 
   Sun* sun = new Sun();
   add(sun, 1500.0, 0.0, 250.0);
