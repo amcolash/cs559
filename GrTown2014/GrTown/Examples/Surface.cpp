@@ -38,9 +38,9 @@ Surface::Surface(glm::vec3 t, glm::vec3 s, std::vector<glm::vec3> tmpPts, int di
     glm::vec4 point1, point2;
     // Find current vertex when rotated and next one, compute normal too (to build strip)
     for (int j = 0; j < tmpPts.size(); j++) {
-      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 0);
+      point1 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 1.0);
       point1 = rotateY1 * point1;
-      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 0);
+      point2 = glm::vec4(tmpPts[j][0], tmpPts[j][1], tmpPts[j][2], 1.0);
       point2 = rotateY2 * point2;
 
       glm::vec3 normal(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
