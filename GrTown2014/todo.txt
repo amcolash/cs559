@@ -1,0 +1,100 @@
+Andrew McOlash and Jason Bernstein
+
+Project Theme: Future City
+
+Project Description: In this project, we added new and interesting buildings as well
+as making hover cars and some cool graphical additions and new objects for the
+graphics town world. These include surfaces of revolution, particle systems, sun
+and moon, multiple shaders which added physical characteristics (physics) to
+verticies, cool shaders for coloring/lighting, a skybox and interesting behaviors.
+------------------------------------------------------------------------------
+
+Todo:
+
+X Spaceships instead of cars - Andrew / Jason
+X Rearrange the suburbs a bit - Andrew
+
+X Cool buildings/skyscrapers/houses - Andrew / Jason
+- Police Spaceship
+- Tweaking UI and controls to allow movement when following
+- Cars stop at stopsigns
+
+------------------------------------------------------------------------------
+
+Andrew
+--------------------
+
+Fully Created Objects:
+X Buildings
+  X Cool one, egg, skyscraper
+X Fountain
+X UFO
+
+Shaders:
+X Pond Color Responds to time of day, also UFO
+X Simple global lighting shader
+X Billboard shader
+X Sun Shader - time based with fancy math
+X Procedural Texture - Moon, blurred noise (like clouds)
+
+Behaviors:
+X UFO Movement
+X Sun / Moon Movement
+
+Textures:
+X Lane markers + Intersections - Made Myself
+X Brushed Metal and UFO bottom textures - Made Myself
+X Textures wrapped onto surfaces
+
+Technical Challenges:
+X Particles
+X Curved Surfaces (Surfaces of Revolution)
+X Billboard (Sum/Moon)
+
+X Modified ligthing to only use ambient at night (more realistic)
+
+Resources:
+
+Code:
+Moon Shader Tutorial code samples: http://www.raywenderlich.com/70208/opengl-es-pixel-shaders-tutorial
+Billboard Shader Code: http://www.geeks3d.com/20140807/billboarding-vertex-shader-glsl/
+
+Textures:
+Hexagon Floor Texture: https://www.filterforge.com/filters/1326.jpg
+Skyscraper (hexagon) Windows: http://www.patternpictures.com/wp-content/uploads/2014/05/PP28240908-Empty-repeating-windows-of-a-large-office-building.jpg
+Egg Window Texture: http://thumbs.dreamstime.com/x/seamless-black-white-glass-tiles-texture-15207309.jpg
+
+------------------------------------------------------------------------------
+
+Jason
+--------------------
+
+Fully Created Objects:
+X Birds
+X Skybox
+X Flag
+X Buildings
+  X "Big Hut", SkyScpr Cyllinder one
+
+Shaders:
+X Procedural Texture - Flag
+X Physics based flag
+X Bird Shader for Lighting
+
+Behaviors:
+X Creation of birds
+X Movement of birds
+
+Textures:
+X Skybox Texture
+
+Technical Challenges:
+X Physics (Flag)
+X Skybox
+X Surfaces of Revolution
+
+Textures:
+Picnic table: http://www.texturex.com/Wood-Textures/wood+grain+texture+table+surface+brown+stock+photo+design.jpg.php
+SKYSCPR: http://www.cgtextures.com/thumbnails/textures/Buildings/HighRise/Glass/HighRiseGlass0055_2_preview.jpg
+BIG_HUT: http://www.windowsofnewyork.com/windows/186-sullivan.png
+Skybox: https://www.opengl.org/discussion_boards/showthread.php/144431-Skybox-with-seams
