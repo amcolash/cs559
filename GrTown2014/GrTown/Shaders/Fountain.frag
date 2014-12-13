@@ -8,7 +8,7 @@ float randomNoise(vec2 p) {
 
 void main() {
 
-  vec3 mycolor = vec3(0.95, 0.85, 0.85);
+  vec3 mycolor = vec3(0.95t , 0.85, 0.85);
 
   vec2 p = gl_FragCoord.xz;
 
